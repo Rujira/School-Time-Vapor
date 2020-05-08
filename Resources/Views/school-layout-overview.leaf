@@ -1,0 +1,267 @@
+#set("content") {
+<div class="header">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-end">
+                <div class="col">
+                    
+                    <!-- Pretitle -->
+                    <h6 class="header-pretitle">
+                        #(pretitle)
+                    </h6>
+                    
+                    <!-- Title -->
+                    <h1 class="header-title">
+                        #(title)
+                    </h1>
+                    
+                </div>
+                <div class="col-auto">
+                    
+                    <a href="#!" class="btn btn-primary lift">
+                        Create Report
+                    </a>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col">
+                    <!-- Nav -->
+                    <ul class="nav nav-tabs nav-overflow header-tabs">
+                        <li class="nav-item">
+                            <a href="/school-layout-overview/#(selectedSchool.id)" class="nav-link #if(viewTag == 211){active}">
+                                Overview
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-grades/#(selectedSchool.id)" class="nav-link #if(viewTag == 212){active}">
+                                Grades
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-rooms/#(selectedSchool.id)" class="nav-link #if(viewTag == 213){active}">
+                                Rooms
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- / .header-body -->
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        
+        <div class="col-12 col-xl-8">
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    
+                    <!-- Card 1 -->
+                    <div class="card lift">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-muted mb-2">
+                                        Total Grade
+                                    </h6>
+                                    
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        #count(grades)
+                                    </span>
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Icon -->
+                                    <span class="h2 fe fe-layers text-muted mb-0"></span>
+                                    
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div><!-- / .card -->
+                </div> <!-- / .col -->
+                <div class="col-12 col-lg-4">
+                    
+                    <!-- Card 2 -->
+                    <div class="card lift">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-muted mb-2">
+                                        Total Room
+                                    </h6>
+                                    
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        #count(rooms)
+                                    </span>
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Icon -->
+                                    <span class="h2 fe fe-grid text-muted mb-0"></span>
+                                    
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div><!-- / .card -->
+                </div><!-- / .col -->
+                <div class="col-12 col-lg-4">
+                    
+                    <!-- Card 2 -->
+                    <div class="card lift">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-muted mb-2">
+                                        Total Student
+                                    </h6>
+                                    
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        0
+                                    </span>
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Icon -->
+                                    <span class="h2 fe fe-users text-muted mb-0"></span>
+                                    
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div><!-- / .card -->
+                </div><!-- / .col -->
+            </div> <!-- / .row -->
+            
+            <div class="card">
+                <div class="card-header">
+                    
+                    <!-- Title -->
+                    <h4 class="card-header-title">
+                        School Layout
+                    </h4>
+                    
+                </div>
+                
+                #for(grade in grades) {
+                <div class="card-header card-header-flush">
+                    
+                    <!-- Title -->
+                    <h4 class="card-header-title">
+                        #(grade.name)
+                    </h4>
+                    
+                    
+                    <span class="badge badge-soft-secondary">
+                        #capitalize(grade.gradeType)
+                    </span>
+                    
+                </div>
+                <div class="card-body">
+                    #if(count(grade.rooms) > 0) {
+                    #for(room in grade.rooms) {
+             
+                        <div class="card lift card-sm mb-3">
+                            <div class="card-body">
+                                
+                                <!-- Badge -->
+                                <h3 class="mb-3">
+                                    <span class="badge badge-soft-primary">
+                                        #(room.name)
+                                    </span>
+                                </h3>
+                                
+                                <div class="col-auto">
+                                    
+                                    <!-- Avatar group -->
+                                    <div class="avatar-group d-none d-sm-flex">
+                                        <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Daniela Dewitt">
+                                            <img src="/assets/img/avatars/profiles/avatar-4.jpg" alt="..." class="avatar-img rounded-circle">
+                                                </a>
+                                        <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
+                                            <img src="/assets/img/avatars/profiles/avatar-2.jpg" alt="..." class="avatar-img rounded-circle">
+                                                </a>
+                                        <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Adolfo Hess">
+                                            <img src="/assets/img/avatars/profiles/avatar-3.jpg" alt="..." class="avatar-img rounded-circle">
+                                                </a>
+                                        
+                                    </div>
+                                
+                                </div>
+                                
+                                <!-- Body -->
+                                <!--                                <p class="mb-0">-->
+                                <!--                                There're no student on this room-->
+                                <!--                                </p>-->
+                                
+                                
+                            </div>
+                        </div>
+                   
+                    }
+                    } else {
+                    <p class="card-text text-muted mb-1">
+                    
+                    There're no room on this grade.
+                    
+                    </p>
+                    }
+                    
+                </div>
+                }
+                
+            </div>
+            
+        </div> <!-- / .col -->
+        <div class="col-12 col-xl-4">
+            <div class="card">
+                <div class="card-header">
+                    
+                    <!-- Title -->
+                    <h4 class="card-header-title">
+                        Student Population
+                    </h4>
+                    
+                    <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
+                        <li class="nav-item" data-toggle="chart" data-target="#student-population-chart" data-trigger="click" data-action="toggle" data-dataset="0">
+                            <a class="nav-link active" href="#" data-toggle="tab">
+                                All
+                            </a>
+                        </li>
+                        <li class="nav-item" data-toggle="chart" data-target="#student-population-chart" data-trigger="click" data-action="toggle" data-dataset="1">
+                            <a class="nav-link" href="#" data-toggle="tab">
+                                Male
+                            </a>
+                        </li>
+                        <li class="nav-item" data-toggle="chart" data-target="#student-population-chart" data-trigger="click" data-action="toggle" data-dataset="2">
+                            <a class="nav-link" href="#" data-toggle="tab">
+                                Female
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <div class="card-body">
+                    
+                    <!-- Chart -->
+                    <div class="chart chart-sm">
+                        <canvas id="student-population-chart" class="chart-canvas"></canvas>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+#embed("base")

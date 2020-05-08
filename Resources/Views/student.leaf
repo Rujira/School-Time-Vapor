@@ -1,0 +1,9 @@
+#set("content") {
+
+
+<h1>#(student.firstName)</h1>
+<h2>#(student.lastName)</h2>
+<p>Room : #(room.name)</p>
+}
+
+#embed("base")

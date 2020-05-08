@@ -1,0 +1,147 @@
+#set("content") {
+<div class="header">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-end">
+                <div class="col">
+                    
+                    <!-- Pretitle -->
+                    <h6 class="header-pretitle">
+                        #(pretitle)
+                    </h6>
+                    
+                    <!-- Title -->
+                    <h1 class="header-title">
+                        #(title)
+                    </h1>
+                </div>
+            </div>
+            
+            <!-- / .row -->
+            <div class="row align-items-center">
+                <div class="col">
+                    
+                    <!-- Nav -->
+                    <ul class="nav nav-tabs nav-overflow header-tabs">
+                        <li class="nav-item">
+                            <a href="/school-layout-overview/#(selectedSchool.id)" class="nav-link #if(viewTag == 211){active}">
+                                Overview
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-grades/#(selectedSchool.id)" class="nav-link #if(viewTag == 212){active}">
+                                Grades
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-rooms/#(selectedSchool.id)" class="nav-link #if(viewTag == 213){active}">
+                                Rooms
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- / .header-body -->
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            
+            #if(grades) {
+            
+            } else {
+            <h2> There aren't any grades yet!</h2>
+            }
+            
+            <!-- Grades -->
+            <div class="card" data-toggle="lists" data-options=''>
+                <div class="card-header">
+                    <!-- Title -->
+                    <h4 class="card-header-title">
+                        Grades
+                    </h4>
+                    <!-- Button -->
+                    <div class="col-auto">
+                        <a href="/school-layout-grades/#(selectedSchool.id)/create" class="btn btn-sm btn-primary">
+                            Create
+                        </a>
+                        <a href="#!" class="btn btn-sm btn-white">
+                            Export
+                        </a>
+                    </div>
+                    
+                </div>
+                
+                <div class="card-body">
+                    
+                    <!-- List -->
+                    <ul class="list-group list-group-lg list-group-flush list my-n4">
+                        
+                        #for(grade in grades) {
+                        <li class="list-group-item">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    
+                                </div>
+                                <div class="col ml-n2">
+                                    
+                                    <!-- Title -->
+                                    <h4 class="font-weight-normal mb-3 name">
+                                        <a href="/school-layout-grades/#(grade.schoolID)/#(grade.id)/edit">#(grade.name)</a>
+                                    </h4>
+                                    
+                                    #if(count(grade.rooms) > 0) {
+                                    #for(room in grade.rooms) {
+                                   
+                                        <span class="badge badge-soft-primary">#(room.name)</span> 
+                                    }
+                                    
+                                    } else {
+                                    <p class="card-text text-muted mb-1">
+                                    There're no room on this grade.
+                                    </p>
+                                    }
+                                    
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <span class="badge badge-soft-secondary">#capitalize(grade.gradeType)</span>
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Dropdown -->
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fe fe-more-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="/school-layout-grades/#(grade.schoolID)/#(grade.id)/edit" class="dropdown-item">
+                                                Edit
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <form method="post" action="/school-layout-grades/#(grade.schoolID)/#(grade.id)/delete">
+                                                <a href="javascript:;" onclick="parentNode.submit();" class="dropdown-item">
+                                                    Delete
+                                                </a>
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div> <!-- / .row -->
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </div> <!-- / .row -->
+</div>
+
+}
+#embed("base")

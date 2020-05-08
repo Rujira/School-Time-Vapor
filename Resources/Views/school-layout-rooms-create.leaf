@@ -1,0 +1,72 @@
+#set("content") {
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+            
+            <!-- Header -->
+            <div class="header mt-md-5">
+                <div class="header-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            
+                            <h6 class="header-pretitle">
+                                <!-- Pretitle -->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb p-0">
+                                        <li class="breadcrumb-item"><a href="/school-layout-rooms/#(selectedSchool.id)">Rooms</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">#(pretitle)</li>
+                                    </ol>
+                                </nav>
+                            </h6>
+                            
+                            <!-- Title -->
+                            <h1 class="header-title">
+                                #(title)
+                            </h1>
+                            
+                        </div>
+                    </div> <!-- / .row -->
+                </div>
+            </div>
+            
+            <form method="post">
+                <div class="form-group">
+                    <label for="name">Room Name</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Grade Name" #if(editing){value="#(room.name)"}>
+                        </div>
+                
+                <div class="form-group">
+                    <label for="gradeID">Grade</label>
+                    
+                    <select name="gradeID" class="form-control mb-3" id="gradeID" data-toggle="select">
+                        
+                        #for(grade in grades) {
+                        <option value="#(grade.id)"
+                            #if(editing){
+                            #if(room.gradeID == grade.id){
+                                selected
+                            }
+                            }>
+                            #capitalize(grade.name)
+                        </option>
+                        }
+                        
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <input type="hidden" name="schoolID" id="schoolID" value="#(schoolID)"/>
+                </div>
+                
+                <!-- Button -->
+                <button type="submit" class="btn btn-primary" style="float: right;">
+                    #if(editing){Update} else {Create}
+                </button>
+            </form>
+            
+        </div>
+    </div> <!-- / .row -->
+</div>
+}
+
+#embed("base")
