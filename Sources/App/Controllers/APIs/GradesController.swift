@@ -35,6 +35,8 @@ struct GradesController: RouteCollection {
         
         // School-Grade Nested
         tokenAuthGroup.get("rooms", use: getAllGradesWithRooms)
+        
+        tokenAuthGroup.delete(Grade.parameter, "force", use: forceDeleteHandler)
     }
     
     //Create (POST)
@@ -135,6 +137,15 @@ struct GradesController: RouteCollection {
                     }
                     
                 }.flatten(on: req)
+        }
+    }
+    
+    func forceDeleteHandler(_ req: Request) throws -> Future<HTTPStatus> {
+        return try req.parameters
+            .next(Grade.self)
+            .flatMap(to: HTTPStatus.self) { grade in
+                grade.delete(force: true, on: req)
+                    .transform(to: .noContent)
         }
     }
 }

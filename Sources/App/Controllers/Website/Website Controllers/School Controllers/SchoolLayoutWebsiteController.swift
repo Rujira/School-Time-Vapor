@@ -68,7 +68,6 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                 }
             
         
-                
                 let roomsWithGrade = Room.query(on: req)
                     .join(\Grade.id, to: \Room.gradeID)
                     .alsoDecode(Grade.self).filter(\Grade.schoolID == school.id!).all()
@@ -225,9 +224,23 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         return try req.parameters.next(School.self)
             .flatMap(to: View.self) { school in
                 
-                let grades = Grade.query(on: req)
+                let gradesWithRooms = Grade.query(on: req)
                     .filter(\.schoolID == school.id!)
                     .sort(\.name, .descending).all()
+                    .flatMap(to: [GradeWithRooms].self) { grades in
+                        try grades.map { grade in
+                            try grade.rooms.query(on: req).sort(\.name, .ascending)
+                                .all()
+                                .map{ rooms in
+                                    
+                                    GradeWithRooms(id: grade.id,
+                                                   name: grade.name,
+                                                   schoolID: grade.schoolID,
+                                                   gradeType: grade.gradeType,
+                                                   rooms: rooms)
+                            }
+                        }.flatten(on: req)
+                }
                 
                 let roomsWithStudents = Room.query(on: req).sort(\.name, .descending).all()
                     .flatMap(to: [RoomWithStudents].self) { rooms in
@@ -247,7 +260,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                     viewTag: 213,
                     userLoggedIn: userLoggedIn,
                     selectedSchool: school,
-                    grades: grades,
+                    grades: gradesWithRooms,
                     rooms: roomsWithStudents)
                 return try req.view().render("school-layout-rooms", context)
         }

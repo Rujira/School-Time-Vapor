@@ -167,61 +167,64 @@
                     
                 </div>
                 <div class="card-body">
-                    #if(count(grade.rooms) > 0) {
-                    #for(room in grade.rooms) {
-             
-                        <div class="card lift card-sm mb-3">
-                            <div class="card-body">
-                                
-                                <!-- Badge -->
-                                <h3 class="mb-3">
-                                    <span class="badge badge-soft-primary">
-                                        #(room.name)
-                                    </span>
-                                </h3>
-                                
-                                <div class="col-auto">
+                    <div class="row">
+                        
+                        #if(count(grade.rooms) > 0) {
+                        #for(room in grade.rooms) {
+                        
+                        <div class="col-12 col-lg-6">
+                            
+                            <div class="card lift card-sm">
+                                <div class="card-body">
                                     
-                                    <!-- Avatar group -->
-                                    <div class="avatar-group d-none d-sm-flex">
-                                        <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Daniela Dewitt">
-                                            <img src="/assets/img/avatars/profiles/avatar-4.jpg" alt="..." class="avatar-img rounded-circle">
-                                                </a>
-                                        <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
-                                            <img src="/assets/img/avatars/profiles/avatar-2.jpg" alt="..." class="avatar-img rounded-circle">
-                                                </a>
-                                        <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Adolfo Hess">
-                                            <img src="/assets/img/avatars/profiles/avatar-3.jpg" alt="..." class="avatar-img rounded-circle">
-                                                </a>
+                                    <!-- Badge -->
+                                    <h3 class="mb-3">
+                                        <span class="badge badge-soft-primary">
+                                            #(room.name)
+                                        </span>
+                                    </h3>
+                                    
+                                    <div class="col-auto">
+                                        
+                                        <!-- Avatar group -->
+                                        <div class="avatar-group d-sm-flex">
+                                            <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Daniela Dewitt">
+                                                <img src="/assets/img/avatars/profiles/avatar-4.jpg" alt="..." class="avatar-img rounded-circle">
+                                                    </a>
+                                            <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
+                                                <img src="/assets/img/avatars/profiles/avatar-2.jpg" alt="..." class="avatar-img rounded-circle">
+                                                    </a>
+                                            <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Adolfo Hess">
+                                                <img src="/assets/img/avatars/profiles/avatar-3.jpg" alt="..." class="avatar-img rounded-circle">
+                                                    </a>
+                                            
+                                        </div>
                                         
                                     </div>
-                                
+                                    
+                                    
                                 </div>
                                 
-                                <!-- Body -->
-                                <!--                                <p class="mb-0">-->
-                                <!--                                There're no student on this room-->
-                                <!--                                </p>-->
-                                
-                                
                             </div>
+                            
                         </div>
-                   
-                    }
-                    } else {
-                    <p class="card-text text-muted mb-1">
-                    
-                    There're no room on this grade.
-                    
-                    </p>
-                    }
-                    
+                        }
+                        } else {
+                        <p class="card-text text-muted mb-1 ml-3">
+                        
+                        There're no room on this grade.
+                        
+                        </p>
+                        }
+                        
+                    </div>
                 </div>
                 }
                 
             </div>
             
         </div> <!-- / .col -->
+        
         <div class="col-12 col-xl-4">
             <div class="card">
                 <div class="card-header">

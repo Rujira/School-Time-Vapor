@@ -77,7 +77,7 @@ struct SchoolLayoutRoomsContext: Encodable {
     let viewTag: Int
     let userLoggedIn: Bool
     let selectedSchool: School
-    let grades: Future<[Grade]>
+    let grades: Future<[GradeWithRooms]>
     let rooms: Future<[RoomWithStudents]>
 }
 
