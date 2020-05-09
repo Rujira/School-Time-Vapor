@@ -48,12 +48,6 @@
     <div class="row">
         <div class="col-12">
             
-            #if(grades) {
-            
-            } else {
-            <h2> There aren't any grades yet!</h2>
-            }
-            
             <!-- Grades -->
             <div class="card" data-toggle="lists" data-options=''>
                 <div class="card-header">
@@ -62,6 +56,7 @@
                         Grades
                     </h4>
                     <!-- Button -->
+                    #if(count(grades) > 0) {
                     <div class="col-auto">
                         <a href="/school-layout-grades/#(selectedSchool.id)/create" class="btn btn-sm btn-primary">
                             Create
@@ -70,18 +65,20 @@
                             Export
                         </a>
                     </div>
+                    }
+                    
                     
                 </div>
                 
                 <div class="card-body">
                     
-                    <!-- List -->
+                    #if(count(grades) > 0) {
                     <ul class="list-group list-group-lg list-group-flush list my-n4 ml-2">
                         
                         #for(grade in grades) {
                         <li class="list-group-item">
                             <div class="row align-items-center">
-                            
+                                
                                 <div class="col ml-n2">
                                     
                                     <!-- Title -->
@@ -91,12 +88,12 @@
                                     
                                     #if(count(grade.rooms) > 0) {
                                     #for(room in grade.rooms) {
-                                   
-                                        <span class="badge badge-soft-primary">#(room.name)</span> 
+                                    
+                                    <span class="badge badge-soft-primary">#(room.name)</span>
                                     }
                                     
                                     } else {
-                                    <p class="card-text text-muted mb-1">
+                                    <p class="card-text text-muted mb-1 pt-2">
                                     There're no room on this grade.
                                     </p>
                                     }
@@ -134,6 +131,33 @@
                         </li>
                         }
                     </ul>
+                    
+                    } else {
+                    <div class="card-body text-center">
+                        
+                        <!-- Image -->
+                        <img src="/assets/img/illustrations/scale.svg" alt="..." class="img-fluid" style="max-width: 182px;"/>
+                        
+                        <!-- Title -->
+                        <h1>
+                            There're no grades data.
+                        </h1>
+                        
+                        <!-- Subtitle -->
+                        <p class="text-muted">
+                        Let's create grades to for school layout first.
+                        </p>
+                        
+                        <!-- Button -->
+                        <a href="/school-layout-grades/#(selectedSchool.id)/create" class="btn btn-primary">
+                            Create
+                        </a>
+                        
+                    </div>
+                    }
+                    
+                    <!-- List -->
+                    
                 </div>
             </div>
             

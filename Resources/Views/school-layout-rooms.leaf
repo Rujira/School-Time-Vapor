@@ -80,7 +80,7 @@
                 <div class="card-header card-header-flush py-0">
                     
                     <!-- Title -->
-                    <h4 class="card-header-title">
+                    <h4 class="card-header-title pt-1">
                         #(grade.name)
                     </h4>
                     

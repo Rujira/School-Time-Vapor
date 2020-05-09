@@ -152,6 +152,7 @@
                     
                 </div>
                 
+                #if(count(grades) > 0)  {
                 #for(grade in grades) {
                 <div class="card-header card-header-flush">
                     
@@ -218,6 +219,29 @@
                         }
                         
                     </div>
+                </div>
+                }
+                } else {
+                <div class="card-body text-center">
+                    
+                    <!-- Image -->
+                    <img src="/assets/img/illustrations/scale.svg" alt="..." class="img-fluid" style="max-width: 182px;"/>
+                    
+                    <!-- Title -->
+                    <h1>
+                        There're no grades or rooms data.
+                    </h1>
+                    
+                    <!-- Subtitle -->
+                    <p class="text-muted">
+                    Let's create grades and rooms to for school layout first.
+                    </p>
+                    
+                    <!-- Button -->
+                    <a href="/school-layout-grades/#(selectedSchool.id)" class="btn btn-primary">
+                        Create
+                    </a>
+                    
                 </div>
                 }
                 
