@@ -56,60 +56,64 @@
                 <div class="col-12 col-lg-4">
                     
                     <!-- Card 1 -->
-                    <div class="card lift">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    
-                                    <!-- Title -->
-                                    <h6 class="text-uppercase text-muted mb-2">
-                                        Total Grade
-                                    </h6>
-                                    
-                                    <!-- Heading -->
-                                    <span class="h2 mb-0">
-                                        #count(grades)
-                                    </span>
-                                    
-                                </div>
-                                <div class="col-auto">
-                                    
-                                    <!-- Icon -->
-                                    <span class="h2 fe fe-layers text-muted mb-0"></span>
-                                    
-                                </div>
-                            </div> <!-- / .row -->
-                        </div>
-                    </div><!-- / .card -->
+                    <a href="/school-layout-grades/#(selectedSchool.id)">
+                        <div class="card lift">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        
+                                        <!-- Title -->
+                                        <h6 class="text-uppercase text-muted mb-2">
+                                            Total Grade
+                                        </h6>
+                                        
+                                        <!-- Heading -->
+                                        <span class="h2 mb-0 text-dark">
+                                            #count(grades)
+                                        </span>
+                                        
+                                    </div>
+                                    <div class="col-auto">
+                                        
+                                        <!-- Icon -->
+                                        <span class="h2 fe fe-layers text-muted mb-0"></span>
+                                        
+                                    </div>
+                                </div> <!-- / .row -->
+                            </div>
+                        </div><!-- / .card -->
+                    </a>
                 </div> <!-- / .col -->
                 <div class="col-12 col-lg-4">
                     
                     <!-- Card 2 -->
-                    <div class="card lift">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    
-                                    <!-- Title -->
-                                    <h6 class="text-uppercase text-muted mb-2">
-                                        Total Room
-                                    </h6>
-                                    
-                                    <!-- Heading -->
-                                    <span class="h2 mb-0">
-                                        #count(rooms)
-                                    </span>
-                                    
-                                </div>
-                                <div class="col-auto">
-                                    
-                                    <!-- Icon -->
-                                    <span class="h2 fe fe-grid text-muted mb-0"></span>
-                                    
-                                </div>
-                            </div> <!-- / .row -->
-                        </div>
-                    </div><!-- / .card -->
+                    <a href="/school-layout-rooms/#(selectedSchool.id)">
+                        <div class="card lift">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        
+                                        <!-- Title -->
+                                        <h6 class="text-uppercase text-muted mb-2">
+                                            Total Room
+                                        </h6>
+                                        
+                                        <!-- Heading -->
+                                        <span class="h2 mb-0 text-dark">
+                                            #count(rooms)
+                                        </span>
+                                        
+                                    </div>
+                                    <div class="col-auto">
+                                        
+                                        <!-- Icon -->
+                                        <span class="h2 fe fe-grid text-muted mb-0"></span>
+                                        
+                                    </div>
+                                </div> <!-- / .row -->
+                            </div>
+                        </div><!-- / .card -->
+                    </a>
                 </div><!-- / .col -->
                 <div class="col-12 col-lg-4">
                     
@@ -147,7 +151,7 @@
                     
                     <!-- Title -->
                     <h4 class="card-header-title">
-                        School Layout
+                        School Hierarchy
                     </h4>
                     
                 </div>
@@ -167,7 +171,7 @@
                     </span>
                     
                 </div>
-                <div class="card-body">
+                <div class="card-body py-0">
                     <div class="row">
                         
                         #if(count(grade.rooms) > 0) {
@@ -286,7 +290,60 @@
                     
                 </div>
             </div>
+            
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-md-10 col-xl-10">
+
+                    <!-- Image -->
+                    <img src="/assets/img/illustrations/happiness.svg" alt="..." class="img-fluid mb-4" style="max-width: 272px;">
+
+                    <!-- Title -->
+                    <h2>
+                      Dont' know what to do?
+                    </h2>
+
+                    <!-- Content -->
+                    <p class="text-muted">
+                      Let's visit our guildlines to get in-depth information and design resources for designing great school that integrate seamlessly with School Time platforms.
+                      
+                    </p>
+
+                    <!-- Button -->
+                    <a href="#!" class="btn btn-primary lift">
+                      School Time Guildlines
+                    </a>
+
+                  </div>
+                </div> <!-- / .row -->
+              </div>
+            </div>
+            
+            
+            <!-- Card -->
+            <div class="card bg-transparent">
+                <div class="card-body text-center">
+                    
+                    <!-- Heading -->
+                    <h3>Need some help deciding?</h3>
+                    
+                    <!-- Text -->
+                    <p class="text-muted">
+                    We can help you decide what’s the best for your school based on a lot of factors and other cool stuff.
+                    </p>
+                    
+                    <!-- Button -->
+                    <a href="#!" class="btn btn-outline-secondary">
+                        Contact Us
+                    </a>
+                    
+                </div>
+            </div>
         </div>
+        
+        
+        
     </div>
 </div>
 

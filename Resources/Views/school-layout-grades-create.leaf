@@ -50,7 +50,7 @@
                             #capitalize(gradeType)
                         </option>
                         }
-                        
+        
                     </select>
                 </div>
                 

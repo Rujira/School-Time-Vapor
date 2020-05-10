@@ -100,7 +100,7 @@
                             <!-- Toggle -->
                             <a href="#" class="avatar avatar-sm avatar-online dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary">
-                                  <i class="fe fe-user"></i>
+                                    <i class="fe fe-user"></i>
                                 </div>
                             </a>
                             
@@ -249,53 +249,60 @@
                         
                         <div class="row">
                             <div class="col-12 col-xl-6 mt-4">
-                                
-                                <!-- Card -->
                                 <div class="card card-inactive">
-                                    <div class="card-body">
-                                        
-                                        <!-- Title -->
-                                        <h3 class="text-center">
-                                            Need some help deciding?
-                                        </h3>
-                                        
-                                        <!-- Text -->
-                                        <p class="text-muted text-center">
-                                        We can help you decide what’s the best for your company based on a lot of factors and other cool stuff that I’m going to write about.
-                                        </p>
-                                        
-                                        <!-- Button -->
-                                        <div class="text-center">
-                                            <a href="#!" class="btn btn-outline-secondary">
-                                                Contact us
-                                            </a>
-                                        </div>
-                                        
+                                    <div class="card-body text-center">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-md-10 col-xl-10">
+                                                
+                                                
+                                                <!-- Title -->
+                                                <h2>
+                                                    School Time Guildlines
+                                                </h2>
+                                                
+                                                <!-- Content -->
+                                                <p class="text-muted">
+                                                Let's visit our guildlines to get in-depth information and design resources for designing great school that integrate seamlessly with School Time platforms.
+                                                
+                                                </p>
+                                                
+                                                <!-- Button -->
+                                                <a href="#!" class="btn btn-primary ">
+                                                    School Time Guildlines
+                                                </a>
+                                                
+                                            </div>
+                                        </div> <!-- / .row -->
                                     </div>
                                 </div>
+                                
                                 
                             </div>
                             <div class="col-12 col-xl-6 mt-4">
                                 
                                 <!-- Card -->
                                 <div class="card card-inactive">
-                                    <div class="card-body">
-                                        
-                                        <!-- Title -->
-                                        <h3 class="text-center">
-                                            Want a custom plan?
-                                        </h3>
-                                        
-                                        <!-- Text -->
-                                        <p class="text-muted text-center">
-                                        We can help you decide what’s the best for your company based on a lot of factors and other cool stuff that I’m going to write about.
-                                        </p>
-                                        
-                                        <!-- Button -->
-                                        <div class="text-center">
-                                            <a href="#!" class="btn btn-outline-secondary">
-                                                Build it
-                                            </a>
+                                    <div class="card-body text-center">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-md-10 col-xl-10">
+                                                
+                                                <!-- Title -->
+                                                <h3 class="text-center">
+                                                    Need some help deciding?
+                                                </h3>
+                                                
+                                                <!-- Text -->
+                                                <p class="text-muted text-center">
+                                                We can help you decide what’s the best for your company based on a lot of factors and other cool stuff that I’m going to write about.
+                                                </p>
+                                                
+                                                <!-- Button -->
+                                                <div class="text-center">
+                                                    <a href="#!" class="btn btn-outline-secondary">
+                                                        Contact us
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
                                         
                                     </div>
@@ -311,14 +318,14 @@
         
         #if(showCookieMessage) {
         <footer id="cookie-footer">
-            <div id="cookieMessage" class="container">
+            <div id="cookieMessage" class="container pb-4">
                 <span class="muted">
                     🤓 This site uses cookies 🍪 to provide you with a great user experience ✨. By using School Time, you accept our use of cookies.
                     <a href="#" onclick="cookiesConfirmed()">OK</a>
                 </span>
             </div>
         </footer>
-        #// 4
+        
         <script src="/scripts/cookies.js"></script>
         }
         

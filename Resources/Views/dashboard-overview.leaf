@@ -16,13 +16,7 @@
                     </h1>
                     
                 </div>
-                <!--        <div class="col-auto">-->
-                <!--            -->
-                <!--            <!-- Button -->
-                <!--            <a href="#!" class="btn btn-primary lift">-->
-                <!--                Create Report-->
-                <!--            </a>-->
-                <!--        </div>-->
+            
             </div> <!-- / .row -->
         </div> <!-- / .header-body -->
     </div>
@@ -58,26 +52,6 @@
         </div>
     </div> <!-- / .row -->
 </div>
-<!--<h1>Students</h1>-->
-<!--#if(students) {-->
-<!--<table>-->
-<!--    <thead>-->
-<!--        <tr>-->
-<!--            <th>Firstname</th>-->
-<!--            <th>Lastname</th>-->
-<!--        </tr>-->
-<!--        <thead>-->
-<!--            <tbody>-->
-<!--                #for(student in students) {-->
-<!--                <tr>-->
-<!--                    <td><a href="/students/#(student.id)"> #(student.firstName)</td>-->
-<!--                    <td>#(student.lastName)</td>-->
-<!--                </tr>-->
-<!--                }-->
-<!--            </tbody>-->
-<!--            </table>-->
-<!--} else {-->
-<!--<h2> There aren't any students yet!</h2>-->
-<!--}-->
+
 }
 #embed("base")

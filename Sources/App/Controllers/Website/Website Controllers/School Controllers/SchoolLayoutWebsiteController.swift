@@ -18,6 +18,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         //School Layout - Grades
         protectedRoutes.get("school-layout-grades", School.parameter, use: schoolLayoutGradesHandler)
         
+        protectedRoutes.get("school-layout-grades", School.parameter, Grade.parameter, "view" , use: viewGradeHandler)
+        
         protectedRoutes.get("school-layout-grades", School.parameter, "create", use: createGradeHandler)
         protectedRoutes.post(Grade.self, at: "school-layout-grades", School.parameter, "create", use: createGradePostHandler)
         
@@ -128,6 +130,35 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                     grades: gradesWithRooms)
                 return try req.view().render("school-layout-grades", context)
                 
+        }
+    }
+    
+    func viewGradeHandler(_ req: Request) throws -> Future<View> {
+        
+        return try req.parameters.next(School.self)
+            .flatMap(to: View.self) { school in
+                
+        
+                let userLoggedIn = try req.isAuthenticated(User.self)
+                
+                return try req.parameters.next(Grade.self)
+                    .flatMap(to: View.self) { grade in
+                        
+                        let rooms = Room.query(on: req)
+                            .filter(\.gradeID == grade.id!)
+                            .sort(\.name, .ascending).all()
+                        
+                        let context = SchoolLayoutGradeDetailContext(
+                            pretitle: "Grade Detail",
+                            title: grade.name,
+                            viewTag: 212,
+                            userLoggedIn: userLoggedIn,
+                            selectedSchool: school,
+                            grade: grade,
+                            rooms: rooms)
+                        
+                        return try req.view().render("school-layout-grade-detail", context)
+                }
         }
         
     }

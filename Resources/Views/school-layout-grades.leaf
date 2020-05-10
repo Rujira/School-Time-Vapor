@@ -79,11 +79,22 @@
                         <li class="list-group-item">
                             <div class="row align-items-center">
                                 
+                                <div class="col-auto">
+
+                                  <!-- Avatar -->
+                                  <a href="/school-layout-grades/#(grade.schoolID)/#(grade.id)/view" class="avatar avatar-lg">
+                                    <span class="avatar-title rounded bg-white text-secondary">
+                                      <span class="fe fe-layers"></span>
+                                    </span>
+                                  </a>
+
+                                </div>
+                                
                                 <div class="col ml-n2">
                                     
                                     <!-- Title -->
                                     <h4 class="mb-3 name">
-                                        <a href="/school-layout-grades/#(grade.schoolID)/#(grade.id)/edit">#(grade.name)</a>
+                                        <a href="/school-layout-grades/#(grade.schoolID)/#(grade.id)/view">#(grade.name)</a>
                                     </h4>
                                     
                                     #if(count(grade.rooms) > 0) {
@@ -109,10 +120,14 @@
                                     
                                     <!-- Dropdown -->
                                     <div class="dropdown">
+                                        
                                         <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fe fe-more-vertical"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="/school-layout-grades/#(grade.schoolID)/#(grade.id)/view" class="dropdown-item">
+                                                View
+                                            </a>
                                             <a href="/school-layout-grades/#(grade.schoolID)/#(grade.id)/edit" class="dropdown-item">
                                                 Edit
                                             </a>

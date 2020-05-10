@@ -32,6 +32,17 @@ struct SchoolLayoutGradesContext: Encodable {
    
 }
 
+struct SchoolLayoutGradeDetailContext: Encodable {
+    //Grade Detail
+    let pretitle: String
+    let title: String
+    let viewTag: Int
+    let userLoggedIn: Bool
+    let selectedSchool: School
+    let grade: Grade
+    let rooms: Future<[Room]>
+}
+
 struct GradeWithRooms: Content {
     //Grade List Content
     let id: UUID?

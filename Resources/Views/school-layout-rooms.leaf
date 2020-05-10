@@ -48,11 +48,6 @@
     <div class="row">
         <div class="col-12">
             
-            #if(rooms) {
-            
-            } else {
-            <h2> There aren't any rooms yet!</h2>
-            }
             
             <!-- Grades -->
             <div class="card">
@@ -62,6 +57,7 @@
                         Rooms
                     </h4>
                     <!-- Button -->
+                    #if(count(grades) > 0) {
                     <div class="col-auto">
                         <a href="/school-layout-rooms/#(selectedSchool.id)/create" class="btn btn-sm btn-primary">
                             Create
@@ -70,11 +66,11 @@
                             Export
                         </a>
                     </div>
+                    }
                     
                 </div>
                 
-                
-                
+                #if(count(grades) > 0) {
                 #for(grade in grades) {
                 
                 <div class="card-header card-header-flush py-0">
@@ -103,13 +99,26 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         
+                                        <div class="col-auto">
+                                            
+                                            <!-- Avatar -->
+                                            <a href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/edit" class="avatar avatar-lg">
+                                                <span class="avatar-title rounded bg-white text-secondary">
+                                                    <span class="fe fe-grid"></span>
+                                                </span>
+                                            </a>
+                                            
+                                        </div>
+                                        
                                         <div class="col ml-n2">
                                             
                                             <!-- Title -->
                                             <h3 class="mb-3">
+                                                <a href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/edit">
                                                 <span class="badge badge-soft-primary">
                                                     #(room.name)
                                                 </span>
+                                                   </a>
                                             </h3>
                                             
                                             <p class="card-text text-muted mb-1">
@@ -149,7 +158,7 @@
                                 </div> <!-- / .card-body -->
                             </div>
                             
-                          
+                            
                             
                         </div><!-- /. list> -->
                         }
@@ -171,6 +180,33 @@
                 }
                 
                 }
+                
+                } else {
+                <div class="card-body">
+                    <div class="card-body text-center">
+                        
+                        <!-- Image -->
+                        <img src="/assets/img/illustrations/scale.svg" alt="..." class="img-fluid" style="max-width: 182px;"/>
+                        
+                        <!-- Title -->
+                        <h1>
+                            There're no grades data.
+                        </h1>
+                        
+                        <!-- Subtitle -->
+                        <p class="text-muted">
+                        Let's create grades to for school layout first.
+                        </p>
+                        
+                        <!-- Button -->
+                        <a href="/school-layout-grades/#(selectedSchool.id)/create" class="btn btn-primary">
+                            Create
+                        </a>
+                        
+                    </div>
+                </div>
+                }
+                
                 
             </div>
         </div>
