@@ -36,24 +36,24 @@
                 <div class="card-body text-center">
                     
                     <!-- Image -->
-                    <img src="assets/img/illustrations/scale.svg" alt="..." class="img-fluid" style="max-width: 182px;">
-                        
-                        <!-- Title -->
-                        <h1>
-                            No reports yet.
-                        </h1>
-                        
-                        <!-- Subtitle -->
-                        <p class="text-muted">
-                        Create a report to find our more about this project.
-                        </p>
-                        
-                        <!-- Button -->
-                        <a href="#!" class="btn btn-primary">
-                            Create Report
-                        </a>
-                        
-                        </div>
+                    <img src="assets/img/illustrations/scale.svg" alt="..." class="img-fluid" style="max-width: 182px;"/>
+                    
+                    <!-- Title -->
+                    <h1>
+                        No reports yet.
+                    </h1>
+                    
+                    <!-- Subtitle -->
+                    <p class="text-muted">
+                    Create a report to find our more about this project.
+                    </p>
+                    
+                    <!-- Button -->
+                    <a href="#!" class="btn btn-primary">
+                        Create Report
+                    </a>
+                    
+                </div>
             </div>
             
         </div>

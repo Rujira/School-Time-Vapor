@@ -65,6 +65,8 @@ struct GradesController: RouteCollection {
             grade.name = updatedGrade.name
             grade.gradeType = updatedGrade.gradeType
             grade.schoolID = updatedGrade.schoolID
+            grade.createBy = updatedGrade.createBy
+            grade.updateBy = updatedGrade.updateBy
             return grade.save(on: req)
         }
     }
@@ -133,6 +135,8 @@ struct GradesController: RouteCollection {
                                            name: grade.name,
                                            schoolID: grade.schoolID,
                                            gradeType: grade.gradeType,
+                                           updateBy: grade.createBy,
+                                           updateAt: grade.createAt,
                                            rooms: rooms)
                     }
                     

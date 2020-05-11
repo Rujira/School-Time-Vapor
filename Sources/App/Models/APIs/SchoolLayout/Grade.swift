@@ -16,15 +16,24 @@ final class Grade: Codable {
     var name: String
     var schoolID: School.ID
     var gradeType: GradeType
+    var createAt: Date?
+    var updateAt: Date?
+    var createBy: String
+    var updateBy: String
     
-    init(name: String, schoolID: School.ID, gradeType: GradeType) {
+    init(name: String, schoolID: School.ID, gradeType: GradeType, createBy: String, updateBy: String) {
         self.name = name
         self.gradeType = gradeType
         self.schoolID = schoolID
+        self.createBy = createBy
+        self.updateBy = updateBy
     }
 }
 
-extension Grade: PostgreSQLUUIDModel {}
+extension Grade: PostgreSQLUUIDModel {
+    static let createdAtKey: TimestampKey? = \.createAt
+    static let updatedAtKey: TimestampKey? = \.updateAt
+}
 extension Grade: Content {}
 extension Grade: Migration {
     

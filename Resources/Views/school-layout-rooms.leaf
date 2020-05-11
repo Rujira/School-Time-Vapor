@@ -169,7 +169,7 @@
                 <div class="card-body">
                     <div class="row">
                         
-                        <p class="card-text text-muted mb-1 ml-3">
+                        <p class="card-text text-muted mb-2 ml-3">
                         
                         There're no room on this grade.
                         
@@ -178,7 +178,6 @@
                 </div>
                 
                 }
-                
                 }
                 
                 } else {
@@ -206,7 +205,6 @@
                     </div>
                 </div>
                 }
-                
                 
             </div>
         </div>

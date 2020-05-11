@@ -40,6 +40,10 @@ struct SchoolLayoutGradeDetailContext: Encodable {
     let userLoggedIn: Bool
     let selectedSchool: School
     let grade: Grade
+    let createAt: Date?
+    let updateAt: Date?
+    let createBy: String
+    let updateBy: String
     let rooms: Future<[Room]>
 }
 
@@ -49,6 +53,8 @@ struct GradeWithRooms: Content {
     let name: String
     let schoolID: School.ID
     let gradeType: GradeType
+    let updateBy: String
+    let updateAt: Date?
     let rooms: [Room]
 }
 
@@ -66,6 +72,8 @@ struct CreateGradeContext: Encodable {
     let viewTag: Int
     let userLoggedIn: Bool
     let selectedSchool: School
+    let createBy: String
+    let updateBy: String
     let gradeTypes: [GradeType]
 }
 
@@ -76,6 +84,8 @@ struct EditGradeContext: Encodable {
     let viewTag: Int
     let userLoggedIn: Bool
     let selectedSchool: School
+    let createBy: String
+    let updateBy: String
     let gradeTypes: [GradeType]
     let grade: Grade
     let editing = true

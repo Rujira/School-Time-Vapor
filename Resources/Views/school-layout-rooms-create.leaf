@@ -58,7 +58,6 @@
                     <input type="hidden" name="schoolID" id="schoolID" value="#(schoolID)"/>
                 </div>
         
-                
                 <button type="submit" class="btn btn-primary mr-2" style="float: right;">
                     #if(editing){Update} else {Create}
                 </button>

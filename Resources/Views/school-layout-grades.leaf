@@ -100,16 +100,19 @@
                                     #if(count(grade.rooms) > 0) {
                                     #for(room in grade.rooms) {
                                     
-                                    <span class="badge badge-soft-primary">#(room.name)</span>
+                                    <span class="badge badge-soft-primary mb-3">#(room.name)</span>
                                     }
                                     
+                                    
                                     } else {
-                                    <p class="card-text text-muted mb-1 pt-2">
+                                    <p class="card-text text-muted mb-3 pt-2">
                                     There're no room on this grade.
                                     </p>
                                     }
                                     
-                                    
+                                    <p class="card-text small text-muted">
+                                    Update by #(grade.updateBy) on #date(grade.updateAt, "MMM dd, yyyy hh:mm")
+                                    </p>
                                 </div>
                                 <div class="col-auto">
                                     
@@ -144,6 +147,7 @@
                                 </div>
                             </div> <!-- / .row -->
                         </li>
+                        
                         }
                     </ul>
                     
@@ -170,10 +174,9 @@
                         
                     </div>
                     }
-                    
                     <!-- List -->
-                    
                 </div>
+                
             </div>
             
         </div>

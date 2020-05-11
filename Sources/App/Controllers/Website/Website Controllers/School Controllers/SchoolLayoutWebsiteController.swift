@@ -64,12 +64,14 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                                                    name: grade.name,
                                                    schoolID: grade.schoolID,
                                                    gradeType: grade.gradeType,
+                                                   updateBy: grade.createBy,
+                                                   updateAt: grade.createAt,
                                                    rooms: rooms)
                             }
                         }.flatten(on: req)
                 }
-            
-        
+                
+                
                 let roomsWithGrade = Room.query(on: req)
                     .join(\Grade.id, to: \Room.gradeID)
                     .alsoDecode(Grade.self).filter(\Grade.schoolID == school.id!).all()
@@ -88,7 +90,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                     selectedSchool: school,
                     grades: gradesWithRooms,
                     rooms: roomsWithGrade)
-                   
+                
                 
                 return try req.view().render("school-layout-overview", context)
         }
@@ -114,6 +116,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                                                    name: grade.name,
                                                    schoolID: grade.schoolID,
                                                    gradeType: grade.gradeType,
+                                                   updateBy: grade.updateBy,
+                                                   updateAt: grade.updateAt,
                                                    rooms: rooms)
                             }
                         }.flatten(on: req)
@@ -138,7 +142,6 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         return try req.parameters.next(School.self)
             .flatMap(to: View.self) { school in
                 
-        
                 let userLoggedIn = try req.isAuthenticated(User.self)
                 
                 return try req.parameters.next(Grade.self)
@@ -155,6 +158,10 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                             userLoggedIn: userLoggedIn,
                             selectedSchool: school,
                             grade: grade,
+                            createAt: grade.createAt,
+                            updateAt: grade.updateAt,
+                            createBy: grade.createBy,
+                            updateBy: grade.updateBy,
                             rooms: rooms)
                         
                         return try req.view().render("school-layout-grade-detail", context)
@@ -170,6 +177,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
             .flatMap(to: View.self) { school in
                 
                 let userLoggedIn = try req.isAuthenticated(User.self)
+                let user = try req.requireAuthenticated(User.self)
                 
                 let context = CreateGradeContext(
                     pretitle: "New Grade",
@@ -177,6 +185,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                     viewTag: 212,
                     userLoggedIn: userLoggedIn,
                     selectedSchool: school,
+                    createBy: user.name,
+                    updateBy: user.name,
                     gradeTypes: [GradeType.kindergarden, GradeType.elementary, GradeType.secondary])
                 
                 return try req.view().render("school-layout-grades-create", context)
@@ -200,6 +210,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
             .flatMap(to: View.self) { school in
                 
                 let userLoggedIn = try req.isAuthenticated(User.self)
+                let user = try req.requireAuthenticated(User.self)
                 
                 return try req.parameters.next(Grade.self)
                     .flatMap(to: View.self) { grade in
@@ -209,18 +220,19 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                             viewTag: 212,
                             userLoggedIn: userLoggedIn,
                             selectedSchool: school,
+                            createBy: grade.createBy,
+                            updateBy: user.name,
                             gradeTypes: [GradeType.kindergarden, GradeType.elementary, GradeType.secondary],
                             grade: grade)
                         
                         return try req.view().render("school-layout-grades-create", context)
                 }
         }
-        
-        
     }
     
     func editGradePostHandler(_ req: Request) throws -> Future<Response> {
         
+
         return try flatMap(to: Response.self,
                            req.parameters.next(School.self),
                            req.parameters.next(Grade.self),
@@ -229,7 +241,9 @@ struct SchoolLayoutWebsiteController: RouteCollection {
             grade.name = data.name
             grade.gradeType = data.gradeType
             grade.schoolID = data.schoolID
-            
+            grade.createBy = data.createBy
+            grade.updateBy = data.updateBy
+                
             guard grade.id != nil else {
                 throw Abort(.internalServerError)
             }
@@ -260,7 +274,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                     .sort(\.name, .descending).all()
                     .flatMap(to: [GradeWithRooms].self) { grades in
                         try grades.map { grade in
-                            try grade.rooms.query(on: req).sort(\.name, .ascending)
+                            try grade.rooms.query(on: req).sort(\.name, .descending)
                                 .all()
                                 .map{ rooms in
                                     
@@ -268,12 +282,14 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                                                    name: grade.name,
                                                    schoolID: grade.schoolID,
                                                    gradeType: grade.gradeType,
+                                                   updateBy: grade.createBy,
+                                                   updateAt: grade.createAt,
                                                    rooms: rooms)
                             }
                         }.flatten(on: req)
                 }
                 
-                let roomsWithStudents = Room.query(on: req).sort(\.name, .descending).all()
+                let roomsWithStudents = Room.query(on: req).sort(\.name, .ascending).all()
                     .flatMap(to: [RoomWithStudents].self) { rooms in
                         try rooms.map { room in
                             try room.students.query(on: req)
@@ -380,8 +396,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         
         return try req.parameters.next(School.self).flatMap(to: Response.self) { school in
             return try req.parameters.next(Room.self).delete(on: req)
-            .transform(to: req.redirect(to: "/school-layout-rooms/\(school.id!)"))
-      
+                .transform(to: req.redirect(to: "/school-layout-rooms/\(school.id!)"))
+            
         }
     }
 }

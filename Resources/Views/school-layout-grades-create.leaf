@@ -58,6 +58,14 @@
                     <input type="hidden" name="schoolID" id="schoolID" value="#(selectedSchool.id)"/>
                 </div>
                 
+                <div class="form-group">
+                    <input type="hidden" name="createBy" id="createBy" value="#(createBy)"/>
+                </div>
+                
+                <div class="form-group">
+                    <input type="hidden" name="updateBy" id="updateBy" value="#(updateBy)"/>
+                </div>
+                
                 <!-- Button -->
                 <button type="submit" class="btn btn-primary" style="float: right;">
                     #if(editing){Update} else {Create}
