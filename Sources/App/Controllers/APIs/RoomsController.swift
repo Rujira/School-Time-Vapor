@@ -101,7 +101,14 @@ struct RoomsController: RouteCollection {
                     try room.students.query(on: req)
                         .all()
                         .map { students in
-                            RoomWithStudents(id: room.id, name: room.name, gradeID: room.gradeID, students: students)
+                            RoomWithStudents(id: room.id,
+                                             name: room.name,
+                                             gradeID: room.gradeID,
+                                             createBy: room.createBy,
+                                             updateBy: room.updateBy,
+                                             createAt: room.createAt,
+                                             updateAt: room.updateAt,
+                                             students: students)
                     }
                 }.flatten(on: req)
         }

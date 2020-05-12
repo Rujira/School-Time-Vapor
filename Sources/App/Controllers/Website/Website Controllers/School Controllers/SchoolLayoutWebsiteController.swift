@@ -31,6 +31,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         //School Layout - Rooms
         protectedRoutes.get("school-layout-rooms", School.parameter, use: schoolLayoutRoomsHandler)
         
+        protectedRoutes.get("school-layout-rooms", School.parameter, Room.parameter, "view" , use: viewRoomHandler)
+        
         protectedRoutes.get("school-layout-rooms", School.parameter, "create", use: createRoomHandler)
         protectedRoutes.post(Room.self, at: "school-layout-rooms", School.parameter, "create", use: createRoomPostHandler)
         
@@ -158,10 +160,6 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                             userLoggedIn: userLoggedIn,
                             selectedSchool: school,
                             grade: grade,
-                            createAt: grade.createAt,
-                            updateAt: grade.updateAt,
-                            createBy: grade.createBy,
-                            updateBy: grade.updateBy,
                             rooms: rooms)
                         
                         return try req.view().render("school-layout-grade-detail", context)
@@ -295,7 +293,14 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                             try room.students.query(on: req)
                                 .all()
                                 .map{ students in
-                                    RoomWithStudents(id: room.id, name: room.name, gradeID: room.gradeID, students: students)
+                                    RoomWithStudents(id: room.id,
+                                                     name: room.name,
+                                                     gradeID: room.gradeID,
+                                                     createBy: room.createBy,
+                                                     updateBy: room.updateBy,
+                                                     createAt: room.createAt,
+                                                     updateAt: room.updateAt,
+                                                     students: students)
                             }
                         }.flatten(on: req)
                 }
@@ -313,6 +318,30 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         }
     }
     
+    func viewRoomHandler(_ req: Request) throws -> Future<View> {
+        
+        return try req.parameters.next(School.self)
+            .flatMap(to: View.self) { school in
+                
+                let userLoggedIn = try req.isAuthenticated(User.self)
+                
+                return try req.parameters.next(Room.self)
+                    .flatMap(to: View.self) { room in
+                        
+                        let context = SchoolLayoutRoomDetailContext(
+                            pretitle: "Room Detail",
+                            title: room.name,
+                            viewTag: 213,
+                            userLoggedIn: userLoggedIn,
+                            selectedSchool: school,
+                            room: room)
+                        
+                        return try req.view().render("school-layout-room-detail", context)
+                }
+                
+        }
+    }
+    
     // Create Room
     func createRoomHandler(_ req: Request) throws -> Future<View> {
         
@@ -322,13 +351,18 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                 let grades = Grade.query(on: req)
                     .filter(\.schoolID == school.id!)
                     .sort(\.name, .ascending).all()
+                
                 let userLoggedIn = try req.isAuthenticated(User.self)
+                let user = try req.requireAuthenticated(User.self)
+                
                 let context = CreateRoomContext(
                     pretitle: "New Room",
                     title: "Create New Room",
                     viewTag: 213,
                     userLoggedIn: userLoggedIn,
                     selectedSchool: school,
+                    createBy: user.name,
+                    updateBy: user.name,
                     grades: grades)
                 
                 return try req.view().render("school-layout-rooms-create", context)
@@ -356,7 +390,10 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                 
                 let grades = Grade.query(on: req)
                     .sort(\.name, .descending).all()
+                
                 let userLoggedIn = try req.isAuthenticated(User.self)
+                let user = try req.requireAuthenticated(User.self)
+                
                 return try req.parameters.next(Room.self)
                     .flatMap(to: View.self) { room in
                         let context = EditRoomContext(
@@ -365,6 +402,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                             viewTag: 213,
                             userLoggedIn: userLoggedIn,
                             selectedSchool: school,
+                            createBy: room.createBy,
+                            updateBy: user.name,
                             grades: grades,
                             room: room)
                         
@@ -383,6 +422,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         ) { school, room, data in
             room.name = data.name
             room.gradeID = data.gradeID
+            room.createBy = data.createBy
+            room.updateBy = data.updateBy
             
             guard room.id != nil else {
                 throw Abort(.internalServerError)

@@ -64,7 +64,7 @@
         </div>
         
         <div class="main-content">
-            <nav class="navbar navbar-expand-md navbar-light d-md-flex" id="topbar">
+            <nav class="navbar navbar-expand-md navbar-light d-md-flex fixed" id="topbar">
                 <div class="container-fluid px-5">
                     
                     <!-- Form -->
@@ -256,12 +256,12 @@
                                                 
                                                 
                                                 <!-- Title -->
-                                                <h2>
+                                                <h3 class="text-center">
                                                     School Time Guildlines
-                                                </h2>
+                                                </h3>
                                                 
                                                 <!-- Content -->
-                                                <p class="text-muted">
+                                                <p class="text-muted text-center">
                                                 Let's visit our guildlines to get in-depth information and design resources for designing great school that integrate seamlessly with School Time platforms.
                                                 
                                                 </p>

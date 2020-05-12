@@ -40,10 +40,6 @@ struct SchoolLayoutGradeDetailContext: Encodable {
     let userLoggedIn: Bool
     let selectedSchool: School
     let grade: Grade
-    let createAt: Date?
-    let updateAt: Date?
-    let createBy: String
-    let updateBy: String
     let rooms: Future<[Room]>
 }
 
@@ -102,11 +98,26 @@ struct SchoolLayoutRoomsContext: Encodable {
     let rooms: Future<[RoomWithStudents]>
 }
 
+struct SchoolLayoutRoomDetailContext: Encodable {
+    //Rooms Detal
+    let pretitle: String
+    let title: String
+    let viewTag: Int
+    let userLoggedIn: Bool
+    let selectedSchool: School
+    let room: Room
+ 
+}
+
 struct RoomWithStudents: Content {
     //Room List Content
     let id: UUID?
     let name: String
     let gradeID: Grade.ID
+    let createBy: String
+    let updateBy: String
+    let createAt: Date?
+    let updateAt: Date?
     let students: [Student]
 }
 
@@ -117,6 +128,8 @@ struct CreateRoomContext: Encodable {
     let viewTag: Int
     let userLoggedIn: Bool
     let selectedSchool: School
+    let createBy: String
+    let updateBy: String
     let grades: Future<[Grade]>
 }
 
@@ -127,6 +140,8 @@ struct EditRoomContext: Encodable {
     let viewTag: Int
     let userLoggedIn: Bool
     let selectedSchool: School
+    let createBy: String
+    let updateBy: String
     let grades: Future<[Grade]>
     let room: Room
     let editing = true

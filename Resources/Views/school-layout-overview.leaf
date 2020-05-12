@@ -196,19 +196,18 @@
                                         <!-- Avatar group -->
                                         <div class="avatar-group d-sm-flex">
                                             <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Daniela Dewitt">
-                                                <img src="/assets/img/avatars/profiles/avatar-4.jpg" alt="..." class="avatar-img rounded-circle">
-                                                    </a>
+                                                <img src="/assets/img/avatars/profiles/avatar-4.jpg" alt="..." class="avatar-img rounded-circle"/>
+                                            </a>
                                             <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
-                                                <img src="/assets/img/avatars/profiles/avatar-2.jpg" alt="..." class="avatar-img rounded-circle">
-                                                    </a>
+                                                <img src="/assets/img/avatars/profiles/avatar-2.jpg" alt="..." class="avatar-img rounded-circle"/>
+                                            </a>
                                             <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Adolfo Hess">
-                                                <img src="/assets/img/avatars/profiles/avatar-3.jpg" alt="..." class="avatar-img rounded-circle">
-                                                    </a>
+                                                <img src="/assets/img/avatars/profiles/avatar-3.jpg" alt="..." class="avatar-img rounded-circle"/>
+                                            </a>
                                             
                                         </div>
                                         
                                     </div>
-                                    
                                     
                                 </div>
                                 
@@ -232,8 +231,6 @@
                     </div>
                 </div>
                 }
-                
-                
                 
                 }
                 } else {
@@ -308,25 +305,25 @@
                         <div class="col-12 col-md-10 col-xl-10">
                             
                             <!-- Image -->
-                            <img src="/assets/img/illustrations/happiness.svg" alt="..." class="img-fluid mb-4" style="max-width: 272px;">
-                                
-                                <!-- Title -->
-                                <h2>
-                                    Dont' know what to do?
-                                </h2>
-                                
-                                <!-- Content -->
-                                <p class="text-muted">
-                                Let's visit our guildlines to get in-depth information and design resources for designing great school that integrate seamlessly with School Time platforms.
-                                
-                                </p>
-                                
-                                <!-- Button -->
-                                <a href="#!" class="btn btn-primary lift">
-                                    School Time Guildlines
-                                </a>
-                                
-                                </div>
+                            <img src="/assets/img/illustrations/happiness.svg" alt="..." class="img-fluid mb-4" style="max-width: 272px;"/>
+                            
+                            <!-- Title -->
+                            <h2>
+                                Dont' know what to do?
+                            </h2>
+                            
+                            <!-- Content -->
+                            <p class="text-muted">
+                            Let's visit our guildlines to get in-depth information and design resources for designing great school that integrate seamlessly with School Time platforms.
+                            
+                            </p>
+                            
+                            <!-- Button -->
+                            <a href="#!" class="btn btn-primary lift">
+                                School Time Guildlines
+                            </a>
+                            
+                        </div>
                     </div> <!-- / .row -->
                 </div>
             </div>

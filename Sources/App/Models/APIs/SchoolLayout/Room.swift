@@ -15,14 +15,23 @@ final class Room: Codable {
     var id: UUID?
     var name: String
     var gradeID: Grade.ID
+    var createAt: Date?
+    var updateAt: Date?
+    var createBy: String
+    var updateBy: String
     
-    init(name: String, gradeID: Grade.ID) {
+    init(name: String, gradeID: Grade.ID, createBy: String, updateBy: String) {
         self.name = name
         self.gradeID = gradeID
+        self.createBy = createBy
+        self.updateBy = updateBy
     }
 }
 
-extension Room: PostgreSQLUUIDModel {}
+extension Room: PostgreSQLUUIDModel {
+    static let createdAtKey: TimestampKey? = \.createAt
+    static let updatedAtKey: TimestampKey? = \.updateAt
+}
 extension Room: Content {}
 extension Room: Migration {
     

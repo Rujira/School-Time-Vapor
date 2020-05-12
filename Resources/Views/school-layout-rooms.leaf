@@ -93,16 +93,16 @@
                         #for(room in rooms) {
                         #if(room.gradeID == grade.id) {
                         <!-- List -->
-                        <div class="col-12 col-lg-6">
+                        <div class="col-12 col-lg-6 col-xl-4">
                             
-                            <div class="card">
+                            <div class="card lift">
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         
                                         <div class="col-auto">
                                             
                                             <!-- Avatar -->
-                                            <a href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/edit" class="avatar avatar-lg">
+                                            <a href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/view" class="avatar avatar-lg">
                                                 <span class="avatar-title rounded bg-white text-secondary">
                                                     <span class="fe fe-grid"></span>
                                                 </span>
@@ -114,23 +114,27 @@
                                             
                                             <!-- Title -->
                                             <h3 class="mb-3">
-                                                <a href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/edit">
-                                                <span class="badge badge-soft-primary">
-                                                    #(room.name)
-                                                </span>
-                                                   </a>
+                                                <a href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/view">
+                                                    <span class="badge badge-soft-primary">
+                                                        #(room.name) 
+                                                    </span>
+                                                </a>
                                             </h3>
                                             
-                                            <p class="card-text text-muted mb-1">
+                                            
+                                            <p class="card-text text-muted mb-3">
                                             #if(count(room.students) > 0) {
-                                            #for(room in grade.rooms) {
-                                            <span class="badge badge-soft-primary">#capitalize(room.name)</span>
-                                            }
+                                            
                                             
                                             } else {
                                             There're no student on this room.
                                             }
                                             </p>
+                                            
+                                            <p class="card-text small text-muted">
+                                            Update by #(room.updateBy) on #date(room.updateAt, "MMM dd, yyyy hh:mm")
+                                            </p>
+                                            
                                             
                                             
                                         </div>
@@ -141,6 +145,9 @@
                                                     <i class="fe fe-more-vertical"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/view" class="dropdown-item">
+                                                        View
+                                                    </a>
                                                     <a href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/edit" class="dropdown-item">
                                                         Edit
                                                     </a>
@@ -157,8 +164,6 @@
                                     </div> <!-- / .row -->
                                 </div> <!-- / .card-body -->
                             </div>
-                            
-                            
                             
                         </div><!-- /. list> -->
                         }

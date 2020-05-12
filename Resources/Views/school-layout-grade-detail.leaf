@@ -37,7 +37,7 @@
             </div>
             
             <p class="card-text small text-muted mb-4 mt-n4">
-            Create by #(createBy) on #date(createAt, "MMM dd, yyyy hh:mm")
+            Create by #(grade.createBy) on #date(grade.createAt, "MMM dd, yyyy hh:mm")
             </p>
         
             

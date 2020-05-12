@@ -29,10 +29,9 @@ struct AllSchoolsWebsiteController: RouteCollection {
     //Index Page Handler Overview
     func indexHandler(_ req: Request) throws -> Future<View> {
        
-        let user = try req.requireAuthenticated(User.self)
+        //let user = try req.requireAuthenticated(User.self)
         
-        let schools = School.query(on: req)
-            .filter(\.userID == user.id!).all()
+        let schools = School.query(on: req).all()
         
         let userLoggedIn = try req.isAuthenticated(User.self)
         
