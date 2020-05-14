@@ -15,6 +15,7 @@ struct SchoolsController: RouteCollection {
         
         let schoolsRoutes = router.grouped("api", "schools")
         
+        
         schoolsRoutes.get(use: getAllHandler)
         //schoolsRoutes.post(School.self, use: createHandler)
         schoolsRoutes.get(School.parameter, use: getHandler)

@@ -55,7 +55,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <input type="hidden" name="schoolID" id="schoolID" value="#(schoolID)"/>
+                    <input type="hidden" name="schoolID" id="schoolID" value="#(selectedSchool.id)"/>
                 </div>
                 
                 <div class="form-group">
@@ -65,7 +65,7 @@
                 <div class="form-group">
                     <input type="hidden" name="updateBy" id="updateBy" value="#(updateBy)"/>
                 </div>
-        
+        <hr class="my-5">
                 <button type="submit" class="btn btn-primary mr-2" style="float: right;">
                     #if(editing){Update} else {Create}
                 </button>

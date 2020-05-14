@@ -17,22 +17,26 @@ final class User: Codable {
     var name: String
     var username: String
     var password: String
+    var userType: UserType = .standard
     
-    init(name: String, username: String, password: String) {
+    init(name: String, username: String, password: String, userType: UserType) {
         self.name = name
         self.username = username
         self.password = password
+        self.userType = userType
     }
     
     final class Public: Codable {
         var id: UUID?
         var name: String
         var username: String
+        var userType: UserType = .standard
         
-        init(id: UUID?, name: String, username: String) {
+        init(id: UUID?, name: String, username: String, userType: UserType) {
             self.id = id
             self.name = name
             self.username = username
+            self.userType = userType
         }
     }
 }
@@ -61,7 +65,7 @@ extension User {
 //Public
 extension User {
     func convertToPublic() -> User.Public {
-        return User.Public(id: id, name: name, username: username)
+        return User.Public(id: id, name: name, username: username, userType: userType)
     }
 }
 
@@ -97,7 +101,8 @@ struct AdminUser: Migration {
         
         let user = User(name: "Admin",
                         username: "admin",
-                        password: hashedPassword)
+            password: hashedPassword,
+            userType: .admin)
         return user.save(on: connection).transform(to: ())
     }
     

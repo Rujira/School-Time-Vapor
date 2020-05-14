@@ -39,6 +39,21 @@
                                 Rooms
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-students/#(selectedSchool.id)" class="nav-link #if(viewTag == 214){active}">
+                                Students
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-teachers/#(selectedSchool.id)" class="nav-link #if(viewTag == 215){active}">
+                                Teachers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-parents/#(selectedSchool.id)" class="nav-link #if(viewTag == 216){active}">
+                                Parents
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

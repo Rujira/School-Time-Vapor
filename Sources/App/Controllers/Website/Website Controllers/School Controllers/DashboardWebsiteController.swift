@@ -37,14 +37,11 @@ struct DashboardWebsiteController: RouteCollection {
                 viewTag: 110,
                 userLoggedIn: userLoggedIn,
                 selectedSchool: school)
-                
-                
+
                 return try req.view().render("dashboard-overview", context)
                 
         }
-
     }
-    
 }
 
 

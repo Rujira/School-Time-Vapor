@@ -14,18 +14,25 @@ struct StudentsController: RouteCollection {
         
         let studentsRoutes = router.grouped("api", "students")
         
+        let tokenAuthMiddleware = User.tokenAuthMiddleware()
+        let guardAuthMiddleware = User.guardAuthMiddleware()
+        let tokenAuthGroup = studentsRoutes.grouped(
+        tokenAuthMiddleware,guardAuthMiddleware)
+        
         //Generic APIs
-        studentsRoutes.get(use: getAllHandler)
-        studentsRoutes.post(Student.self, use: createHandler)
-        studentsRoutes.get(Student.parameter, use: getHandler)
-        studentsRoutes.put(Student.parameter, use: updateHandler)
-        studentsRoutes.delete(Student.parameter, use: deleteHandler)
-        studentsRoutes.get("search", use: searchHandler)
-        studentsRoutes.get("first", use: getFirstHandler)
-        studentsRoutes.get("sorted", use: sortedHandler)
+        tokenAuthGroup.get(use: getAllHandler)
+        tokenAuthGroup.post(Student.self, use: createHandler)
+        tokenAuthGroup.get(Student.parameter, use: getHandler)
+        tokenAuthGroup.put(Student.parameter, use: updateHandler)
+        tokenAuthGroup.delete(Student.parameter, use: deleteHandler)
+        tokenAuthGroup.get("search", use: searchHandler)
+        tokenAuthGroup.get("first", use: getFirstHandler)
+        tokenAuthGroup.get("sorted", use: sortedHandler)
         
         //Parent-Child Relationships APIs
-        studentsRoutes.get(Student.parameter, "room", use: getRoomHandler)
+        tokenAuthGroup.get(Student.parameter, "room", use: getRoomHandler)
+        
+        tokenAuthGroup.get("rooms", use: getStudentsWithRoom)
     }
     
     //Create (POST)
@@ -100,6 +107,33 @@ struct StudentsController: RouteCollection {
                 student.room.get(on: req)
         }
     }
+
+
+    func getStudentsWithRoom(_ req: Request) throws -> Future<[StudentsWithRoom]> {
+        
+        return Student.query(on: req)
+            .join(\Room.id, to: \Student.roomID)
+            .alsoDecode(Room.self).all()
+            .map(to: [StudentsWithRoom].self) {
+                studentRoomPairs in
+                 
+                studentRoomPairs.map { student, room -> StudentsWithRoom in
+                
+                    
+                    return StudentsWithRoom(id: student.id,
+                                     studentID: student.studentID,
+                                     firstName: student.firstName,
+                                     lastName: student.lastName,
+                                     gender: student.gender,
+                                     birthDate: student.birthDate,
+                                     age: student.getAgeFromDOF(date: student.birthDate ?? "") ,
+                                     updateBy: student.updateBy,
+                                     updateAt: student.updateAt, room: room.name)
+                }
+        }
+    }
+    
+    
 }
 
  

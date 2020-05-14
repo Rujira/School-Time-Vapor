@@ -1,0 +1,244 @@
+#set("content") {
+<div class="header">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-end">
+                <div class="col">
+                    
+                    <!-- Pretitle -->
+                    <h6 class="header-pretitle">
+                        #(pretitle)
+                    </h6>
+                    
+                    <!-- Title -->
+                    <h1 class="header-title">
+                        #(title)
+                    </h1>
+                    
+                </div>
+                <div class="col-auto">
+                    
+                    
+                    
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col">
+                    <!-- Nav -->
+                    <ul class="nav nav-tabs nav-overflow header-tabs">
+                        <li class="nav-item">
+                            <a href="/school-layout-overview/#(selectedSchool.id)" class="nav-link #if(viewTag == 211){active}">
+                                Overview
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-grades/#(selectedSchool.id)" class="nav-link #if(viewTag == 212){active}">
+                                Grades
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-rooms/#(selectedSchool.id)" class="nav-link #if(viewTag == 213){active}">
+                                Rooms
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-students/#(selectedSchool.id)" class="nav-link #if(viewTag == 214){active}">
+                                Students
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-teachers/#(selectedSchool.id)" class="nav-link #if(viewTag == 215){active}">
+                                Teachers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/school-layout-parents/#(selectedSchool.id)" class="nav-link #if(viewTag == 216){active}">
+                                Parents
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- / .header-body -->
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-header-title">
+                        Students
+                    </h4>
+                    
+                    <!-- Navigation (button group) -->
+                    <div class="nav btn-group d-inline-flex" role="tablist">
+                        <button class="btn btn-sm btn-white active" id="studentsListTab" data-toggle="tab" data-target="#studentsListPane" role="tab" aria-controls="studentsListPane" aria-selected="true">
+                            <span class="fe fe-list"></span>
+                        </button>
+                        <button class="btn btn-sm btn-white" id="studentsCardsTab" data-toggle="tab" data-target="#studentsCardsPane" role="tab" aria-controls="studentsCardsPane" aria-selected="false">
+                            <span class="fe fe-grid"></span>
+                        </button>
+                    </div> <!-- / .nav -->
+                    
+                    <!-- Buttons -->
+                    <a href="/school-layout-students/#(selectedSchool.id)/create" class="btn btn-sm btn-primary ml-3">
+                        Add Student
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="studentsListPane" role="tabpanel" aria-labelledby="studentsListTab">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <form>
+                                                <div class="input-group input-group-flush">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fe fe-search"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input class="list-search form-control" type="search" placeholder="Search"/>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-auto">
+                                            
+                                            <!-- Select -->
+                                            <form>
+                                                <select class="custom-select custom-select-sm form-control-flush" data-toggle="select" data-options=''>
+                                                    <option value="5">5 per page</option>
+                                                    <option value="10" selected>10 per page</option>
+                                                    <option value="*">All</option>
+                                                </select>
+                                            </form>
+                                            
+                                        </div>
+                                    </div>
+                                </div> <!-- Card Header -->
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover table-nowrap card-table">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <a class="list-sort text-muted" data-sort="item-name" href="#">Student No.</a>
+                                                </th>
+                                                <th>
+                                                    <a class="list-sort text-muted" data-sort="item-name" href="#">Name</a>
+                                                </th>
+                                                <th>
+                                                    <a class="list-sort text-muted" data-sort="item-name" href="#">Room</a>
+                                                </th>
+                                                <th>
+                                                    <a class="list-sort text-muted" data-sort="item-name" href="#">Age</a>
+                                                </th>
+                                                <th>
+                                                    <a class="list-sort text-muted" data-sort="item-name" href="#">Gender</a>
+                                                </th>
+                                                <th colspan="2">
+                                                    <a class="list-sort text-muted" data-sort="item-name" href="#">Update</a>
+                                                </th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list font-size-base">
+                                            #for(student in students) {
+                                            <tr>
+                                                <td>
+                                                    <span class="item-title">#(student.studentID)</span>
+                                                </td>
+                                                <td>
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-xs align-middle mr-2">
+                                                        <img class="avatar-img rounded-circle" src="/assets/img/avatars/profiles/avatar-1.jpg" alt="..."/>
+                                                    </div> <a class="item-name text-reset" href="#">#(student.firstName) #(student.lastName)</a>
+                                                    
+                                                </td>
+                                                <td>
+                                                    <!-- Badge -->
+                                                    <span class="item-score badge badge-soft-primary">#(student.room)</span>
+                                                </td>
+                                                <td>
+                                                    <span class="item-title">#(student.age)</span>
+                                                </td>
+                                                <td>
+                                                    <span class="item-title">#capitalize(student.gender)</span>
+                                                </td>
+                                                <td>
+                                                    <p class="card-text small text-muted">
+                                                    Update by #capitalize(student.updateBy) <br> on #date(student.updateAt, "MMM dd, yyyy hh:mm")
+                                                    </p>
+                                                </td>
+                                                <td class="text-right">
+                                                    
+                                                    <!-- Dropdown -->
+                                                    <div class="dropdown">
+                                                        <a class="dropdown-ellipses dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fe fe-more-vertical"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a href="#!" class="dropdown-item">
+                                                                View
+                                                            </a>
+                                                            <a href="#!" class="dropdown-item">
+                                                                Edit
+                                                            </a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a href="#!" class="dropdown-item">
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </td>
+                                            </tr>
+                                            }
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="studentsCardsPane" role="tabpanel" aria-labelledby="studentsCardsTab">
+                            <div>
+                                <div class="row align-items-center mb-4">
+                                    <div class="col">
+                                        <form>
+                                            <div class="input-group input-group-lg input-group-merge">
+                                                <input class="list-search form-control form-control-prepended" type="search" placeholder="Search"/>
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <span class="fe fe-search"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-auto">
+                                        
+                                        <!-- Select -->
+                                        <form>
+                                            <select class="custom-select custom-select-sm form-control-flush" data-toggle="select" data-options=''>
+                                                <option value="1" selected>9 per page</option>
+                                                <option value="5">All</option>
+                                            </select>
+                                        </form>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+#embed("base")

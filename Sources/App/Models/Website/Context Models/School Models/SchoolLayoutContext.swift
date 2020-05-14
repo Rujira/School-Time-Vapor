@@ -146,6 +146,43 @@ struct EditRoomContext: Encodable {
     let room: Room
     let editing = true
 }
+
+struct SchoolLayoutStudentsContext: Encodable {
+    //Student
+    let pretitle: String
+    let title: String
+    let viewTag: Int
+    let userLoggedIn: Bool
+    let selectedSchool: School
+    let students: Future<[StudentsWithRoom]>
+}
+
+struct StudentsWithRoom: Content {
+    
+    //Student with room
+    let id: UUID?
+    let studentID: String
+    let firstName: String
+    let lastName: String
+    let gender: GenderType
+    let birthDate: String?
+    let age: String?
+    let updateBy: String
+    let updateAt: Date?
+    let room: String
+}
+
+struct CreateStudentContext: Encodable {
+    
+    let pretitle: String
+    let title: String
+    let viewTag: Int
+    let userLoggedIn: Bool
+    let selectedSchool: School
+    let createBy: String
+    let updateBy: String
+    let rooms: Future<[Room]>
+}
 //End Layout
 
 

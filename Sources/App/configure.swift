@@ -61,6 +61,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     // Configure migrations
     var migrations = MigrationConfig()
     
+    migrations.add(migration: UserType.self, database: .psql)
     migrations.add(model: User.self, database: .psql)
     
     migrations.add(model: School.self, database: .psql)
@@ -70,6 +71,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 
     migrations.add(model: Room.self, database: .psql)
 
+    migrations.add(migration: GenderType.self, database: .psql)
     migrations.add(model: Student.self, database: .psql)
     
     migrations.add(model: Token.self, database: .psql)

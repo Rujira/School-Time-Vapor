@@ -17,34 +17,32 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         
         //School Layout - Grades
         protectedRoutes.get("school-layout-grades", School.parameter, use: schoolLayoutGradesHandler)
-        
         protectedRoutes.get("school-layout-grades", School.parameter, Grade.parameter, "view" , use: viewGradeHandler)
-        
         protectedRoutes.get("school-layout-grades", School.parameter, "create", use: createGradeHandler)
         protectedRoutes.post(Grade.self, at: "school-layout-grades", School.parameter, "create", use: createGradePostHandler)
-        
         protectedRoutes.get("school-layout-grades", School.parameter, Grade.parameter, "edit", use: editGradeHandler)
         protectedRoutes.post("school-layout-grades", School.parameter, Grade.parameter, "edit", use: editGradePostHandler)
-        
         protectedRoutes.post("school-layout-grades", School.parameter, Grade.parameter, "delete", use: deleteGradeHandler)
         
         //School Layout - Rooms
         protectedRoutes.get("school-layout-rooms", School.parameter, use: schoolLayoutRoomsHandler)
-        
         protectedRoutes.get("school-layout-rooms", School.parameter, Room.parameter, "view" , use: viewRoomHandler)
-        
         protectedRoutes.get("school-layout-rooms", School.parameter, "create", use: createRoomHandler)
         protectedRoutes.post(Room.self, at: "school-layout-rooms", School.parameter, "create", use: createRoomPostHandler)
-        
         protectedRoutes.get("school-layout-rooms", School.parameter, Room.parameter, "edit", use: editRoomHandler)
         protectedRoutes.post("school-layout-rooms", School.parameter, Room.parameter, "edit", use: editRoomPostHandler)
-        
         protectedRoutes.post("school-layout-rooms", School.parameter, Room.parameter, "delete", use: deleteRoomHandler)
+        
+        //School Layout - Students
+        protectedRoutes.get("school-layout-students", School.parameter, use: schoolLayoutStudentsHandler)
+        protectedRoutes.get("school-layout-students", School.parameter, "create", use: createStudentHandler)
+        
+        //School Layout - Teachers
+        protectedRoutes.get("school-layout-teachers", School.parameter, use: schoolLayoutTeachersHandler)
+        
     }
     
-    
-    
-    //MARK: - School Layout Overview
+    //MARK: - Overview
     //Overview
     func schoolLayoutOverviewHandler(_ req: Request) throws -> Future<View> {
         
@@ -85,8 +83,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                 }
                 
                 let context = SchoolLayoutOverviewContext(
-                    pretitle: "School",
-                    title: "School's Layout",
+                    pretitle: school.name,
+                    title: "School Layout",
                     viewTag: 211,
                     userLoggedIn: userLoggedIn,
                     selectedSchool: school,
@@ -98,7 +96,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         }
     }
     
-    //MARK: - School Grade
+    //MARK: - Grades
     //Grades
     func schoolLayoutGradesHandler(_ req: Request) throws -> Future<View> {
         
@@ -128,8 +126,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                 
                 let userLoggedIn = try req.isAuthenticated(User.self)
                 let context = SchoolLayoutGradesContext(
-                    pretitle: "School",
-                    title: "School's Layout",
+                    pretitle: school.name,
+                    title: "School Layout",
                     viewTag: 212,
                     userLoggedIn: userLoggedIn,
                     selectedSchool: school,
@@ -162,7 +160,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                             grade: grade,
                             rooms: rooms)
                         
-                        return try req.view().render("school-layout-grade-detail", context)
+                        return try req.view().render("school-layout-grades-detail", context)
                 }
         }
         
@@ -230,7 +228,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
     
     func editGradePostHandler(_ req: Request) throws -> Future<Response> {
         
-
+        
         return try flatMap(to: Response.self,
                            req.parameters.next(School.self),
                            req.parameters.next(Grade.self),
@@ -241,7 +239,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
             grade.schoolID = data.schoolID
             grade.createBy = data.createBy
             grade.updateBy = data.updateBy
-                
+            
             guard grade.id != nil else {
                 throw Abort(.internalServerError)
             }
@@ -260,7 +258,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         
     }
     
-    //MARK: - School Rooms
+    //MARK: - Rooms
     //Rooms
     func schoolLayoutRoomsHandler(_ req: Request) throws -> Future<View> {
         
@@ -307,8 +305,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                 
                 let userLoggedIn = try req.isAuthenticated(User.self)
                 let context = SchoolLayoutRoomsContext(
-                    pretitle: "School",
-                    title: "School's Layout",
+                    pretitle: school.name,
+                    title: "School Layout",
                     viewTag: 213,
                     userLoggedIn: userLoggedIn,
                     selectedSchool: school,
@@ -336,7 +334,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                             selectedSchool: school,
                             room: room)
                         
-                        return try req.view().render("school-layout-room-detail", context)
+                        return try req.view().render("school-layout-rooms-detail", context)
                 }
                 
         }
@@ -441,6 +439,93 @@ struct SchoolLayoutWebsiteController: RouteCollection {
             
         }
     }
+    
+    //MARK: - Students
+    //Students
+    func schoolLayoutStudentsHandler(_ req: Request) throws -> Future<View> {
+        return try req.parameters.next(School.self)
+            .flatMap(to: View.self) { school in
+                
+                let students = Student.query(on: req)
+                    .join(\Room.id, to: \Student.roomID)
+                    .alsoDecode(Room.self).all()
+                    .map(to: [StudentsWithRoom].self) {
+                        studentRoomPairs in
+                        
+                        studentRoomPairs.map { student, room -> StudentsWithRoom in
+                            StudentsWithRoom(id: student.id,
+                                             studentID: student.studentID,
+                                             firstName: student.firstName,
+                                             lastName: student.lastName,
+                                             gender: student.gender,
+                                             birthDate: student.birthDate,
+                                             age: student.getAgeFromDOF(date: student.birthDate ?? ""),
+                                             updateBy: student.updateBy,
+                                             updateAt: student.updateAt, room: room.name)
+                        }
+                }
+                
+                
+                let userLoggedIn = try req.isAuthenticated(User.self)
+                
+                let context = SchoolLayoutStudentsContext(
+                    pretitle: school.name,
+                    title: "School Layout",
+                    viewTag: 214,
+                    userLoggedIn: userLoggedIn,
+                    selectedSchool: school,
+                    students: students)
+                
+                return try req.view().render("school-layout-students", context)
+        }
+    }
+    
+    // Create Student
+    func createStudentHandler(_ req: Request) throws -> Future<View> {
+        
+        return try req.parameters.next(School.self)
+            .flatMap(to: View.self) { school in
+                
+                let rooms = Room.query(on: req)
+                    .filter(\.schoolID == school.id!)
+                    .sort(\.name, .ascending).all()
+                
+                let userLoggedIn = try req.isAuthenticated(User.self)
+                let user = try req.requireAuthenticated(User.self)
+                
+                let context = CreateStudentContext(
+                    pretitle: "New Student",
+                    title: "Add New Student",
+                    viewTag: 214,
+                    userLoggedIn: userLoggedIn,
+                    selectedSchool: school,
+                    createBy: user.name,
+                    updateBy: user.name,
+                    rooms: rooms)
+                
+                return try req.view().render("school-layout-students-create", context)
+                
+        }
+    }
+    
+    //MARK: - Teachers
+    //Teachers
+    func schoolLayoutTeachersHandler(_ req: Request) throws -> Future<View> {
+        return try req.parameters.next(School.self)
+            .flatMap(to: View.self) { school in
+                let userLoggedIn = try req.isAuthenticated(User.self)
+                let context = SchoolPeopleTeachersContext(
+                    pretitle: school.name,
+                    title: "School Layout",
+                    viewTag: 215,
+                    userLoggedIn: userLoggedIn,
+                    selectedSchool: school)
+                
+                return try req.view().render("school-layout-teachers", context)
+        }
+    }
+    
+    
 }
 
 

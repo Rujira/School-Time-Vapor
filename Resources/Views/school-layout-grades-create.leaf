@@ -38,8 +38,7 @@
                 <div class="form-group">
                     <label for="gradeType">Grade Type</label>
                     
-                    <select name="gradeType" class="form-control mb-3" id="gradeType" data-toggle="select">
-                        
+                    <select name="gradeType" placeholder="Enter Grade Name" class="form-control mb-3" id="gradeType" data-toggle="select">
                         #for(gradeType in gradeTypes) {
                         <option value="#(gradeType)"
                             #if(editing){
@@ -65,7 +64,7 @@
                 <div class="form-group">
                     <input type="hidden" name="updateBy" id="updateBy" value="#(updateBy)"/>
                 </div>
-                
+                <hr class="my-5">
                 <!-- Button -->
                 <button type="submit" class="btn btn-primary" style="float: right;">
                     #if(editing){Update} else {Create}

@@ -15,6 +15,7 @@ struct SchoolPeopleOverviewContext: Encodable {
     let title: String
     let viewTag: Int
     let userLoggedIn: Bool
+    let selectedSchool: School
 }
 
 struct SchoolPeopleTeachersContext: Encodable {
@@ -23,22 +24,16 @@ struct SchoolPeopleTeachersContext: Encodable {
     let title: String
     let viewTag: Int
     let userLoggedIn: Bool
+    let selectedSchool: School
 }
 
-struct SchoolPeopleStudentsContext: Encodable {
-    //Student
-    let pretitle: String
-    let title: String
-    let viewTag: Int
-    let userLoggedIn: Bool
-}
-
-struct SchollPeopleParentsContext: Encodable {
+struct SchoolPeopleParentsContext: Encodable {
     //Parent
     let pretitle: String
     let title: String
     let viewTag: Int
     let userLoggedIn: Bool
+    let selectedSchool: School
 }
 
 //End People
