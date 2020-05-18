@@ -131,26 +131,38 @@
                                             <h3 class="mb-3">
                                                 <a href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/view">
                                                     <span class="badge badge-soft-primary">
-                                                        #(room.name) 
+                                                        #(room.name)
                                                     </span>
                                                 </a>
                                             </h3>
                                             
-                                            
-                                            <p class="card-text text-muted mb-3">
-                                            #if(count(room.students) > 0) {
-                                            
-                                            
-                                            } else {
-                                            There're no student on this room.
-                                            }
-                                            </p>
+                                            <div class="row align-items-center mb-3">
+                                                <div class="col">
+                                                    
+                                                    <!-- Title -->
+                                                    <h6 class="text-uppercase text-muted mb-2">
+                                                        Seats (#count(room.students) of #(room.numberOfSeats))
+                                                    </h6>
+                                                    
+                                                    <div class="row align-items-center no-gutters">
+                                                        
+                                                        <div class="col">
+                                                            
+                                                            <!-- Progress -->
+                                                            <div class="progress progress-sm">
+                                                                <div class="progress-bar" role="progressbar" style="width: #(room.studentsSeatsPercentage)%" aria-valuenow="#count(room.students)" aria-valuemin="0" aria-valuemax="#(room.numberOfSeats)"></div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                            </div>
                                             
                                             <p class="card-text small text-muted">
                                             Update by #(room.updateBy) on #date(room.updateAt, "MMM dd, yyyy hh:mm")
                                             </p>
-                                            
-                                            
                                             
                                         </div>
                                         <div class="col-auto">

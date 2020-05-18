@@ -67,19 +67,19 @@
                 <hr class="my-5">
                 <div class="form-group">
                     <label for="name">Student ID</label>
-                    <input type="text" class="form-control" name="studentID" id="studentID" #if(editing){value="#(student.studentID)"}/>
+                    <input type="text" class="form-control" name="studentID" id="studentID" #if(editing){value="#(student.studentID)"} autocomplete="off"/>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="form-group">
                             <label>First Name</label>
-                            <input type="text" class="form-control" name="firstName" id="firstName" placeholder="John" #if(editing){value="#(student.firstName)"}/>
+                            <input type="text" class="form-control" name="firstName" id="firstName" placeholder="John" autocomplete="off" #if(editing){value="#(student.firstName)"}/>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="form-group">
                             <label>Last Name</label>
-                            <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Smith" #if(editing){value="#(student.lastName)"}/>
+                            <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Smith" autocomplete="off" #if(editing){value="#(student.lastName)"}/>
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                                 Nick Name (Optional)
                             </label>
                             
-                            <input type="text" class="form-control" name="nickName" id="nickName" placeholder="Optional" #if(editing){value="#(student.nickName)"}/>
+                            <input type="text" class="form-control" name="nickName" id="nickName" placeholder="Optional" autocomplete="off" #if(editing){value="#(student.nickName)"}/>
                             
                         </div>
                     </div>
@@ -100,8 +100,19 @@
                             <label>
                                 Gender
                             </label>
-                            
-                            <input type="text" class="form-control" name="gender" id="gender" placeholder="Optional" #if(editing){value="#(student.gender)"}/>
+                            <select name="genderType" placeholder="Enter Grade Name" class="form-control mb-3" id="genderType" data-toggle="select">
+                                #for(genderType in genderTypes) {
+                                <option value="#(genderType)"
+                                    #if(editing){
+                                    #if(student.genderType == lowercase(genderType)) {
+                                    selected
+                                    }
+                                    }>
+                                    #capitalize(genderType)
+                                </option>
+                                }
+                                
+                            </select>
                             
                         </div>
                     </div>
@@ -117,33 +128,22 @@
                             </label>
                             
                             <!-- Input -->
-                            <input type="text" placeholder="2020-01-01" class="form-control flatpickr-input" data-toggle="flatpickr" readonly="readonly">
-                                </div>
+                            <input type="text" name="birthDate" id="birthDate" placeholder="2020-01-01" class="form-control flatpickr-input" data-toggle="flatpickr" readonly="readonly"/>
+                        </div>
                     </div>
                 </div>
                 
                 <hr class="my-5">
+                <h2 class="mb-2">
+                    Room Assign
+                </h2>
+                <p class="text-muted mb-4">
+                Assign student to specific room. You must have grade and room data first. Student can be assign to one room only.
+                </p>
                 
                 <div class="row">
-                    <div class="col-12 col-md-6">
-                        
-                        <!-- Public profile -->
-                        <div class="form-group">
-                            
-                            <!-- Label -->
-                            <label>
-                                Assign student to a room
-                            </label>
-                            
-                            <!-- Form text -->
-                            <small class="form-text text-muted">
-                                Assign student to specific room. You must have grade and room data first. Student can be assign to one room only.
-                                
-                            </small>
-                            
-                        </div>
-                        
-                    </div>
+                    
+                    
                     <div class="col-12 col-md-6">
                         
                         <!-- Allow for additional Bookings -->
@@ -153,11 +153,33 @@
                             <label>
                                 Select Room
                             </label>
-                            <input type="text" class="form-control" name="roomID" id="roomID" #if(editing){value="#(student.roomID)"}/>
-                            
-                            
+                            <select name="roomID" class="form-control mb-3" id="roomID" data-toggle="select">
+                                
+                                #for(room in rooms) {
+                                <option value="#(room.id)"
+                                    #if(editing){
+                                    #if(student.roomID == room.id){
+                                        selected
+                                    }
+                                    }>
+                                    #capitalize(room.name)
+                                </option>
+                                }
+                                
+                            </select>
                         </div>
+                    </div>
+                    <div class="col-12 col-md-6">
                         
+                        <!-- Allow for additional Bookings -->
+                        <div class="form-group">
+                            
+                            <!-- Label -->
+                            <label>
+                                Number (Maximun 1000)
+                            </label>
+                            <input type="number" class="form-control" name="studentNumber" id="studentNumber" min="1" max="1000" #if(editing){value="#(student.studentNumber)"}/>
+                        </div>
                     </div>
                 </div>
                 <hr class="my-5">
@@ -172,7 +194,7 @@
                     <label>
                         Address (Optional)
                     </label>
-                    <textarea class="form-control" placeholder="Student's Address" data-toggle="autosize" rows="1" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 40px;"></textarea>
+                    <textarea class="form-control" placeholder="Student's Address" data-toggle="autosize" rows="1" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 40px;" autocomplete="off"></textarea>
                 </div>
                 
                 <div class="row">
@@ -194,15 +216,13 @@
                                 Email Address (Optional)
                             </label>
                             
-                            <input type="email" class="form-control" name="email" id="email" placeholder="email@address.com" #if(editing){value="#(student.email)"}/>
-
+                            <input type="email" class="form-control" name="email" id="email" placeholder="email@address.com" autocomplete="off" #if(editing){value="#(student.email)"}/>
+                            
                             
                         </div>
                     </div>
                 </div>
                 <hr class="my-5">
-                
-                
                 
                 <div class="form-group">
                     <input type="hidden" name="schoolID" id="schoolID" value="#(selectedSchool.id)"/>

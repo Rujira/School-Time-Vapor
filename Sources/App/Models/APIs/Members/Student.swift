@@ -18,7 +18,7 @@ final class Student: Codable {
     var firstName: String
     var lastName: String
     var nickName: String?
-    var gender: GenderType
+    var genderType: GenderType
     var birthDate: String?
     var address: String?
     var contactNumber: String?
@@ -30,12 +30,12 @@ final class Student: Codable {
     var schoolID: School.ID
     var roomID: Room.ID
     
-    init(studentID: String, studentNumber: Int, firstName: String, lastName: String, gender: GenderType, createBy: String, updateBy: String, schoolID: School.ID, roomID: Room.ID) {
+    init(studentID: String, studentNumber: Int, firstName: String, lastName: String, genderType: GenderType, createBy: String, updateBy: String, schoolID: School.ID, roomID: Room.ID) {
         self.studentID = studentID
         self.studentNumber = studentNumber
         self.firstName = firstName
         self.lastName = lastName
-        self.gender = gender
+        self.genderType = genderType
         self.createBy = createBy
         self.updateBy = updateBy
         self.schoolID = schoolID
@@ -75,7 +75,7 @@ extension Student {
     func getAgeFromDOF(date: String) -> (String) {
      
         let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "dd-MM-YYYY"
+        dateFormater.dateFormat = "dd-MM-yyyy"
         let dateOfBirth = dateFormater.date(from: date)
         
         if dateOfBirth != nil {

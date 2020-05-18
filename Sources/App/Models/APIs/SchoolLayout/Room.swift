@@ -16,15 +16,17 @@ final class Room: Codable {
     var name: String
     var schoolID: School.ID
     var gradeID: Grade.ID
+    var numberOfSeats: Int
     var createAt: Date?
     var updateAt: Date?
     var createBy: String
     var updateBy: String
     
-    init(name: String, schoolID: School.ID, gradeID: Grade.ID, createBy: String, updateBy: String) {
+    init(name: String, schoolID: School.ID, gradeID: Grade.ID, numberOfSeats: Int, createBy: String, updateBy: String) {
         self.name = name
         self.schoolID = schoolID
         self.gradeID = gradeID
+        self.numberOfSeats = numberOfSeats
         self.createBy = createBy
         self.updateBy = updateBy
     }

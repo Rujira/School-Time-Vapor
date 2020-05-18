@@ -108,7 +108,6 @@ struct StudentsController: RouteCollection {
         }
     }
 
-
     func getStudentsWithRoom(_ req: Request) throws -> Future<[StudentsWithRoom]> {
         
         return Student.query(on: req)
@@ -124,11 +123,11 @@ struct StudentsController: RouteCollection {
                                      studentID: student.studentID,
                                      firstName: student.firstName,
                                      lastName: student.lastName,
-                                     gender: student.gender,
+                                     genderType: student.genderType,
                                      birthDate: student.birthDate,
                                      age: student.getAgeFromDOF(date: student.birthDate ?? "") ,
-                                     updateBy: student.updateBy,
-                                     updateAt: student.updateAt, room: room.name)
+                                     createBy: student.createBy,
+                                     createAt: student.createAt, room: room.name)
                 }
         }
     }

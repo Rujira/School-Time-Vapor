@@ -32,7 +32,7 @@
             <form method="post">
                 <div class="form-group">
                     <label for="name">Room Name</label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Grade Name" #if(editing){value="#(room.name)"}>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Room Name" autocomplete="off" #if(editing){value="#(room.name)"}>
                         </div>
                 
                 <div class="form-group">
@@ -52,6 +52,15 @@
                         }
                         
                     </select>
+                </div>
+                
+                <div class="form-group">
+                    
+                    <!-- Label -->
+                    <label>
+                        Number of Seats (Maximun 1000)
+                    </label>
+                    <input type="number" class="form-control" name="numberOfSeats" id="numberOfSeats" min="1" max="1000" #if(editing){value="#(room.numberOfSeats)"}/>
                 </div>
                 
                 <div class="form-group">

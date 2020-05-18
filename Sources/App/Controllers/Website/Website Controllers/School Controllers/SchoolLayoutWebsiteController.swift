@@ -36,6 +36,10 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         //School Layout - Students
         protectedRoutes.get("school-layout-students", School.parameter, use: schoolLayoutStudentsHandler)
         protectedRoutes.get("school-layout-students", School.parameter, "create", use: createStudentHandler)
+        protectedRoutes.post(Student.self, at: "school-layout-students", School.parameter, "create", use: createStudentPostHandler)
+        
+        protectedRoutes.post("school-layout-students", School.parameter, Student.parameter, "delete", use: deleteStudentHandler)
+        
         
         //School Layout - Teachers
         protectedRoutes.get("school-layout-teachers", School.parameter, use: schoolLayoutTeachersHandler)
@@ -294,11 +298,13 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                                     RoomWithStudents(id: room.id,
                                                      name: room.name,
                                                      gradeID: room.gradeID,
+                                                     numberOfSeats: room.numberOfSeats,
                                                      createBy: room.createBy,
                                                      updateBy: room.updateBy,
                                                      createAt: room.createAt,
                                                      updateAt: room.updateAt,
-                                                     students: students)
+                                                     students: students,
+                                                     studentsSeatsPercentage: (students.count * 100) / room.numberOfSeats)
                             }
                         }.flatten(on: req)
                 }
@@ -457,11 +463,12 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                                              studentID: student.studentID,
                                              firstName: student.firstName,
                                              lastName: student.lastName,
-                                             gender: student.gender,
+                                             genderType: student.genderType,
                                              birthDate: student.birthDate,
                                              age: student.getAgeFromDOF(date: student.birthDate ?? ""),
-                                             updateBy: student.updateBy,
-                                             updateAt: student.updateAt, room: room.name)
+                                             createBy: student.createBy,
+                                             createAt: student.createAt,
+                                             room: room.name)
                         }
                 }
                 
@@ -501,10 +508,35 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                     selectedSchool: school,
                     createBy: user.name,
                     updateBy: user.name,
+                    genderTypes: [GenderType.male, GenderType.female, GenderType.other],
                     rooms: rooms)
                 
                 return try req.view().render("school-layout-students-create", context)
                 
+        }
+    }
+    
+    func createStudentPostHandler(_ req: Request, student: Student) throws -> Future<Response> {
+        
+        return try req.parameters.next(School.self).flatMap(to: Response.self) { school in
+            
+            return student.save(on: req)
+                .map(to: Response.self) { student in
+                    guard student.id != nil else {
+                        throw Abort(.internalServerError)
+                    }
+                    return req.redirect(to: "/school-layout-students/\(school.id!)")
+            }
+        }
+    }
+    
+    //Delete Student
+    func deleteStudentHandler(_ req: Request) throws -> Future<Response> {
+        
+        return try req.parameters.next(School.self).flatMap(to: Response.self) { school in
+            return try req.parameters.next(Student.self).delete(on: req)
+                .transform(to: req.redirect(to: "/school-layout-students/\(school.id!)"))
+            
         }
     }
     

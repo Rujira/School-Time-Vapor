@@ -115,8 +115,9 @@
                                     
                                     #if(count(grade.rooms) > 0) {
                                     #for(room in grade.rooms) {
-                                    
-                                    <span class="badge badge-soft-primary mb-3">#(room.name)</span>
+                                   
+                                        <span class="badge badge-soft-primary mb-3">#(room.name)</span>
+                                  
                                     }
                                     
                                     

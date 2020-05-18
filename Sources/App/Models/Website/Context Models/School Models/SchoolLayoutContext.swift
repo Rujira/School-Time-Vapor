@@ -99,6 +99,7 @@ struct SchoolLayoutRoomsContext: Encodable {
 }
 
 struct SchoolLayoutRoomDetailContext: Encodable {
+    
     //Rooms Detal
     let pretitle: String
     let title: String
@@ -110,18 +111,22 @@ struct SchoolLayoutRoomDetailContext: Encodable {
 }
 
 struct RoomWithStudents: Content {
+    
     //Room List Content
     let id: UUID?
     let name: String
     let gradeID: Grade.ID
+    let numberOfSeats: Int
     let createBy: String
     let updateBy: String
     let createAt: Date?
     let updateAt: Date?
     let students: [Student]
+    let studentsSeatsPercentage: Int
 }
 
 struct CreateRoomContext: Encodable {
+    
     //Rooms Create
     let pretitle: String
     let title: String
@@ -134,6 +139,7 @@ struct CreateRoomContext: Encodable {
 }
 
 struct EditRoomContext: Encodable {
+    
     //Rooms Edit
     let pretitle: String
     let title: String
@@ -148,6 +154,7 @@ struct EditRoomContext: Encodable {
 }
 
 struct SchoolLayoutStudentsContext: Encodable {
+    
     //Student
     let pretitle: String
     let title: String
@@ -164,11 +171,11 @@ struct StudentsWithRoom: Content {
     let studentID: String
     let firstName: String
     let lastName: String
-    let gender: GenderType
+    let genderType: GenderType
     let birthDate: String?
     let age: String?
-    let updateBy: String
-    let updateAt: Date?
+    let createBy: String
+    let createAt: Date?
     let room: String
 }
 
@@ -181,6 +188,7 @@ struct CreateStudentContext: Encodable {
     let selectedSchool: School
     let createBy: String
     let updateBy: String
+    let genderTypes: [GenderType]
     let rooms: Future<[Room]>
 }
 //End Layout

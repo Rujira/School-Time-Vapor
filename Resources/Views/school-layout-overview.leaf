@@ -133,31 +133,33 @@
                 <div class="col-12 col-lg-4">
                     
                     <!-- Card 2 -->
-                    <div class="card lift">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    
-                                    <!-- Title -->
-                                    <h6 class="text-uppercase text-muted mb-2">
-                                        Total Student
-                                    </h6>
-                                    
-                                    <!-- Heading -->
-                                    <span class="h2 mb-0">
-                                        0
-                                    </span>
-                                    
-                                </div>
-                                <div class="col-auto">
-                                    
-                                    <!-- Icon -->
-                                    <span class="h2 fe fe-users text-muted mb-0"></span>
-                                    
-                                </div>
-                            </div> <!-- / .row -->
-                        </div>
-                    </div><!-- / .card -->
+                    <a href="/school-layout-students/#(selectedSchool.id)">
+                        <div class="card lift">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        
+                                        <!-- Title -->
+                                        <h6 class="text-uppercase text-muted mb-2">
+                                            Total Student
+                                        </h6>
+                                        
+                                        <!-- Heading -->
+                                        <span class="h2 mb-0 text-dark" >
+                                            0
+                                        </span>
+                                        
+                                    </div>
+                                    <div class="col-auto">
+                                        
+                                        <!-- Icon -->
+                                        <span class="h2 fe fe-users text-muted mb-0"></span>
+                                        
+                                    </div>
+                                </div> <!-- / .row -->
+                            </div>
+                        </div><!-- / .card -->
+                    </a>
                 </div><!-- / .col -->
             </div> <!-- / .row -->
             

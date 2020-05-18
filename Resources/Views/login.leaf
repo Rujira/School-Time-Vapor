@@ -48,7 +48,7 @@
                         #(title)
                         
                     </h1>
-
+                    
                     <p class="text-center mb-3">
                     <span class="badge badge-pill badge-primary">v1.0.0-Beta</span>
                     </p>
@@ -103,16 +103,16 @@
                             <div class="input-group input-group-merge">
                                 
                                 <!-- Input -->
-                                <input type="password" name="password" id="password" class="form-control form-control-appended" placeholder="Enter your password">
-                                    
-                                    <!-- Icon -->
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fe fe-eye"></i>
-                                        </span>
-                                    </div>
-                                    
-                                    </div>
+                                <input type="password" name="password" id="password" class="form-control form-control-appended" placeholder="Enter your password"/>
+                                
+                                <!-- Icon -->
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fe fe-eye"></i>
+                                    </span>
+                                </div>
+                                
+                            </div>
                         </div>
                         
                         <!-- Submit -->

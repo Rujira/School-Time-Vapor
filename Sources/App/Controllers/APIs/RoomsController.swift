@@ -104,11 +104,13 @@ struct RoomsController: RouteCollection {
                             RoomWithStudents(id: room.id,
                                              name: room.name,
                                              gradeID: room.gradeID,
+                                             numberOfSeats: room.numberOfSeats,
                                              createBy: room.createBy,
                                              updateBy: room.updateBy,
                                              createAt: room.createAt,
                                              updateAt: room.updateAt,
-                                             students: students)
+                                             students: students,
+                                             studentsSeatsPercentage: (students.count * 100) / room.numberOfSeats)
                     }
                 }.flatten(on: req)
         }

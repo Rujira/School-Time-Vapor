@@ -340,11 +340,12 @@
                     
                 </div>
             </nav>
-            
+       
             #get(content)
             
+            
         </div>
-        
+    
         <!-- JAVASCRIPT
         ================================================== -->
         <!-- Libs JS -->
@@ -366,6 +367,6 @@
         <script src="/assets/js/theme.min.js"></script>
         <script src="/assets/js/dashkit.min.js"></script>
         <script src="/scripts/student-population-chart.js"></script>
-        <script src="/scripts/select2defualt.js"></script>
+
     </body>
 </html>
