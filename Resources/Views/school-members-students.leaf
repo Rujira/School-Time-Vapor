@@ -26,32 +26,22 @@
                         <!-- Nav -->
                         <ul class="nav nav-tabs nav-overflow header-tabs">
                             <li class="nav-item">
-                                <a href="/school-layout-overview/#(selectedSchool.id)" class="nav-link #if(viewTag == 211){active}">
+                                <a href="/school-members-overview/#(selectedSchool.id)" class="nav-link #if(viewTag == 221){active}">
                                     Overview
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/school-layout-grades/#(selectedSchool.id)" class="nav-link #if(viewTag == 212){active}">
-                                    Grades
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/school-layout-rooms/#(selectedSchool.id)" class="nav-link #if(viewTag == 213){active}">
-                                    Rooms
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/school-layout-students/#(selectedSchool.id)" class="nav-link #if(viewTag == 214){active}">
+                                <a href="/school-members-students/#(selectedSchool.id)" class="nav-link #if(viewTag == 222){active}">
                                     Students
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/school-layout-teachers/#(selectedSchool.id)" class="nav-link #if(viewTag == 215){active}">
+                                <a href="/school-members-teachers/#(selectedSchool.id)" class="nav-link #if(viewTag == 223){active}">
                                     Teachers
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/school-layout-parents/#(selectedSchool.id)" class="nav-link #if(viewTag == 216){active}">
+                                <a href="/school-members-parents/#(selectedSchool.id)" class="nav-link #if(viewTag == 224){active}">
                                     Parents
                                 </a>
                             </li>
@@ -68,7 +58,10 @@
                     <div class="card-header">
                         <h4 class="card-header-title">
                             Students
+                            <span class="badge badge-pill badge-soft-secondary ml-2">#count(students)</span>
                         </h4>
+
+                        
                         
                         <!-- Navigation (button group) -->
                         <div class="nav btn-group d-inline-flex" role="tablist">
@@ -81,11 +74,16 @@
                         </div> <!-- / .nav -->
                         
                         <!-- Buttons -->
-                        <a href="/school-layout-students/#(selectedSchool.id)/create" class="btn btn-sm btn-primary ml-3">
+                        #if(count(rooms) > 0) {
+                        <a href="/school-members-students/#(selectedSchool.id)/create" class="btn btn-sm btn-primary ml-3">
                             Add Student
                         </a>
+                        }
                     </div>
                     <div class="card-body">
+
+                    #if(count(rooms) > 0) {
+                        #if(count(students) > 0){
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="studentsListPane" role="tabpanel" aria-labelledby="studentsListTab">
                                 <div class="card" data-list='{"valueNames": ["item-id", "item-name", "item-room", "item-age", "item-gender", "item-create"], "page": 10, "pagination": {"paginationClass": "list-pagination"\}\}' id="studentList">
@@ -151,8 +149,14 @@
                                                     <td>
                                                         <!-- Avatar -->
                                                         <div class="avatar avatar-xs align-middle mr-2">
-                                                            <img class="avatar-img rounded-circle" src="/assets/img/avatars/profiles/avatar-1.jpg" alt="..."/>
-                                                        </div> <a class="item-name text-reset" href="#">#(student.firstName) #(student.lastName)</a>
+                                                            #if(student.profilePicture != "") {
+                                                                <img class="img-fluid avatar-img rounded-circle" src="/students/#(student.id)/profilePicture" alt="#(student.fullName)">
+                                                            } else {
+                                                                <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(student.fullName)</span>
+                                                            }
+                                                        </div>
+
+                                                        <a class="item-name text-reset" href="/school-members-students/#(selectedSchool.id)/#(student.id)/view">#(student.fullName)</a>
                                                         
                                                     </td>
                                                     <td>
@@ -180,14 +184,15 @@
                                                                 <i class="fe fe-more-vertical"></i>
                                                             </a>
                                                             <div class="dropdown-menu dropdown-menu-right">
-                                                                <a href="#!" class="dropdown-item">
+                                                                <a href="/school-members-students/#(selectedSchool.id)/#(student.id)/view" class="dropdown-item">
                                                                     View
                                                                 </a>
-                                                                <a href="#!" class="dropdown-item">
+                                                                <a href="/school-members-students/#(selectedSchool.id)/#(student.id)/edit" class="dropdown-item">
                                                                     Edit
                                                                 </a>
+                                                              
                                                                 <div class="dropdown-divider"></div>
-                                                                <form method="post" action="/school-layout-students/#(selectedSchool.id)/#(student.id)/delete">
+                                                                <form method="post" action="/school-members-students/#(selectedSchool.id)/#(student.id)/delete">
                                                                     <a href="javascript:;" onclick="parentNode.submit();" class="dropdown-item">
                                                                         Delete
                                                                     </a>
@@ -257,7 +262,6 @@
                                     
                                     <div class="list row">
 
-
                                         #for(student in students) {
 
                                         <div class="col-12 col-md-6 col-xl-4">
@@ -277,14 +281,14 @@
                                                                     <i class="fe fe-more-vertical"></i>
                                                                 </a>
                                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a href="#!" class="dropdown-item">
+                                                                    <a href="/school-members-students/#(selectedSchool.id)/#(student.id)/view" class="dropdown-item">
                                                                         View
                                                                     </a>
-                                                                    <a href="#!" class="dropdown-item">
+                                                                    <a href="/school-members-students/#(selectedSchool.id)/#(student.id)/edit" class="dropdown-item">
                                                                         Edit
                                                                     </a>
                                                                     <div class="dropdown-divider"></div>
-                                                                    <form method="post" action="/school-layout-students/#(selectedSchool.id)/#(student.id)/delete">
+                                                                    <form method="post" action="/school-members-students/#(selectedSchool.id)/#(student.id)/delete">
                                                                         <a href="javascript:;" onclick="parentNode.submit();" class="dropdown-item">
                                                                             Delete
                                                                         </a>
@@ -296,13 +300,19 @@
                                                     </div>
                                                     <!-- Image -->
                                                     <a href="profile-posts.html" class="avatar avatar-xl card-avatar">
-                                                        <img src="../assets/img/avatars/profiles/avatar-1.jpg" class="avatar-img rounded-circle" alt="...">
+                                                        #if(student.profilePicture != "") {
+                                                            <img class="img-fluid avatar-img rounded-circle" src="/students/#(student.id)/profilePicture" alt="#(student.fullName)">
+                                                        } else {
+
+                                                            <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(student.fullName)</span>
+                                                        }
+                                                    
                                                     </a>
                                                     <div class="text-center mb-5">
 
                                                         <!-- Heading -->
                                                         <h2 class="card-title">
-                                                            <a class="item-name" href="profile-posts.html">#(student.firstName) #(student.lastName)</a>
+                                                            <a class="item-name" href="/school-members-students/#(selectedSchool.id)/#(student.id)/view">#(student.fullName)</a>
                                                         </h2>
 
                                                         <!-- Text -->
@@ -385,6 +395,58 @@
                                 
                             </div>
                         </div>
+                        } else {
+                            <div class="card-body text-center">
+                        
+                                 <!-- Image -->
+                                <img src="/assets/img/illustrations/scale.svg" alt="..." class="img-fluid" style="max-width: 182px;"/>
+                                
+                                <!-- Title -->
+                                <h1>
+                                    There're no students data.
+                                </h1>
+                                
+                                <!-- Subtitle -->
+                                <p class="text-muted">
+                                
+                                    Let's create student data to for school layout.
+                                </p>
+                                
+                                <!-- Button -->
+                                <a href="/school-members-students/#(selectedSchool.id)/create" class="btn btn-primary">
+                                    Create
+                                </a>
+                                
+                            </div>
+                        }
+
+                    } else {
+
+                        <div class="card-body text-center">
+                        
+                                <!-- Image -->
+                            <img src="/assets/img/illustrations/scale.svg" alt="..." class="img-fluid" style="max-width: 182px;"/>
+                            
+                            <!-- Title -->
+                            <h1>
+                                There're no students data.
+                            </h1>
+                            
+                            <!-- Subtitle -->
+                            <p class="text-muted">
+                                For create students data you need to create room data first.
+                                Let's create room for school layout.
+                            </p>
+                            
+                            <!-- Button -->
+                            <a href="/school-layout-rooms/#(selectedSchool.id)" class="btn btn-primary">
+                                Create
+                            </a>
+                                
+                        </div>
+
+                    }
+                        
                     </div>
                 </div>
             </div>

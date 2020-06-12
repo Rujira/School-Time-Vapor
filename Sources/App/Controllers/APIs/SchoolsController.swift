@@ -15,26 +15,22 @@ struct SchoolsController: RouteCollection {
         
         let schoolsRoutes = router.grouped("api", "schools")
         
+        let tokenAuthMiddleware = User.tokenAuthMiddleware()
+        let guardAuthMiddleware = User.guardAuthMiddleware()
+        let tokenAuthGroup = schoolsRoutes.grouped(
+        tokenAuthMiddleware,guardAuthMiddleware)
         
-        schoolsRoutes.get(use: getAllHandler)
-        //schoolsRoutes.post(School.self, use: createHandler)
-        schoolsRoutes.get(School.parameter, use: getHandler)
+        tokenAuthGroup.get(use: getAllHandler)
+       // tokenAuthGroup.post(School.self, use: createHandler)
+        tokenAuthGroup.get(School.parameter, use: getHandler)
         
         //Parent-Child Relationships APIs
         //School-Grade
-        schoolsRoutes.get(School.parameter, "grades", use: getGradesHandler)
+        tokenAuthGroup.get(School.parameter, "grades", use: getGradesHandler)
         
         //User-School
-        schoolsRoutes.get(School.parameter, "user", use: getUserHandler)
+        tokenAuthGroup.get(School.parameter, "user", use: getUserHandler)
         
-        //Authentication + Using Token
-        let tokenAuthMiddleware = User.tokenAuthMiddleware()
-        let guardAuthMiddleware = User.guardAuthMiddleware()
-        
-        let tokenAuthGroup = schoolsRoutes.grouped(
-        tokenAuthMiddleware,
-        guardAuthMiddleware)
-        tokenAuthGroup.post(SchoolCreateData.self, use: createHandler)
         tokenAuthGroup.delete(School.parameter, use: deleteHandler)
         tokenAuthGroup.put(School.parameter, use: updateHandler)
     }

@@ -1,0 +1,160 @@
+#set("content") {
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8 mb-5">
+            
+            <!-- Header -->
+            <div class="header mt-md-5">
+                <div class="header-body">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                             <!-- Avatar -->
+                                <div class="avatar avatar-xl">
+                                    #if(teacher.profilePicture != "") {
+                                        <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.fullName)">
+                                    } else {
+                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.fullName)</span>
+                                    }
+                                </div>
+
+                        </div>
+                        <div class="col">
+                            
+                           <h6 class="header-pretitle">
+                              <!-- Pretitle -->
+                              <nav aria-label="breadcrumb">
+                                 <ol class="breadcrumb p-0">
+                                       <li class="breadcrumb-item"><a href="javascript:history.back()">Teachers</a></li>
+                                       <li class="breadcrumb-item active" aria-current="page">#(pretitle)</li>
+                                 </ol>
+                              </nav>
+                           </h6>
+                            
+                            <!-- Title -->
+                            <h1 class="header-title">
+                                #(title)
+                            </h1>
+                            
+                        </div>
+                        <div class="col-auto">
+                            <h2>
+                                <span class="badge badge-soft-secondary ml-2 mb-n5">#(capitalize(teacher.departmentType))</span>
+                            </h2>
+                        </div>
+                    </div> <!-- / .row -->
+                </div>
+            </div>
+            
+            <p class="card-text small text-muted mb-4 mt-n4 text-right">
+               Create by #(teacher.createBy) on #date(teacher.createAt, "MMM dd, yyyy hh:mm")
+            </p>
+
+            <h2 class="mb-2">
+                Basic Information
+            </h2>
+            
+            <p class="text-muted">
+                Represents teacher basic information.
+            </p>
+
+            <div class="form-group">
+                <label for="name">Teacher ID</label>
+                <input type="text" class="form-control" name="teacherID" id="teacherID" value="#(teacher.teacherID)" autocomplete="off" disabled />
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" name="fullName" id="fullName" placeholder="John" autocomplete="off" value="#(teacher.fullName)" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Nick Name
+                        </label>
+                        
+                        <input type="text" class="form-control" name="nickName" id="nickName" autocomplete="off" value="#(teacher.nickName)" disabled/>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Gender
+                        </label>
+                            <input type="text" class="form-control" name="genderType" id="genderType" placeholder="Optional" autocomplete="off" value="#capitalize(teacher.genderType)" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        
+                        <!-- Label -->
+                        <label>
+                            Birthday
+                        </label>
+                        
+                        <!-- Input -->
+                        <input type="text" name="birthDate" id="birthDate" class="form-control flatpickr-input" data-toggle="flatpickr" readonly="readonly" value="#(teacher.birthDate)" disabled/>
+                    </div>
+                </div>
+            </div>
+         
+      
+            <hr class="mt-5 mb-5">
+
+            <h2 class="mb-2">
+                Contact Information
+            </h2>
+            <p class="text-muted mb-4">
+                This section are optional and not required but your school will be better if you can fill the datas.
+            </p>
+            
+            <div class="form-group">
+                <label>
+                    Address
+                </label>
+                <textarea class="form-control" placeholder="Teacher's Address"  name="address" id="address" data-toggle="autosize" rows="1" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 40px;" autocomplete="off" disabled>#(teacher.address)</textarea>
+            </div>
+            
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Contact Number
+                        </label>
+                        
+                        <input type="text" class="form-control" name="contactNumber" data-mask="000-000-0000" autocomplete="off" maxlength="14" id="contactNumber" placeholder="091-234-5678" value="#(teacher.contactNumber)" disabled/>
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Email Address
+                        </label>
+                        
+                        <input type="email" class="form-control" name="email" id="email" placeholder="email@address.com" autocomplete="off" value="#(teacher.email)" disabled/>
+                                    
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-5 mb-5">
+
+            <form method="post" style="float: right;" action="/school-members-teachers/#(selectedSchool.id)/#(teacher.id)/delete">
+               <a class="btn btn-primary" href="/school-members-teachers/#(selectedSchool.id)/#(teacher.id)/edit" role="button">Edit</a>&nbsp;
+                
+               <input class="btn btn-danger" type="submit" value="Delete" /> 
+            </form>
+            
+        </div>
+    </div> <!-- / .row -->
+</div>
+}
+
+#embed("base")

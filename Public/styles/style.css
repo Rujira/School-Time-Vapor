@@ -5,3 +5,19 @@
     line-height: 60px;
     background-color: #ffffff;
 }
+
+.avatar-thumbnail {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 100%;
+   line-height: 0;
+   background-color: #b1c2d9;
+   color: #fff
+}
+
+.col-container {
+    display: table; /* Make the container element behave like a table */
+    width: 100%; /* Set full-width to expand the whole page */
+}

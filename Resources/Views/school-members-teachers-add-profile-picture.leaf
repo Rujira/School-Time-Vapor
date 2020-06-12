@@ -1,0 +1,76 @@
+#set("content") {
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8 mb-5">
+            
+            <!-- Header -->
+            <div class="header mt-md-5">
+                <div class="header-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            
+                            <h6 class="header-pretitle">
+                                <!-- Pretitle -->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb p-0">
+                                        <li class="breadcrumb-item"><a href="/school-members-teachers/#(selectedSchool.id)">Teachers</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:history.back()">Edit Teacher</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">#(pretitle)</li>
+                                    </ol>
+                                    </ol>
+                                </nav>
+                            </h6>
+                            
+                            <!-- Title -->
+                            <h1 class="header-title">
+                                #(title)
+                            </h1>
+                            
+                        </div>
+                    </div> <!-- / .row -->
+                </div>
+            </div>
+            <form method="post" enctype="multipart/form-data"> #// 4
+               <div class="row justify-content-between align-items-center">
+
+                  <div class="col-12 col-lg-4 order-lg-2">
+
+                     <!-- Image -->
+                     <div class="text-center">
+                        <div class="avatar avatar-xxl">
+                         
+                           <img class="img-fluid  mt-lg-0 mb-4 avatar-img rounded-circle" style="max-width: 120px;" id="thumbnail-picture">
+                         
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-12 col-lg-8  order-lg-1">
+
+                     <!-- Title -->
+                     <h2>
+                        Upload Picture for #(teacher.fullName)
+                     </h2>
+
+                     <!-- Content -->
+                     <p class="text-muted">
+                        PNG or JPG format and file size not bigger than 1MB. We suggest 1024x1024 pixel for better resolution. 
+                     </p>
+
+                     <!-- Button -->
+                     <div class="form-group"> 
+                        <input type="file" accept="image/*" name="picture" class="form-control-file" id="picture"/>
+                     </div>
+                  </div>
+               </div>
+
+               <hr class="my-5">
+               <button type="submit" class="btn btn-primary" style="float: right;"> Upload </button>
+       
+            </form>     
+         </div>
+      </div> <!-- / .row -->
+   </div>
+</div> 
+}
+
+#embed("base")

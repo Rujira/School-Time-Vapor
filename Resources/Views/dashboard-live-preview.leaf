@@ -1,0 +1,86 @@
+#set("content") {
+<div class="header">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-end">
+                <div class="col">
+                    
+                    <!-- Pretitle -->
+                    <h6 class="header-pretitle">
+                        #(pretitle)
+                    </h6>
+                    
+                    <!-- Title -->
+                    <h1 class="header-title">
+                        #(title)
+                    </h1>
+                    
+                </div>
+            
+            </div> <!-- / .row -->
+        </div> <!-- / .header-body -->
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            
+            <form method="post">
+                        
+                        <!-- Email address -->
+                        <div class="form-group">
+                            
+                            <!-- Label -->
+                            <label>Username</label>
+                            
+                            <!-- Input -->
+                            <input type="text" name="username" id="username" class="form-control" placeholder="Username">
+                                
+                                </div>
+                        
+                        <!-- Password -->
+                        <div class="form-group">
+                            
+                            <div class="row">
+                                <div class="col">
+                                    
+                                    <!-- Label -->
+                                    <label>Password</label>  
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Help text -->
+                                    <a href="password-reset-illustration.html" class="form-text small text-muted">
+                                        Forgot password?
+                                    </a>
+                                    
+                                </div>
+                            </div> <!-- / .row -->
+                            
+                            <!-- Input group -->
+                            <div class="input-group input-group-merge">
+                                
+                                <!-- Input -->
+                                <input type="password" name="password" id="password" class="form-control form-control-appended" placeholder="Enter your password"/>
+                                
+                                <!-- Icon -->
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fe fe-eye"></i>
+                                    </span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-lg btn-block btn-primary mb-3">
+                            Test
+                        </button>
+        </div>
+    </div> <!-- / .row -->
+</div>
+
+}
+#embed("base")

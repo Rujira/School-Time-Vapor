@@ -43,20 +43,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/school-layout-students/#(selectedSchool.id)" class="nav-link #if(viewTag == 214){active}">
-                                Students
+                            <a href="/school-layout-zones/#(selectedSchool.id)" class="nav-link #if(viewTag == 214){active}">
+                                Zones
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="/school-layout-teachers/#(selectedSchool.id)" class="nav-link #if(viewTag == 215){active}">
-                                Teachers
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/school-layout-parents/#(selectedSchool.id)" class="nav-link #if(viewTag == 216){active}">
-                                Parents
-                            </a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -133,7 +124,7 @@
                 <div class="col-12 col-lg-4">
                     
                     <!-- Card 2 -->
-                    <a href="/school-layout-students/#(selectedSchool.id)">
+                    <a href="/school-layout-zones/#(selectedSchool.id)">
                         <div class="card lift">
                             <div class="card-body">
                                 <div class="row align-items-center">
@@ -141,19 +132,19 @@
                                         
                                         <!-- Title -->
                                         <h6 class="text-uppercase text-muted mb-2">
-                                            Total Student
+                                            Total Zone
                                         </h6>
                                         
                                         <!-- Heading -->
                                         <span class="h2 mb-0 text-dark" >
-                                            0
+                                            #count(zones)
                                         </span>
                                         
                                     </div>
                                     <div class="col-auto">
                                         
                                         <!-- Icon -->
-                                        <span class="h2 fe fe-users text-muted mb-0"></span>
+                                        <span class="h2 fe fe-map-pin text-muted mb-0"></span>
                                         
                                     </div>
                                 </div> <!-- / .row -->
@@ -193,44 +184,58 @@
                 <div class="card-body py-0">
                     <div class="row">
                         
-                        
-                        #for(room in grade.rooms) {
-                        
-                        <div class="col-12 col-lg-6">
+                        #for(room in rooms) {
+                        #if(room.gradeID == grade.id) {
+                              <div class="col-12 col-md-12 col-lg-6 col-xl-4">
                             
-                            <div class="card lift card-sm">
+                            <div class="card lift">
                                 <div class="card-body">
-                                    
-                                    <!-- Badge -->
-                                    <h3 class="mb-3">
-                                        <span class="badge badge-soft-primary">
-                                            #(room.name)
-                                        </span>
-                                    </h3>
-                                    
-                                    <div class="col-auto">
+                                    <div class="row align-items-center">
                                         
-                                        <!-- Avatar group -->
-                                        <div class="avatar-group d-sm-flex">
-                                            <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Daniela Dewitt">
-                                                <img src="/assets/img/avatars/profiles/avatar-4.jpg" alt="..." class="avatar-img rounded-circle"/>
-                                            </a>
-                                            <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
-                                                <img src="/assets/img/avatars/profiles/avatar-2.jpg" alt="..." class="avatar-img rounded-circle"/>
-                                            </a>
-                                            <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Adolfo Hess">
-                                                <img src="/assets/img/avatars/profiles/avatar-3.jpg" alt="..." class="avatar-img rounded-circle"/>
-                                            </a>
+                                        
+                                        
+                                        <div class="col ml-n2">
                                             
+                                            <!-- Title -->
+                                            <h3 class="mb-3">
+                                                <a href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/view">
+                                                    <span class="badge badge-soft-primary">
+                                                        #(room.name)
+                                                    </span>
+                                                </a>
+                                            </h3>
+                                            
+                                            <div class="row align-items-center mb-3">
+                                                <div class="col">
+                                                    
+                                                    <!-- Title -->
+                                                    <h6 class="text-uppercase text-muted mb-2">
+                                                        Seats (#count(room.students) of #(room.numberOfSeats))
+                                                    </h6>
+                                                    
+                                                    <div class="row align-items-center no-gutters">     
+                                                        <div class="col">
+                                                            <!-- Progress -->
+                                                            <div class="progress progress-sm">
+                                                                <div class="progress-bar" role="progressbar" style="width: #(room.studentsSeatsPercentage)%" aria-valuenow="#count(room.students)" aria-valuemin="0" aria-valuemax="#(room.numberOfSeats)"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                 
                                         </div>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                
+                                       
+                                    </div> <!-- / .row -->
+                                </div> <!-- / .card-body -->
                             </div>
                             
-                        </div>
+                        </div><!-- /. list> -->
+                        }
+                        
+                      
                         }
                     </div>
                 </div>
@@ -279,10 +284,9 @@
         </div> <!-- / .col -->
         
         <div class="col-12 col-xl-4">
-            <div class="card">
+             <!--<div class="card">
                 <div class="card-header">
                     
-                    <!-- Title -->
                     <h4 class="card-header-title">
                         Student Population
                     </h4>
@@ -308,13 +312,13 @@
                 </div>
                 <div class="card-body">
                     
-                    <!-- Chart -->
+                    
                     <div class="chart chart-sm">
                         <canvas id="student-population-chart" class="chart-canvas"></canvas>
                     </div>
                     
                 </div>
-            </div>
+            </div> -->
             
             <div class="card">
                 <div class="card-body text-center">

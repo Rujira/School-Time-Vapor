@@ -40,20 +40,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/school-layout-students/#(selectedSchool.id)" class="nav-link #if(viewTag == 214){active}">
-                                Students
+                            <a href="/school-layout-zones/#(selectedSchool.id)" class="nav-link #if(viewTag == 214){active}">
+                                Zones
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="/school-layout-teachers/#(selectedSchool.id)" class="nav-link #if(viewTag == 215){active}">
-                                Teachers
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/school-layout-parents/#(selectedSchool.id)" class="nav-link #if(viewTag == 216){active}">
-                                Parents
-                            </a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -70,6 +61,7 @@
                     <!-- Title -->
                     <h4 class="card-header-title">
                         Grades
+                         <span class="badge badge-pill badge-soft-secondary ml-2">#count(grades)</span>
                     </h4>
                     <!-- Button -->
                     #if(count(grades) > 0) {

@@ -70,9 +70,19 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: Grade.self, database: .psql)
 
     migrations.add(model: Room.self, database: .psql)
+    
+    migrations.add(migration: ZoneType.self, database: .psql)
+    migrations.add(model: Zone.self, database: .psql)
 
     migrations.add(migration: GenderType.self, database: .psql)
     migrations.add(model: Student.self, database: .psql)
+    
+    migrations.add(migration: DepartmentType.self, database: .psql)
+    migrations.add(model: Teacher.self, database: .psql)
+    
+    migrations.add(model: RoomTeacherPivot.self, database: .psql)
+    
+    migrations.add(model: ParentFamily.self, database: .psql)
     
     migrations.add(model: Token.self, database: .psql)
     

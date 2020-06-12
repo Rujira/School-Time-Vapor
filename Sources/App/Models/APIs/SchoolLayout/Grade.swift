@@ -23,8 +23,8 @@ final class Grade: Codable {
     
     init(name: String, schoolID: School.ID, gradeType: GradeType, createBy: String, updateBy: String) {
         self.name = name
-        self.gradeType = gradeType
         self.schoolID = schoolID
+        self.gradeType = gradeType
         self.createBy = createBy
         self.updateBy = updateBy
     }

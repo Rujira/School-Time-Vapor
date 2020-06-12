@@ -1,7 +1,7 @@
 #set("content") {
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-12 col-lg-10 col-xl-8">
+        <div class="col-12 col-lg-10 col-xl-8 mb-5">
             
             <!-- Header -->
             <div class="header mt-md-5">
@@ -13,7 +13,7 @@
                                 <!-- Pretitle -->
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb p-0">
-                                        <li class="breadcrumb-item"><a href="/school-layout-rooms/#(selectedSchool.id)">Rooms</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:history.back()">Rooms</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">#(pretitle)</li>
                                     </ol>
                                 </nav>
@@ -34,69 +34,416 @@
                 </div>
             </div>
             
-            <p class="card-text small text-muted mb-4 mt-n4">
+            <p class="card-text small text-muted mb-4 mt-n4 text-right">
             Create by #(room.createBy) on #date(room.createAt, "MMM dd, yyyy hh:mm")
             </p>
-        
+            <!-- Avatar group -->
+                                    
+                                    
             
-            <h2 class="mb-3">
-                Students
+            <h2 class="mb-2">
+                Members
             </h2>
             
             <p class="text-muted">
-            A represents students in this room.
+            Represents students and teachers in this room.
             </p>
             
+            <div class="row">
+           
+                <div class="col-12 col-md-6">
+                    
+                    <!-- Card -->
+                    <div class="card" style="height:90px">
+                        <div class="card-body">
+                            
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-muted mb-2">
+                                        Seat Used
+                                    </h6>
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        #count(students) out of #(room.numberOfSeats)
+                                    </span>
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Icon -->
+                                    <a class="btn btn-sm btn-outline-primary" href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/edit">Edit</a>
+                                    
+                                </div>
+                                
+                            </div> <!-- / .row -->
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <!-- Card -->
+                    <div class="card" style="height:90px">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-muted mb-2">
+                                        Homeroom Teachers
+                                    </h6>
+                                    
+                                    <!-- Heading -->
+                                    
+
+                                    #if(count(homeroomTeachers) > 0) {
+                                        <div class="avatar-group">
+                                        #for(homeroomTeacher in homeroomTeachers) {
+                                            
+                                        <a href="#" class="avatar avatar-xs" data-toggle="tooltip" data-placement="bottom" title="#(homeroomTeacher.fullName)">
+                                        #if(homeroomTeacher.profilePicture != "") {
+                                            <img src="/teachers/#(homeroomTeacher.id)/profilePicture" alt="#(teacher.fullName)" class="avatar-img rounded-circle">
+                                        } else {
+                                            <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(homeroomTeacher.fullName)</span>
+                                        }
+                                        </a>
+                                                 
+                                        }
+                                        </div>
+
+                                     
+
+                                    } else {
+                                        <span class="h2 mb-0">
+                                        No homeroom teachers
+                                    </span>
+                                    }
+
+                                </div>
+                                
+                                <div class="col-auto">
+                                    
+                                    <!-- Icon -->
+                                    <a class="btn btn-sm btn-white" href="#modalHomeroomTeachers" data-toggle="modal">Manage</a>
+                                    
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div>
+  
+                </div>
+            </div>
             
-<!--            #if(count(rooms) > 0) {-->
-<!--            <div class="row">-->
-<!--                -->
-<!--                #for(room in rooms) {-->
-<!--                <div class="col-12 col-lg-6">-->
-<!--                    -->
-<!--                    <div class="card lift card-sm">-->
-<!--                        <div class="card-body">-->
-<!--                            <h3 class="mb-3">-->
-<!--                                <span class="badge badge-soft-primary">-->
-<!--                                    #(room.name)-->
-<!--                                </span>-->
-<!--                            </h3>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                }-->
-<!--                -->
-<!--            </div>-->
-<!--            -->
-<!--            } else {-->
-<!--            <div class="card card-inactive mt-4">-->
-<!--                -->
-<!--                <div class="card-body text-center">-->
-<!--                    -->
-<!--                    <!-- Image -->
-<!--                    <img src="/assets/img/illustrations/scale.svg" alt="..." class="img-fluid" style="max-width: 182px;"/>-->
-<!--                    -->
-<!--                    <!-- Title -->
-<!--                    <h1>-->
-<!--                        There're no rooms on this grade.-->
-<!--                    </h1>-->
-<!--                    -->
-<!--                    <!-- Subtitle -->-->
-<!--                    <p class="text-muted">-->
-<!--                    Let's create rooms for this grade.-->
-<!--                    </p>-->
-<!--                    -->
-<!--                    <!-- Button -->-->
-<!--                    <a href="/school-layout-rooms/#(selectedSchool.id)" class="btn btn-primary">-->
-<!--                        Create Room-->
-<!--                    </a>-->
-<!--                    -->
-<!--                </div>-->
-<!--            </div>-->
-<!--            }-->
+            <div class="card">
+                <div class="card-header">
+                    <!-- Title -->
+                    <h4 class="card-header-title">
+                        Student
+                    </h4>
+
+                </div>
+                <div class="card-body">
+                    <!-- List group -->
+                    <div class="list-group list-group-flush my-n3">
+                        #for(student in students) {
+                        <div class="list-group-item">
+                            
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <!-- Avatar -->
+                                    <a href="#" class="avatar">
+                                        #if(student.profilePicture != "") {
+                                        <img class="img-fluid avatar-img rounded-circle" src="/students/#(student.id)/profilePicture" alt="#(student.fullName)">
+                                            } else {
+                                            <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(student.fullName)</span>
+                                            }
+                                            </a>
+                                    
+                                </div>
+                                <div class="col-5 ml-n2">
+                                    <!-- Title -->
+                                    <h4 class="mb-1">
+                                        <a href="#">#(student.fullName)</a>
+                                    </h4>
+                                    
+                                    <!-- Email -->
+                                    <p class="small text-muted mb-0">
+                                    <a class="d-block text-reset text-truncate" href="mailt:dianna.smiley@company.com">dianna.smiley@company.com</a>
+                                    </p>
+                                </div>
+                                
+                                
+                            </div> <!-- / .row -->
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
             
             <hr class="mt-5 mb-5">
-
+            
+            <!-- Heading -->
+            <h2 class="mb-2">
+                Services
+            </h2>
+            
+            <!-- Text -->
+            <p class="text-muted">
+            A controllable features of software services or hardware accessories that work together with this room or member.
+            </p>
+            
+            <div class="card">
+                <div class="card-header">
+                    <!-- Title -->
+                    <h4 class="card-header-title">
+                        Available Services
+                    </h4>
+                    
+                    <button class="btn btn-sm btn-primary" type="button" id="inviteMember" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Add Service
+                    </button>
+                    
+                </div>
+                <div class="card-body">
+                    
+                    <!-- List group -->
+                    <div class="list-group list-group-flush my-n3">
+                        <div class="list-group-item">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    
+                                    <!-- Heading -->
+                                    <h4 class="mb-1">
+                                        Facial Recognition Time Attendance
+                                    </h4>
+                                    
+                                    <!-- Text -->
+                                    <small class="text-muted">
+                                        Student's time attendance using facial recognition technology.
+                                    </small>
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Button -->
+                                    <button class="btn btn-sm btn-white">
+                                        Setup
+                                    </button>
+                                    
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                        <div class="list-group-item">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    
+                                    <!-- Heading -->
+                                    <h4 class="mb-1">
+                                        SMS Recovery <i class="fe fe-info text-muted ml-1" data-toggle="tooltip" data-title="We use the the phone number you provide in General" data-original-title="" title=""></i>
+                                    </h4>
+                                    
+                                    <!-- Text -->
+                                    <small class="text-muted">
+                                        Standard messaging rates apply
+                                    </small>
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Button -->
+                                    <button class="btn btn-sm btn-danger">
+                                        Disable
+                                    </button>
+                                    
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                        <div class="list-group-item">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    
+                                    <!-- Heading -->
+                                    <h4 class="mb-1">
+                                        Recovery codes <i class="fe fe-info text-muted ml-1" data-toggle="tooltip" data-title="We use the the phone number you provide in General" data-original-title="" title=""></i>
+                                    </h4>
+                                    
+                                    <!-- Text -->
+                                    <small class="text-muted">
+                                        Standard messaging rates apply
+                                    </small>
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Button -->
+                                    <button class="btn btn-sm btn-white">
+                                        Reveal
+                                    </button>
+                                    
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <hr class="mt-5 mb-5">
+            
+            <h2 class="mb-2">
+                Accessories
+            </h2>
+            
+            <!-- Text -->
+            <p class="text-muted">
+            The term accessory represents a physical, connected school or room accessory, like a RFID card reader, lamp, lock, or camera.
+            </p>
+            
+            <div class="card">
+                <div class="card-header">
+                    <!-- Title -->
+                    <h4 class="card-header-title">
+                        Devices an Accessories
+                    </h4>
+                    
+                    <button class="btn btn-sm btn-primary" type="button" id="inviteMember" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Add Accessory
+                    </button>
+                    
+                </div>
+                <div class="card-body">
+                    
+                    <!-- List group -->
+                    <div class="list-group list-group-flush my-n3">
+                        <div class="list-group-item">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    
+                                    <!-- Icon -->
+                                    <i class="fe fe-smartphone h1"></i>
+                                    
+                                </div>
+                                <div class="col ml-n2">
+                                    
+                                    <!-- Heading -->
+                                    <h4 class="mb-1">
+                                        iPhone 11
+                                    </h4>
+                                    
+                                    <!-- Text -->
+                                    <small class="text-muted">
+                                        Los Angeles, CA · <time datetime="2020-04-20T16:16">April 20 at 4:16pm</time>
+                                    </small>
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Button -->
+                                    <button class="btn btn-sm btn-white">
+                                        Log out
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    
+                                    <!-- Icon -->
+                                    <i class="fe fe-monitor h1"></i>
+                                    
+                                </div>
+                                <div class="col ml-n2">
+                                    
+                                    <!-- Heading -->
+                                    <h4 class="mb-1">
+                                        iMac OSX · <span class="font-weight-normal">Safari 10.2</span>
+                                    </h4>
+                                    
+                                    <!-- Text -->
+                                    <small class="text-muted">
+                                        Los Angeles, CA · <time datetime="2020-04-20T16:16">April 20 at 4:16pm</time>
+                                    </small>
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Button -->
+                                    <button class="btn btn-sm btn-white">
+                                        Log out
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    
+                                    <!-- Icon -->
+                                    <i class="fe fe-smartphone h1"></i>
+                                    
+                                </div>
+                                <div class="col ml-n2">
+                                    
+                                    <!-- Heading -->
+                                    <h4 class="mb-1">
+                                        iPhone 11
+                                    </h4>
+                                    
+                                    <!-- Text -->
+                                    <small class="text-muted">
+                                        Los Angeles, CA · <time datetime="2020-04-20T16:16">April 20 at 4:16pm</time>
+                                    </small>
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Button -->
+                                    <button class="btn btn-sm btn-white">
+                                        Log out
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    
+                                    <!-- Icon -->
+                                    <i class="fe fe-monitor h1"></i>
+                                    
+                                </div>
+                                <div class="col ml-n2">
+                                    
+                                    <!-- Heading -->
+                                    <h4 class="mb-1">
+                                        iMac OSX · <span class="font-weight-normal">Safari 10.2</span>
+                                    </h4>
+                                    
+                                    <!-- Text -->
+                                    <small class="text-muted">
+                                        Los Angeles, CA · <time datetime="2020-04-20T16:16">April 20 at 4:16pm</time>
+                                    </small>
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Button -->
+                                    <button class="btn btn-sm btn-white">
+                                        Log out
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <hr class="mt-5 mb-5">
+            
             <form method="post" style="float: right;" action="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/delete">
                 <a class="btn btn-primary" href="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/edit"
                     role="button">Edit</a>&nbsp;

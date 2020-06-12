@@ -11,13 +11,118 @@
         <link rel="stylesheet" href="/assets/libs/quill/dist/quill.core.css" />
         <link rel="stylesheet" href="/assets/libs/highlightjs/styles/vs2015.css" />
         
+        
         <!-- Theme CSS -->
         
         <link rel="stylesheet" href="/assets/css/theme.min.css"/>
         <link rel="stylesheet" href="/styles/style.css"/>
+        
         <title>School Time | #(title)</title>
     </head>
     <body>
+        <!-- Modal: Members -->
+        <div class="modal fade" id="modalHomeroomTeachers" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-card card" data-list='{"valueNames": ["name"]}'>
+                        <div class="card-header">
+                            
+                            <!-- Title -->
+                            <h4 class="card-header-title" id="exampleModalCenterTitle">
+                                Manage Homeroom Teachers
+                            </h4>
+
+                            
+                            <!-- Close -->
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                        </div>
+                        <div class="card-header">
+                            
+                            <!-- Form -->
+                            <form>
+                                <div class="input-group input-group-flush input-group-merge">
+                                    
+                                    <!-- Input -->
+                                    <input type="search" class="form-control form-control-prepended list-search" placeholder="Search">
+                                        
+                                    <!-- Prepend -->
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <span class="fe fe-search"></span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </form>
+                            
+                        </div>
+                        <div class="card-body">
+                            
+                            <!-- List group -->
+                            <ul class="list-group list-group-flush list my-n3">
+                           
+
+                                #for(teacher in teachers) {
+                                    <li class="list-group-item">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                
+                                                <!-- Avatar -->
+                                                <div class="avatar avatar-md align-middle mr-2">
+                                                    #if(teacher.profilePicture != "") {
+                                                        <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.fullName)">
+                                                    } else {
+                                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.fullName)</span>
+                                                    }
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col ml-n2">
+                                                
+                                                <!-- Title -->
+                                                <h4 class="mb-1 name">
+                                                    #(teacher.fullName)
+                                                </h4>
+                                                
+                                                <!-- Time -->
+                                                <p class="small mb-0">
+                                                    #(teacher.departmentType)
+                                                </p>
+                                                
+                                            </div>
+                                            <div class="col-auto">
+
+                                            #if(contains(homeroomTeachers, teacher)) {
+                                                <form method="post" action="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/teachers/#(teacher.id)/remove">
+                                                    <!-- Button -->
+                                                    <a href="javascript:;" onclick="parentNode.submit();" class="btn btn-sm btn-white">
+                                                        Remove
+                                                    </a>
+                                                </form>
+                                            } else {
+                                                <form method="post" action="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/teachers/#(teacher.id)">
+                                    
+                                                <!-- Button -->
+                                                <a href="javascript:;" onclick="parentNode.submit();" class="btn btn-sm btn-white">
+                                                    Add
+                                                </a>
+                                            </form>
+                                            }
+                                            </div>
+                                        </div> <!-- / .row -->
+                                    </li>
+                                }
+                                
+                            </ul>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <!-- NAVIGATION -->
         <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
@@ -50,6 +155,11 @@
                                     <li class="nav-item ">
                                         <a href="/dashboard-overview/#(selectedSchool.id)" class="nav-link #if(viewTag == 110){active}">
                                             Overview
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="/dashboard-live-preview/#(selectedSchool.id)" class="nav-link #if(viewTag == 111){active}">
+                                            Live Preview
                                         </a>
                                     </li>
                                     
@@ -86,26 +196,44 @@
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="/school-layout-students/#(selectedSchool.id)" class="nav-link #if(viewTag == 214){active}">
+                                                    <a href="/school-layout-zones/#(selectedSchool.id)" class="nav-link #if(viewTag == 214){active}">
+                                                        Zones
+                                                    </a>
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                        <a href="#sidebarMembers" class="nav-link" data-toggle="collapse" role="button" aria-expanded="#if(viewTag > 220 && viewTag < 230){true} else {false}" aria-controls="sidebarMembers">
+                                            Members
+                                        </a>
+                                        <div class="collapse #if(viewTag > 220 && viewTag < 230){show}" id="sidebarMembers">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="/school-members-overview/#(selectedSchool.id)" class="nav-link #if(viewTag == 221){active}">
+                                                        Overview
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="/school-members-students/#(selectedSchool.id)" class="nav-link #if(viewTag == 222){active}">
                                                         Students
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="/school-layout-teachers/#(selectedSchool.id)" class="nav-link #if(viewTag == 215){active}">
+                                                    <a href="/school-members-teachers/#(selectedSchool.id)" class="nav-link #if(viewTag == 223){active}">
                                                         Teachers
                                                     </a>
                                                 </li>
-                                    
                                                 <li class="nav-item">
-                                                    <a href="/school-layout-parents/#(selectedSchool.id)" class="nav-link #if(viewTag == 216){active}">
+                                                    <a href="/school-members-parents/#(selectedSchool.id)" class="nav-link #if(viewTag == 224){active}">
                                                         Parents
                                                     </a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </li>
-                                    
-                        
                                     
                                     <li class="nav-item">
                                         <a href="#sidebarClassroomSubject" class="nav-link" data-toggle="collapse" role="button" aria-expanded="false"
@@ -319,7 +447,7 @@
                             
                             <!-- Menu -->
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="/" class="dropdown-item">View All Schools</a>
+                                <a href="/" class="dropdown-item">All Schools</a>
                                 <a href="#" class="dropdown-item">Profile</a>
                                 <a href="#" class="dropdown-item">Settings</a>
                                 <hr class="dropdown-divider" />
@@ -340,12 +468,12 @@
                     
                 </div>
             </nav>
-       
+            
             #get(content)
             
             
         </div>
-    
+        
         <!-- JAVASCRIPT
         ================================================== -->
         <!-- Libs JS -->
@@ -367,6 +495,10 @@
         <script src="/assets/js/theme.min.js"></script>
         <script src="/assets/js/dashkit.min.js"></script>
         <script src="/scripts/student-population-chart.js"></script>
-
+        <script src="/scripts/avatar-thumbnail.js"></script>
+        <script src="/scripts/upload-image.js"></script>
+        <script src="/scripts/createRoom.js"></script>
+        
+        
     </body>
 </html>

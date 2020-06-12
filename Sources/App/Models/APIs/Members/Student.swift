@@ -15,8 +15,7 @@ final class Student: Codable {
     var id: UUID?
     var studentID: String
     var studentNumber: Int
-    var firstName: String
-    var lastName: String
+    var fullName: String
     var nickName: String?
     var genderType: GenderType
     var birthDate: String?
@@ -29,19 +28,20 @@ final class Student: Codable {
     var updateAt: Date?
     var schoolID: School.ID
     var roomID: Room.ID
+    var profilePicture: String?
     
-    init(studentID: String, studentNumber: Int, firstName: String, lastName: String, genderType: GenderType, createBy: String, updateBy: String, schoolID: School.ID, roomID: Room.ID) {
+    init(studentID: String, studentNumber: Int, fullName: String, genderType: GenderType, createBy: String, updateBy: String, schoolID: School.ID, roomID: Room.ID, profilePicture: String? = nil) {
+       
         self.studentID = studentID
         self.studentNumber = studentNumber
-        self.firstName = firstName
-        self.lastName = lastName
+        self.fullName = fullName
         self.genderType = genderType
         self.createBy = createBy
         self.updateBy = updateBy
         self.schoolID = schoolID
         self.roomID = roomID
+        self.profilePicture = profilePicture
     }
-    
 }
 
 extension Student: PostgreSQLUUIDModel {
@@ -68,6 +68,7 @@ extension Student: Parameter {}
 
 //Getting Parent
 extension Student {
+    
     var room: Parent<Student, Room> {
         return parent(\.roomID)
     }

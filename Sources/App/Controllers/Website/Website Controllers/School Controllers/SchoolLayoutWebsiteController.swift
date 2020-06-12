@@ -33,17 +33,17 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         protectedRoutes.post("school-layout-rooms", School.parameter, Room.parameter, "edit", use: editRoomPostHandler)
         protectedRoutes.post("school-layout-rooms", School.parameter, Room.parameter, "delete", use: deleteRoomHandler)
         
-        //School Layout - Students
-        protectedRoutes.get("school-layout-students", School.parameter, use: schoolLayoutStudentsHandler)
-        protectedRoutes.get("school-layout-students", School.parameter, "create", use: createStudentHandler)
-        protectedRoutes.post(Student.self, at: "school-layout-students", School.parameter, "create", use: createStudentPostHandler)
+        protectedRoutes.post("school-layout-rooms", School.parameter, Room.parameter, "teachers", Teacher.parameter, use: addHomeroomTeachersHandler)
+        protectedRoutes.post("school-layout-rooms", School.parameter, Room.parameter, "teachers", Teacher.parameter, "remove", use: removeHomeroomTeachersHandler)
         
-        protectedRoutes.post("school-layout-students", School.parameter, Student.parameter, "delete", use: deleteStudentHandler)
+//        //Sibling
+//        tokenAuthGroup.post(Room.parameter, "teachers", Teacher.parameter, use: addTeachersHandler)
+//        tokenAuthGroup.get(Room.parameter, "teachers", use: getTeachersHandler)
+//        tokenAuthGroup.delete(Room.parameter, "teachers", Teacher.parameter, use: removeTeachersHandler)
         
-        
-        //School Layout - Teachers
-        protectedRoutes.get("school-layout-teachers", School.parameter, use: schoolLayoutTeachersHandler)
-        
+        //School Layout - Zones
+        protectedRoutes.get("school-layout-zones", School.parameter, use: schoolLayoutZonesHandler)
+
     }
     
     //MARK: - Overview
@@ -75,17 +75,36 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                         }.flatten(on: req)
                 }
                 
-                
-                let roomsWithGrade = Room.query(on: req)
-                    .join(\Grade.id, to: \Room.gradeID)
-                    .alsoDecode(Grade.self).filter(\Grade.schoolID == school.id!).all()
-                    .map(to: [RoomsWithGrade].self) { roomGradePairs in
-                        roomGradePairs.map { room, grade -> RoomsWithGrade in
-                            RoomsWithGrade(id: room.id, name: room.name, grade: grade)
-                            
-                        }
+                let roomsWithStudents = Room.query(on: req).filter(\.schoolID == school.id!).sort(\.name, .ascending).all()
+                    .flatMap(to: [RoomWithStudents].self) { rooms in
+                        try rooms.map { room in
+                            try room.students.query(on: req)
+                                
+                                .all()
+                                .map{ students in
+                                    RoomWithStudents(id: room.id,
+                                                     name: room.name,
+                                                     gradeID: room.gradeID,
+                                                     numberOfSeats: room.numberOfSeats,
+                                                     createBy: room.createBy,
+                                                     updateBy: room.updateBy,
+                                                     createAt: room.createAt,
+                                                     updateAt: room.updateAt,
+                                                     students: students,
+                                                     studentsSeatsPercentage: (students.count * 100) / room.numberOfSeats)
+                            }
+                        }.flatten(on: req)
                 }
                 
+                
+                let students =  Student.query(on: req)
+                    .filter(\.schoolID == school.id!)
+                    .sort(\.studentID, .ascending).all()
+                
+                let zones = Zone.query(on: req)
+                    .filter(\.schoolID == school.id!)
+                    .sort(\.id, .ascending).all()
+                    
                 let context = SchoolLayoutOverviewContext(
                     pretitle: school.name,
                     title: "School Layout",
@@ -93,7 +112,9 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                     userLoggedIn: userLoggedIn,
                     selectedSchool: school,
                     grades: gradesWithRooms,
-                    rooms: roomsWithGrade)
+                    rooms: roomsWithStudents,
+                    students: students,
+                    zones: zones)
                 
                 
                 return try req.view().render("school-layout-overview", context)
@@ -127,8 +148,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                         }.flatten(on: req)
                 }
                 
-                
                 let userLoggedIn = try req.isAuthenticated(User.self)
+                
                 let context = SchoolLayoutGradesContext(
                     pretitle: school.name,
                     title: "School Layout",
@@ -232,7 +253,6 @@ struct SchoolLayoutWebsiteController: RouteCollection {
     
     func editGradePostHandler(_ req: Request) throws -> Future<Response> {
         
-        
         return try flatMap(to: Response.self,
                            req.parameters.next(School.self),
                            req.parameters.next(Grade.self),
@@ -332,17 +352,61 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                 return try req.parameters.next(Room.self)
                     .flatMap(to: View.self) { room in
                         
+                        let students = Student.query(on: req)
+                            .filter(\.roomID == room.id!)
+                            .sort(\.studentNumber, .ascending).all()
+                        
+                        let teachers = Teacher.query(on: req)
+                            .filter(\.schoolID == school.id!)
+                            .sort(\.fullName, .ascending).all()
+                    
+                        let homeroomTeachers = try room.teachers.query(on: req).all()
+                       
                         let context = SchoolLayoutRoomDetailContext(
                             pretitle: "Room Detail",
                             title: room.name,
                             viewTag: 213,
                             userLoggedIn: userLoggedIn,
                             selectedSchool: school,
-                            room: room)
+                            room: room,
+                            students: students,
+                            teachers: teachers,
+                            homeroomTeachers: homeroomTeachers)
+                        
                         
                         return try req.view().render("school-layout-rooms-detail", context)
                 }
                 
+        }
+    }
+    
+    //Sibling Relationship Room-Teacher Pivot
+    func addHomeroomTeachersHandler(_ req: Request) throws -> Future<Response> {
+        
+        return try flatMap(to: Response.self,
+                           req.parameters.next(School.self),
+                           req.parameters.next(Room.self),
+                           req.parameters.next(Teacher.self)) { school, room, teacher in
+
+                            let redirect = req.redirect(to: "/school-layout-rooms/\(school.id!)/\(room.id!)/view")
+                            
+                            return try Teacher.addTeacher(teacher, to: room, on: req).transform(to: redirect)
+        }
+    
+    }
+    
+    
+    func removeHomeroomTeachersHandler(_ req: Request) throws -> Future<Response> {
+        
+        return try flatMap(to: Response.self,
+                           req.parameters.next(School.self),
+                           req.parameters.next(Room.self),
+                           req.parameters.next(Teacher.self)) { school, room, teacher in
+                           
+                            let redirect = req.redirect(to: "/school-layout-rooms/\(school.id!)/\(room.id!)/view")
+                            
+                            return try Teacher.removeTeacher(teacher, from: room, on: req).transform(to: redirect)
+                            
         }
     }
     
@@ -356,6 +420,10 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                     .filter(\.schoolID == school.id!)
                     .sort(\.name, .ascending).all()
                 
+                let teachers = Teacher.query(on: req)
+                    .filter(\.schoolID == school.id!)
+                    .sort(\.fullName, .ascending).all()
+                
                 let userLoggedIn = try req.isAuthenticated(User.self)
                 let user = try req.requireAuthenticated(User.self)
                 
@@ -367,7 +435,8 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                     selectedSchool: school,
                     createBy: user.name,
                     updateBy: user.name,
-                    grades: grades)
+                    grades: grades,
+                    teachers: teachers)
                 
                 return try req.view().render("school-layout-rooms-create", context)
         }
@@ -375,7 +444,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
     }
     
     func createRoomPostHandler(_ req: Request, room: Room) throws -> Future<Response> {
-        
+
         return try req.parameters.next(School.self).flatMap(to: Response.self) { school in
             return room.save(on: req)
                 .map(to: Response.self) { room in
@@ -385,8 +454,10 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                     return req.redirect(to: "/school-layout-rooms/\(school.id!)")
             }
         }
-        
+
     }
+    
+    
     
     func editRoomHandler(_ req: Request) throws -> Future<View> {
         return try req.parameters.next(School.self)
@@ -414,7 +485,6 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                         return try req.view().render("school-layout-rooms-create", context)
                 }
         }
-        
     }
     
     func editRoomPostHandler(_ req: Request) throws -> Future<Response> {
@@ -426,6 +496,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         ) { school, room, data in
             room.name = data.name
             room.gradeID = data.gradeID
+            room.numberOfSeats = data.numberOfSeats
             room.createBy = data.createBy
             room.updateBy = data.updateBy
             
@@ -446,114 +517,24 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         }
     }
     
-    //MARK: - Students
-    //Students
-    func schoolLayoutStudentsHandler(_ req: Request) throws -> Future<View> {
-        return try req.parameters.next(School.self)
-            .flatMap(to: View.self) { school in
-                
-                let students = Student.query(on: req)
-                    .join(\Room.id, to: \Student.roomID)
-                    .alsoDecode(Room.self).all()
-                    .map(to: [StudentsWithRoom].self) {
-                        studentRoomPairs in
-                        
-                        studentRoomPairs.map { student, room -> StudentsWithRoom in
-                            StudentsWithRoom(id: student.id,
-                                             studentID: student.studentID,
-                                             firstName: student.firstName,
-                                             lastName: student.lastName,
-                                             genderType: student.genderType,
-                                             birthDate: student.birthDate,
-                                             age: student.getAgeFromDOF(date: student.birthDate ?? ""),
-                                             createBy: student.createBy,
-                                             createAt: student.createAt,
-                                             room: room.name)
-                        }
-                }
-                
-                
-                let userLoggedIn = try req.isAuthenticated(User.self)
-                
-                let context = SchoolLayoutStudentsContext(
-                    pretitle: school.name,
-                    title: "School Layout",
-                    viewTag: 214,
-                    userLoggedIn: userLoggedIn,
-                    selectedSchool: school,
-                    students: students)
-                
-                return try req.view().render("school-layout-students", context)
-        }
-    }
+    //MARK: - Zones
+    //Zones
     
-    // Create Student
-    func createStudentHandler(_ req: Request) throws -> Future<View> {
+    func schoolLayoutZonesHandler(_ req: Request) throws -> Future<View> {
         
         return try req.parameters.next(School.self)
             .flatMap(to: View.self) { school in
                 
-                let rooms = Room.query(on: req)
-                    .filter(\.schoolID == school.id!)
-                    .sort(\.name, .ascending).all()
+            let userLoggedIn = try req.isAuthenticated(User.self)
                 
-                let userLoggedIn = try req.isAuthenticated(User.self)
-                let user = try req.requireAuthenticated(User.self)
-                
-                let context = CreateStudentContext(
-                    pretitle: "New Student",
-                    title: "Add New Student",
-                    viewTag: 214,
-                    userLoggedIn: userLoggedIn,
-                    selectedSchool: school,
-                    createBy: user.name,
-                    updateBy: user.name,
-                    genderTypes: [GenderType.male, GenderType.female, GenderType.other],
-                    rooms: rooms)
-                
-                return try req.view().render("school-layout-students-create", context)
-                
-        }
-    }
-    
-    func createStudentPostHandler(_ req: Request, student: Student) throws -> Future<Response> {
-        
-        return try req.parameters.next(School.self).flatMap(to: Response.self) { school in
-            
-            return student.save(on: req)
-                .map(to: Response.self) { student in
-                    guard student.id != nil else {
-                        throw Abort(.internalServerError)
-                    }
-                    return req.redirect(to: "/school-layout-students/\(school.id!)")
-            }
-        }
-    }
-    
-    //Delete Student
-    func deleteStudentHandler(_ req: Request) throws -> Future<Response> {
-        
-        return try req.parameters.next(School.self).flatMap(to: Response.self) { school in
-            return try req.parameters.next(Student.self).delete(on: req)
-                .transform(to: req.redirect(to: "/school-layout-students/\(school.id!)"))
-            
-        }
-    }
-    
-    //MARK: - Teachers
-    //Teachers
-    func schoolLayoutTeachersHandler(_ req: Request) throws -> Future<View> {
-        return try req.parameters.next(School.self)
-            .flatMap(to: View.self) { school in
-                let userLoggedIn = try req.isAuthenticated(User.self)
-                let context = SchoolPeopleTeachersContext(
-                    pretitle: school.name,
-                    title: "School Layout",
-                    viewTag: 215,
-                    userLoggedIn: userLoggedIn,
-                    selectedSchool: school)
-                
-                return try req.view().render("school-layout-teachers", context)
+            let context = SchoolLayoutZonesContext(
+            pretitle: school.name,
+            title: "School Layout",
+            viewTag: 214,
+            userLoggedIn: userLoggedIn,
+            selectedSchool: school)
+
+            return try req.view().render("school-layout-zones", context)
         }
     }
     

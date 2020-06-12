@@ -28,32 +28,22 @@
                     <!-- Nav -->
                     <ul class="nav nav-tabs nav-overflow header-tabs">
                         <li class="nav-item">
-                            <a href="/school-layout-overview/#(selectedSchool.id)" class="nav-link #if(viewTag == 211){active}">
+                            <a href="/school-members-overview/#(selectedSchool.id)" class="nav-link #if(viewTag == 221){active}">
                                 Overview
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/school-layout-grades/#(selectedSchool.id)" class="nav-link #if(viewTag == 212){active}">
-                                Grades
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/school-layout-rooms/#(selectedSchool.id)" class="nav-link #if(viewTag == 213){active}">
-                                Rooms
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/school-layout-students/#(selectedSchool.id)" class="nav-link #if(viewTag == 214){active}">
+                            <a href="/school-members-students/#(selectedSchool.id)" class="nav-link #if(viewTag == 222){active}">
                                 Students
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/school-layout-teachers/#(selectedSchool.id)" class="nav-link #if(viewTag == 215){active}">
+                            <a href="/school-members-teachers/#(selectedSchool.id)" class="nav-link #if(viewTag == 223){active}">
                                 Teachers
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/school-layout-parents/#(selectedSchool.id)" class="nav-link #if(viewTag == 216){active}">
+                            <a href="/school-members-parents/#(selectedSchool.id)" class="nav-link #if(viewTag == 224){active}">
                                 Parents
                             </a>
                         </li>

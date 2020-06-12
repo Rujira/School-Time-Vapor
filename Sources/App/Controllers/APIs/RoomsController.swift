@@ -14,23 +14,33 @@ struct RoomsController: RouteCollection {
         
         let roomsRoutes = router.grouped("api", "rooms")
         
-        roomsRoutes.get(use: getAllHandler)
-        roomsRoutes.post(Room.self, use: createHandler)
-        roomsRoutes.get(Room.parameter, use: getHandler)
-        roomsRoutes.put(Room.parameter, use: updateHandler)
-        roomsRoutes.delete(Room.parameter, use: deleteHandler)
+        let tokenAuthMiddleware = User.tokenAuthMiddleware()
+        let guardAuthMiddleware = User.guardAuthMiddleware()
+        let tokenAuthGroup = roomsRoutes.grouped(
+        tokenAuthMiddleware,guardAuthMiddleware)
+        
+        tokenAuthGroup.get(use: getAllHandler)
+        tokenAuthGroup.post(Room.self, use: createHandler)
+        tokenAuthGroup.get(Room.parameter, use: getHandler)
+        tokenAuthGroup.put(Room.parameter, use: updateHandler)
+        tokenAuthGroup.delete(Room.parameter, use: deleteHandler)
         
         //Parent-Child Relationships APIs
         // Room-Student
-        roomsRoutes.get(User.parameter, "students", use: getStudentsHandler)
+        tokenAuthGroup.get(User.parameter, "students", use: getStudentsHandler)
         // Grade-Room
-        roomsRoutes.get(Room.parameter, "grade", use: getGradeHandler)
+        tokenAuthGroup.get(Room.parameter, "grade", use: getGradeHandler)
         
         // Room-Student Nested
-        roomsRoutes.get("students", use: getAllRoomsWithStudents)
+        tokenAuthGroup.get("students", use: getAllRoomsWithStudents)
         
         //Joins
-        roomsRoutes.get("grades", use: getRoomsWithGrade)
+        tokenAuthGroup.get("grades", use: getRoomsWithGrade)
+        
+        //Sibling
+        tokenAuthGroup.post(Room.parameter, "teachers", Teacher.parameter, use: addTeachersHandler)
+        tokenAuthGroup.get(Room.parameter, "teachers", use: getTeachersHandler)
+        tokenAuthGroup.delete(Room.parameter, "teachers", Teacher.parameter, use: removeTeachersHandler)
     }
     
     //Create (POST)
@@ -132,5 +142,41 @@ struct RoomsController: RouteCollection {
                 }
         }
     }
+    
+    //Sibling Relationships Room-Teacher
+    
+    func addTeachersHandler(_ req: Request) throws -> Future<HTTPStatus> {
+        
+        return try flatMap(to: HTTPStatus.self,
+                           req.parameters.next(Room.self),
+                           req.parameters.next(Teacher.self)) { room, teacher in
+                            
+                            return room.teachers.attach(teacher, on: req)
+                                .transform(to: .created)
+        }
+    }
+    
+    //Sibling Relationships Room-Teacher Query
+    
+    func getTeachersHandler(_ req: Request) throws -> Future<[Teacher]> {
+        return try req.parameters.next(Room.self)
+            .flatMap(to: [Teacher].self) { room in
+                try room.teachers.query(on: req).all()
+        }
+    }
+    
+    //Removing Relationship
+    
+    func removeTeachersHandler(_ req: Request) throws -> Future<HTTPStatus> {
+        return try flatMap(to: HTTPStatus.self,
+                           req.parameters.next(Room.self),
+                           req.parameters.next(Teacher.self)) { room, teacher in
+                            return room.teachers.detach(teacher, on: req)
+                                .transform(to: .noContent)
+                            
+        }
+    }
+    
+    
 }
 

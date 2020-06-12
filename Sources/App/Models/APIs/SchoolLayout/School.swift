@@ -40,6 +40,9 @@ extension School {
     var grades: Children<School, Grade> {
         return children(\.schoolID)
     }
+    var zones: Children<School, Zone> {
+        return children(\.schoolID)
+    }
 }
 
 //Get Parent

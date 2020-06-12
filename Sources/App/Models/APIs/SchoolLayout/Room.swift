@@ -58,5 +58,9 @@ extension Room {
     var students: Children<Room, Student> {
         return children(\.roomID)
     }
+    
+    var teachers: Siblings<Room, Teacher, RoomTeacherPivot> {
+        return siblings()
+    }
 }
 

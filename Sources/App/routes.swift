@@ -18,6 +18,11 @@ public func routes(_ router: Router) throws {
     let roomController = RoomsController()
     try router.register(collection: roomController)
     
+    let teacherController = TeachersController()
+    try router.register(collection: teacherController)
+    
+    let zoneController = ZonesController()
+    try router.register(collection: zoneController)
     
     //Website routes
     let allSchoolsWebsiteController = AllSchoolsWebsiteController()
@@ -29,7 +34,7 @@ public func routes(_ router: Router) throws {
     let schoolLayoutWebsiteController = SchoolLayoutWebsiteController()
     try router.register(collection: schoolLayoutWebsiteController)
     
-    let schoolPeopleWebsiteController = SchoolPeopleWebsiteController()
-    try router.register(collection: schoolPeopleWebsiteController)
+    let schoolMembersWebsiteController = SchoolMembersWebsiteController()
+    try router.register(collection: schoolMembersWebsiteController)
 }
 

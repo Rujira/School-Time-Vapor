@@ -17,8 +17,14 @@ struct SchoolLayoutOverviewContext: Encodable {
     let userLoggedIn: Bool
     let selectedSchool: School
     let grades: Future<[GradeWithRooms]>
-    let rooms: Future<[RoomsWithGrade]>
+    let rooms: Future<[RoomWithStudents]>
+    let students: Future<[Student]>
+    let zones: Future<[Zone]>
+    
+}
 
+struct DahuaInfo: Content {
+    let data: String
 }
 
 struct SchoolLayoutGradesContext: Encodable {
@@ -100,13 +106,16 @@ struct SchoolLayoutRoomsContext: Encodable {
 
 struct SchoolLayoutRoomDetailContext: Encodable {
     
-    //Rooms Detal
+    //Rooms Detail
     let pretitle: String
     let title: String
     let viewTag: Int
     let userLoggedIn: Bool
     let selectedSchool: School
     let room: Room
+    let students: Future<[Student]>
+    let teachers: Future<[Teacher]>
+    let homeroomTeachers: Future<[Teacher]>
  
 }
 
@@ -136,6 +145,8 @@ struct CreateRoomContext: Encodable {
     let createBy: String
     let updateBy: String
     let grades: Future<[Grade]>
+    let teachers: Future<[Teacher]>
+    
 }
 
 struct EditRoomContext: Encodable {
@@ -153,44 +164,28 @@ struct EditRoomContext: Encodable {
     let editing = true
 }
 
-struct SchoolLayoutStudentsContext: Encodable {
+struct CreateRoomData: Content {
     
-    //Student
+    var name: String
+    var schoolID: School.ID
+    var gradeID: Grade.ID
+    var numberOfSeats: Int
+    var createBy: String
+    var updateBy: String
+    let teachers: [Teacher]?
+}
+
+struct SchoolLayoutZonesContext: Encodable {
+    
+    //Zones Context
     let pretitle: String
     let title: String
     let viewTag: Int
     let userLoggedIn: Bool
     let selectedSchool: School
-    let students: Future<[StudentsWithRoom]>
 }
 
-struct StudentsWithRoom: Content {
-    
-    //Student with room
-    let id: UUID?
-    let studentID: String
-    let firstName: String
-    let lastName: String
-    let genderType: GenderType
-    let birthDate: String?
-    let age: String?
-    let createBy: String
-    let createAt: Date?
-    let room: String
-}
 
-struct CreateStudentContext: Encodable {
-    
-    let pretitle: String
-    let title: String
-    let viewTag: Int
-    let userLoggedIn: Bool
-    let selectedSchool: School
-    let createBy: String
-    let updateBy: String
-    let genderTypes: [GenderType]
-    let rooms: Future<[Room]>
-}
 //End Layout
 
 

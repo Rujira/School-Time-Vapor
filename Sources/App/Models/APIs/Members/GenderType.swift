@@ -9,9 +9,7 @@ import Foundation
 import FluentPostgreSQL
 
 enum GenderType: String, PostgreSQLEnum, PostgreSQLMigration {
-
     case male
     case female
     case other
-    
 }

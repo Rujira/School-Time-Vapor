@@ -11,6 +11,7 @@ enum UserType: String, PostgreSQLEnum, PostgreSQLMigration {
     case admin
     case standard
     case teacher
+    case staff
     case student
     case parent
     case developer

@@ -58,8 +58,7 @@ struct StudentsController: RouteCollection {
             req.parameters.next(Student.self),
             req.content.decode(Student.self)
         ) { student, updatedStudent in
-            student.firstName = updatedStudent.firstName
-            student.lastName = updatedStudent.lastName
+            student.fullName = updatedStudent.fullName
             student.roomID = updatedStudent.roomID
             return student.save(on: req)
         }
@@ -81,8 +80,7 @@ struct StudentsController: RouteCollection {
             throw Abort(.badRequest)
         }
         return Student.query(on: req).group(.or) { or in
-            or.filter(\.firstName == searchTerm)
-            or.filter(\.lastName == searchTerm)
+            or.filter(\.fullName == searchTerm)
         }.all()
     }
     
@@ -95,7 +93,7 @@ struct StudentsController: RouteCollection {
     
     //Sort ascd (GET)
     func sortedHandler(_ req: Request) throws -> Future<[Student]> {
-        return Student.query(on: req).sort(\.firstName, .ascending).all()
+        return Student.query(on: req).sort(\.fullName, .ascending).all()
     }
     
     //Parent-Child Relationships Room-Student
@@ -121,8 +119,8 @@ struct StudentsController: RouteCollection {
                     
                     return StudentsWithRoom(id: student.id,
                                      studentID: student.studentID,
-                                     firstName: student.firstName,
-                                     lastName: student.lastName,
+                                     fullName: student.fullName,
+                                     profilePicture : student.profilePicture ?? "",
                                      genderType: student.genderType,
                                      birthDate: student.birthDate,
                                      age: student.getAgeFromDOF(date: student.birthDate ?? "") ,

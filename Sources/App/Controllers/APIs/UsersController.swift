@@ -62,5 +62,4 @@ struct UsersController: RouteCollection {
         let token = try Token.generate(for: user)
         return token.save(on: req)
     }
-    
 }
