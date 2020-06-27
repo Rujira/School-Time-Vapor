@@ -16,18 +16,18 @@ final class Zone: Codable {
     var name: String
     var schoolID: School.ID
     var zoneType: ZoneType
-    var coverPhoto: String?
+    var coverImage: String?
     var createAt: Date?
     var updateAt: Date?
     var createBy: String
     var updateBy: String
     
-    init(name: String, schoolID: School.ID, zoneType: ZoneType, coverPhoto: String? = nil, createBy: String, updateBy: String) {
+    init(name: String, schoolID: School.ID, zoneType: ZoneType, coverImage: String? = nil, createBy: String, updateBy: String) {
         
         self.name = name
         self.schoolID = schoolID
         self.zoneType = zoneType
-        self.coverPhoto = coverPhoto
+        self.coverImage = coverImage
         self.createBy = createBy
         self.updateBy = updateBy
     }

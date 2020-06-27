@@ -94,6 +94,7 @@ struct EditGradeContext: Encodable {
 }
 
 struct SchoolLayoutRoomsContext: Encodable {
+    
     //Rooms
     let pretitle: String
     let title: String
@@ -116,7 +117,7 @@ struct SchoolLayoutRoomDetailContext: Encodable {
     let students: Future<[Student]>
     let teachers: Future<[Teacher]>
     let homeroomTeachers: Future<[Teacher]>
- 
+
 }
 
 struct RoomWithStudents: Content {
@@ -132,6 +133,7 @@ struct RoomWithStudents: Content {
     let updateAt: Date?
     let students: [Student]
     let studentsSeatsPercentage: Int
+    
 }
 
 struct CreateRoomContext: Encodable {
@@ -145,7 +147,6 @@ struct CreateRoomContext: Encodable {
     let createBy: String
     let updateBy: String
     let grades: Future<[Grade]>
-    let teachers: Future<[Teacher]>
     
 }
 
@@ -164,16 +165,6 @@ struct EditRoomContext: Encodable {
     let editing = true
 }
 
-struct CreateRoomData: Content {
-    
-    var name: String
-    var schoolID: School.ID
-    var gradeID: Grade.ID
-    var numberOfSeats: Int
-    var createBy: String
-    var updateBy: String
-    let teachers: [Teacher]?
-}
 
 struct SchoolLayoutZonesContext: Encodable {
     
@@ -183,8 +174,61 @@ struct SchoolLayoutZonesContext: Encodable {
     let viewTag: Int
     let userLoggedIn: Bool
     let selectedSchool: School
+    let zones: Future<[Zone]>
 }
 
+struct SchoolLayoutZoneDetailContext: Encodable {
+    
+    //Rooms Detail
+    let pretitle: String
+    let title: String
+    let viewTag: Int
+    let userLoggedIn: Bool
+    let selectedSchool: School
+    let zone: Zone
+
+}
+
+struct CreateZoneContext: Encodable {
+
+    //Rooms Create
+    let pretitle: String
+    let title: String
+    let viewTag: Int
+    let userLoggedIn: Bool
+    let selectedSchool: School
+    let createBy: String
+    let updateBy: String
+    let zoneTypes: [ZoneType]
+    
+}
+
+struct EditZoneContext: Encodable {
+    
+    //Rooms Edit
+    let pretitle: String
+    let title: String
+    let viewTag: Int
+    let userLoggedIn: Bool
+    let selectedSchool: School
+    let createBy: String
+    let updateBy: String
+    let zoneTypes: [ZoneType]
+    let zone: Zone
+    let editing = true
+}
+
+struct AddZoneCoverImageContext: Encodable {
+    
+    //Add Student Profile
+    let pretitle: String
+    let title: String
+    let viewTag: Int
+    let userLoggedIn: Bool
+    let selectedSchool: School
+    let zone: Zone
+    
+}
 
 //End Layout
 

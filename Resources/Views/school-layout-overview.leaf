@@ -186,7 +186,7 @@
                         
                         #for(room in rooms) {
                         #if(room.gradeID == grade.id) {
-                              <div class="col-12 col-md-12 col-lg-6 col-xl-4">
+                        <div class="col-12 col-md-12 col-lg-6 col-xl-4">
                             
                             <div class="card lift">
                                 <div class="card-body">
@@ -213,7 +213,7 @@
                                                         Seats (#count(room.students) of #(room.numberOfSeats))
                                                     </h6>
                                                     
-                                                    <div class="row align-items-center no-gutters">     
+                                                    <div class="row align-items-center no-gutters">
                                                         <div class="col">
                                                             <!-- Progress -->
                                                             <div class="progress progress-sm">
@@ -225,9 +225,9 @@
                                                 </div>
                                                 
                                             </div>
-                                 
+                                            
                                         </div>
-                                       
+                                        
                                     </div> <!-- / .row -->
                                 </div> <!-- / .card-body -->
                             </div>
@@ -235,7 +235,7 @@
                         </div><!-- /. list> -->
                         }
                         
-                      
+                        
                         }
                     </div>
                 </div>
@@ -284,91 +284,56 @@
         </div> <!-- / .col -->
         
         <div class="col-12 col-xl-4">
-             <!--<div class="card">
+            
+            <!-- Latest Files -->
+            <div class="card">
                 <div class="card-header">
                     
+                    <!-- Title -->
                     <h4 class="card-header-title">
-                        Student Population
+                        Zones
                     </h4>
-                    
-                    <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
-                        <li class="nav-item" data-toggle="chart" data-target="#student-population-chart" data-trigger="click" data-action="toggle" data-dataset="0">
-                            <a class="nav-link active" href="#" data-toggle="tab">
-                                All
-                            </a>
-                        </li>
-                        <li class="nav-item" data-toggle="chart" data-target="#student-population-chart" data-trigger="click" data-action="toggle" data-dataset="1">
-                            <a class="nav-link" href="#" data-toggle="tab">
-                                Male
-                            </a>
-                        </li>
-                        <li class="nav-item" data-toggle="chart" data-target="#student-population-chart" data-trigger="click" data-action="toggle" data-dataset="2">
-                            <a class="nav-link" href="#" data-toggle="tab">
-                                Female
-                            </a>
-                        </li>
-                    </ul>
                     
                 </div>
                 <div class="card-body">
                     
-                    
-                    <div class="chart chart-sm">
-                        <canvas id="student-population-chart" class="chart-canvas"></canvas>
+                    <!-- List group -->
+                    <div class="list-group list-group-flush my-n3">
+                        #for(zone in zones) {
+                            <div class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        
+                                        <!-- Avatar -->
+                                    
+                                        <a href="/school-layout-zones/#(selectedSchool.id)/#(zone.id)/view" class="avatar avatar-4by3">
+                                            <img src="/assets/img/covers/empty-cover.png"" alt="..." class="avatar-img rounded"/>
+                                        </a>
+
+                                    </div>
+                                    <div class="col ml-n2">
+                                        
+                                        <!-- Title -->
+                                        <h4 class="mb-1">
+                                            <a href="/school-layout-zones/#(selectedSchool.id)/#(zone.id)/view">#(zone.name)</a>
+                                        </h4>
+                                        
+                                        <!-- Time -->
+                                        <p class="card-text small text-muted">
+                                        2.5kb SVG
+                                        </p>
+                                        
+                                    </div>
+                                    
+                                </div> <!-- / .row -->
+                            </div>
+                        }
+                        
                     </div>
                     
-                </div>
-            </div> -->
+                </div> <!-- / .card-body -->
+            </div> <!-- / .card -->
             
-            <div class="card">
-                <div class="card-body text-center">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-md-10 col-xl-10">
-                            
-                            <!-- Image -->
-                            <img src="/assets/img/illustrations/happiness.svg" alt="..." class="img-fluid mb-4" style="max-width: 272px;"/>
-                            
-                            <!-- Title -->
-                            <h2>
-                                Dont' know what to do?
-                            </h2>
-                            
-                            <!-- Content -->
-                            <p class="text-muted">
-                            Let's visit our guildlines to get in-depth information and design resources for designing great school that integrate seamlessly with School Time platforms.
-                            
-                            </p>
-                            
-                            <!-- Button -->
-                            <a href="#!" class="btn btn-primary lift">
-                                School Time Guildlines
-                            </a>
-                            
-                        </div>
-                    </div> <!-- / .row -->
-                </div>
-            </div>
-            
-            
-            <!-- Card -->
-            <div class="card bg-transparent">
-                <div class="card-body text-center">
-                    
-                    <!-- Heading -->
-                    <h3>Need some help deciding?</h3>
-                    
-                    <!-- Text -->
-                    <p class="text-muted">
-                    We can help you decide what’s the best for your school based on a lot of factors and other cool stuff.
-                    </p>
-                    
-                    <!-- Button -->
-                    <a href="#!" class="btn btn-outline-secondary">
-                        Contact Us
-                    </a>
-                    
-                </div>
-            </div>
         </div>
         
         

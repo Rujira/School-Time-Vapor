@@ -31,24 +31,7 @@
             
             <form method="post">
                
-                <div class="form-group">
-                    <label for="gradeID">Grade</label>
-                    
-                    <select name="gradeID" class="form-control mb-3" id="gradeID" data-toggle="select">
-                        
-                        #for(grade in grades) {
-                        <option value="#(grade.id)"
-                            #if(editing){
-                            #if(room.gradeID == grade.id){
-                                selected
-                            }
-                            }>
-                            #capitalize(grade.name)
-                        </option>
-                        }
-                        
-                    </select>
-                </div>
+                
         
                 <div class="row">
                     <div class="col-12 col-md-6">
@@ -68,6 +51,25 @@
                     </div>
                    
                     
+                </div>
+
+                <div class="form-group">
+                    <label for="gradeID">Grade</label>
+                    
+                    <select name="gradeID" class="form-control mb-3" id="gradeID" data-toggle="select">
+                        
+                        #for(grade in grades) {
+                        <option value="#(grade.id)"
+                            #if(editing){
+                            #if(room.gradeID == grade.id){
+                                selected
+                            }
+                            }>
+                            #capitalize(grade.name)
+                        </option>
+                        }
+                        
+                    </select>
                 </div>
                 
                 <div class="form-group">

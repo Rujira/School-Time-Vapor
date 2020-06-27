@@ -183,6 +183,4 @@ struct SchoolMembersParentsContext: Encodable {
     let selectedSchool: School
 }
 
-
-
 //End People

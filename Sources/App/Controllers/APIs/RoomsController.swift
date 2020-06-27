@@ -104,6 +104,7 @@ struct RoomsController: RouteCollection {
     
     //Nested Room-Student
     func getAllRoomsWithStudents(_ req: Request) throws -> Future<[RoomWithStudents]> {
+        
         return Room.query(on: req)
             .all()
             .flatMap(to: [RoomWithStudents].self) { rooms in

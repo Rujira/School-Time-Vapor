@@ -219,7 +219,6 @@ struct SchoolMembersWebsiteController: RouteCollection {
                         
                         return try req.view().render("school-members-students-create", context)
                 }
-                
         }
     }
     
@@ -305,7 +304,6 @@ struct SchoolMembersWebsiteController: RouteCollection {
             }
             
         }
-        
     }
     
     func getStudentsProfilePictureHandler(_ req: Request) throws -> Future<Response> {

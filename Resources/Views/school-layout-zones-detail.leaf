@@ -1,0 +1,82 @@
+#set("content") {
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8 mb-5">
+            
+            <!-- Header -->
+            <div class="header mt-md-5">
+                <div class="header-body">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                             <!-- Avatar -->
+                                
+                              #if(zone.coverImage != "") { 
+
+                              } else {
+
+                                 <div class="avatar avatar-lg avatar-4by3">
+                                    <img src="/assets/img/covers/empty-cover.png"" alt="..." class="avatar-img rounded">
+                                 </div>
+                              }
+
+                              
+                        </div>
+                        <div class="col">
+                            
+                           <h6 class="header-pretitle">
+                              <!-- Pretitle -->
+                              <nav aria-label="breadcrumb">
+                                 <ol class="breadcrumb p-0">
+                                       <li class="breadcrumb-item"><a href="javascript:history.back()">Zones</a></li>
+                                       <li class="breadcrumb-item active" aria-current="page">#(pretitle)</li>
+                                 </ol>
+                              </nav>
+                           </h6>
+                            
+                            <!-- Title -->
+                            <h1 class="header-title">
+                                #(title)
+                            </h1>
+                            
+                        </div>
+                        <div class="col-auto">
+                            <h2>
+                                <span class="badge badge-soft-secondary ml-2 mb-n5">#(capitalize(zone.zoneType))</span>
+                            </h2>
+                        </div>
+                    </div> <!-- / .row -->
+                </div>
+            </div>
+            
+            <p class="card-text small text-muted mb-4 mt-n4 text-right">
+               Create by #(zone.createBy) on #date(zone.createAt, "MMM dd, yyyy hh:mm")
+            </p>
+
+            <h2 class="mb-2">
+                Caretakers
+            </h2>
+            
+            <p class="text-muted">
+                Represents caretakers of this zone.
+            </p>
+
+            
+         
+   
+
+            
+
+            <hr class="mt-5 mb-5">
+
+            <form method="post" style="float: right;" action="/school-layout-zones/#(selectedSchool.id)/#(zone.id)/delete">
+               <a class="btn btn-primary" href="/school-layout-zones/#(selectedSchool.id)/#(zone.id)/edit" role="button">Edit</a>&nbsp;
+                
+               <input class="btn btn-danger" type="submit" value="Delete" /> 
+            </form>
+            
+        </div>
+    </div> <!-- / .row -->
+</div>
+}
+
+#embed("base")

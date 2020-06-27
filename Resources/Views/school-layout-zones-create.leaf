@@ -13,7 +13,7 @@
                                 <!-- Pretitle -->
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb p-0">
-                                        <li class="breadcrumb-item"><a href="javascript:history.back()">Grades</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:history.back()">Zones</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">#(pretitle)</li>
                                     </ol>
                                 </nav>
@@ -31,22 +31,22 @@
         
             <form method="post">
                 <div class="form-group">
-                    <label for="name">Grade Name</label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Grade Name" autocomplete="off" #if(editing){value="#(grade.name)"}>
+                    <label for="name">Zone Name</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Zone Name" autocomplete="off" #if(editing){value="#(zone.name)"}>
                         </div>
                 
                 <div class="form-group">
-                    <label for="gradeType">Grade Type</label>
+                    <label for="zoneType">Zone Type</label>
                     
-                    <select name="gradeType" class="form-control mb-3" id="gradeType" data-toggle="select">
-                        #for(gradeType in gradeTypes) {
-                        <option value="#(gradeType)"
+                    <select name="zoneType"  class="form-control mb-3" id="zoneType" data-toggle="select">
+                        #for(zoneType in zoneTypes) {
+                        <option value="#(zoneType)"
                             #if(editing){
-                            #if(grade.gradeType == lowercase(gradeType)) {
+                            #if(zone.zoneType == lowercase(zoneType)) {
                             selected
                             }
                             }>
-                            #capitalize(gradeType)
+                            #capitalize(zoneType)
                         </option>
                         }
         
@@ -63,6 +63,10 @@
                 
                 <div class="form-group">
                     <input type="hidden" name="updateBy" id="updateBy" value="#(updateBy)"/>
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" name="coverImage" id="coverImage" value="#(coverImage)"/>
                 </div>
                 <hr class="my-5">
                 <!-- Button -->

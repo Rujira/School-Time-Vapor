@@ -106,7 +106,7 @@
                                                 <form method="post" action="/school-layout-rooms/#(selectedSchool.id)/#(room.id)/teachers/#(teacher.id)">
                                     
                                                 <!-- Button -->
-                                                <a href="javascript:;" onclick="parentNode.submit();" class="btn btn-sm btn-white">
+                                                <a href="javascript:;" onclick="parentNode.submit();" class="btn btn-sm btn-white" data-dismiss="modal">
                                                     Add
                                                 </a>
                                             </form>
@@ -497,7 +497,6 @@
         <script src="/scripts/student-population-chart.js"></script>
         <script src="/scripts/avatar-thumbnail.js"></script>
         <script src="/scripts/upload-image.js"></script>
-        <script src="/scripts/createRoom.js"></script>
         
         
     </body>
