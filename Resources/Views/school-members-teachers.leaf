@@ -144,13 +144,13 @@
                                                     <!-- Avatar -->
                                                     <div class="avatar avatar-xs align-middle mr-2">
                                                         #if(teacher.profilePicture != "") {
-                                                            <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.fullName)">
+                                                            <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.firstName) #(teacher.lastName)">
                                                         } else {
-                                                            <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.fullName)</span>
+                                                            <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.firstName)</span>
                                                         }
                                                     </div>
 
-                                                    <a class="item-name text-reset" href="/school-members-teachers/#(selectedSchool.id)/#(teacher.id)/view">#(teacher.fullName)</a>
+                                                    <a class="item-name text-reset" href="/school-members-teachers/#(selectedSchool.id)/#(teacher.id)/view">#(teacher.firstName) #(teacher.lastName)</a>
                                                     
                                                 </td>
                                                 <td>
@@ -295,10 +295,10 @@
                                                 <!-- Image -->
                                                 <a href="profile-posts.html" class="avatar avatar-xl card-avatar">
                                                     #if(teacher.profilePicture != "") {
-                                                        <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.fullName)">
+                                                        <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.firstName) #(teacher.lastName)">
                                                     } else {
 
-                                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.fullName)</span>
+                                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.firstName)</span>
                                                     }
                                                 
                                                 </a>
@@ -306,7 +306,7 @@
 
                                                     <!-- Heading -->
                                                     <h2 class="card-title">
-                                                        <a class="item-name" href="/school-members-teachers/#(selectedSchool.id)/#(teacher.id)/view">#(teacher.fullName)</a>
+                                                        <a class="item-name" href="/school-members-teachers/#(selectedSchool.id)/#(teacher.id)/view">#(teacher.firstName) #(teacher.lastName)</a>
                                                     </h2>
 
                                                     <!-- Text -->

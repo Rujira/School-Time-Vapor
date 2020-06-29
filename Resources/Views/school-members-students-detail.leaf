@@ -11,9 +11,9 @@
                              <!-- Avatar -->
                                 <div class="avatar avatar-xl">
                                     #if(student.profilePicture != "") {
-                                        <img class="img-fluid avatar-img rounded-circle" src="/students/#(student.id)/profilePicture" alt="#(student.fullName)">
+                                        <img class="img-fluid avatar-img rounded-circle" src="/students/#(student.id)/profilePicture" alt="#(student.firstName) #(student.lastName)">
                                     } else {
-                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(student.fullName)</span>
+                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(student.firstName) #(student.lastName)</span>
                                     }
                                 </div>
 
@@ -64,19 +64,18 @@
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" class="form-control" name="fullName" id="fullName" placeholder="John" autocomplete="off" value="#(student.fullName)" disabled/>
+                        <label>First Name</label>
+                        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="John" autocomplete="off" value="#(student.firstName)" disabled/>
                     </div>
                 </div>
-                
+
                 <div class="col-12 col-md-6">
                     <div class="form-group">
-                        <label>
-                            Gender
-                        </label>
-                            <input type="text" class="form-control" name="genderType" id="genderType" placeholder="Optional" autocomplete="off" value="#capitalize(student.genderType)" disabled/>
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="John" autocomplete="off" value="#(student.lastName)" disabled/>
                     </div>
                 </div>
+
                 
             </div>
             <div class="row">
@@ -90,7 +89,19 @@
                         
                     </div>
                 </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Gender
+                        </label>
+                            <input type="text" class="form-control" name="genderType" id="genderType" placeholder="Optional" autocomplete="off" value="#capitalize(student.genderType)" disabled/>
+                    </div>
+                </div>
                 
+            </div>
+
+            <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         

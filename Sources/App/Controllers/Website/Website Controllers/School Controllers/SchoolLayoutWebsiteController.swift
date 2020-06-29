@@ -361,7 +361,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                         
                         let teachers = Teacher.query(on: req)
                             .filter(\.schoolID == school.id!)
-                            .sort(\.fullName, .ascending).all()
+                            .sort(\.teacherID, .ascending).all()
                         
                         let homeroomTeachers = try room.teachers.query(on: req).all()
                         

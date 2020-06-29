@@ -11,9 +11,9 @@
                              <!-- Avatar -->
                                 <div class="avatar avatar-xl">
                                     #if(teacher.profilePicture != "") {
-                                        <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.fullName)">
+                                        <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.firstName) #(teacher.lastName)">
                                     } else {
-                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.fullName)</span>
+                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.firstName) #(teacher.lastName)</span>
                                     }
                                 </div>
 
@@ -64,10 +64,21 @@
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" class="form-control" name="fullName" id="fullName" placeholder="John" autocomplete="off" value="#(teacher.fullName)" disabled/>
+                        <label>First Name</label>
+                        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="John" autocomplete="off" value="#(teacher.firstName)" disabled/>
                     </div>
                 </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Smith" autocomplete="off" value="#(teacher.lastName)" disabled/>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="row">
+
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label>
@@ -79,9 +90,6 @@
                     </div>
                 </div>
                 
-            </div>
-            <div class="row">
-                
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label>
@@ -90,6 +98,10 @@
                             <input type="text" class="form-control" name="genderType" id="genderType" placeholder="Optional" autocomplete="off" value="#capitalize(teacher.genderType)" disabled/>
                     </div>
                 </div>
+                
+            </div>
+
+            <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         
@@ -102,6 +114,7 @@
                         <input type="text" name="birthDate" id="birthDate" class="form-control flatpickr-input" data-toggle="flatpickr" readonly="readonly" value="#(teacher.birthDate)" disabled/>
                     </div>
                 </div>
+
             </div>
          
       

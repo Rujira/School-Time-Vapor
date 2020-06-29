@@ -38,9 +38,9 @@
                                 <!-- Avatar -->
                                 <div class="avatar">
                                     #if(teacher.profilePicture != "") {
-                                        <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.fullName)">
+                                        <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.firstName) #(teacher.lastName)">
                                     } else {
-                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.fullName)</span>
+                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.firstName)</span>
                                     }
                                 </div>
 
@@ -82,12 +82,34 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" class="form-control" name="fullName" id="fullName" placeholder="John" autocomplete="off" #if(editing){value="#(teacher.fullName)"}/>
+                            <label>First Name</label>
+                            <input type="text" class="form-control" name="firstName" id="firstName" placeholder="John" autocomplete="off" #if(editing){value="#(teacher.firstName)"}/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Smith" autocomplete="off" #if(editing){value="#(teacher.lastName)"}/>
                         </div>
                     </div>
                     
-                   <div class="col-12 col-md-6">
+                   
+                </div>
+                
+                <div class="row">
+
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Nick Name (Optional)
+                            </label>
+                            
+                            <input type="text" class="form-control" name="nickName" id="nickName" placeholder="Optional" autocomplete="off" #if(editing){value="#(teacher.nickName)"}/>
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
                         <div class="form-group">
                             <label>
                                 Gender
@@ -108,20 +130,10 @@
                             
                         </div>
                     </div>
+
                 </div>
-                
+
                 <div class="row">
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label>
-                                Nick Name (Optional)
-                            </label>
-                            
-                            <input type="text" class="form-control" name="nickName" id="nickName" placeholder="Optional" autocomplete="off" #if(editing){value="#(teacher.nickName)"}/>
-                            
-                        </div>
-                    </div>
-                    
 
                     <div class="col-12 col-md-6">
                         <div class="form-group">
@@ -135,9 +147,7 @@
                             <input type="text" name="birthDate" id="birthDate" class="form-control flatpickr-input" placeholder="01-Jan-2020"   data-toggle="flatpickr" readonly="readonly" #if(editing){value="#(teacher.birthDate)"}/>
                         </div>
                     </div>
-
                 </div>
-       
                 
                 <hr class="my-5">
                 <h2 class="mb-2">

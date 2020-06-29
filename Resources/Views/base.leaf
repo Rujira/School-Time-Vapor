@@ -73,9 +73,9 @@
                                                 <!-- Avatar -->
                                                 <div class="avatar avatar-md align-middle mr-2">
                                                     #if(teacher.profilePicture != "") {
-                                                        <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.fullName)">
+                                                        <img class="img-fluid avatar-img rounded-circle" src="/teachers/#(teacher.id)/profilePicture" alt="#(teacher.firstName) #(teacher.lastName)">
                                                     } else {
-                                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.fullName)</span>
+                                                        <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(teacher.firstName) #(teacher.lastName)</span>
                                                     }
                                                 </div>
                                                 
@@ -84,7 +84,7 @@
                                                 
                                                 <!-- Title -->
                                                 <h4 class="mb-1 name">
-                                                    #(teacher.fullName)
+                                                    #(teacher.firstName) #(teacher.lastName)
                                                 </h4>
                                                 
                                                 <!-- Time -->

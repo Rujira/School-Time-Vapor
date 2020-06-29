@@ -39,7 +39,8 @@ struct StudentsWithRoom: Content {
     //Student with room
     let id: UUID?
     let studentID: String
-    let fullName: String
+    let firstName: String
+    let lastName: String
     let profilePicture : String
     let genderType: GenderType
     let birthDate: String?

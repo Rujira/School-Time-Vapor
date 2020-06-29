@@ -83,7 +83,8 @@ struct SchoolMembersWebsiteController: RouteCollection {
                         studentRoomPairs.map { student, room -> StudentsWithRoom in
                             StudentsWithRoom(id: student.id,
                                              studentID: student.studentID,
-                                             fullName: student.fullName,
+                                             firstName: student.firstName,
+                                             lastName: student.lastName,
                                              profilePicture : student.profilePicture ?? "",
                                              genderType: student.genderType,
                                              birthDate: student.birthDate,
@@ -133,7 +134,7 @@ struct SchoolMembersWebsiteController: RouteCollection {
                         
                         let context = SchoolMembersStudentDetailContext(
                             pretitle: "Student Detail",
-                            title: student.fullName ,
+                            title: "\(student.firstName) \(student.lastName)" ,
                             viewTag: 222,
                             userLoggedIn: userLoggedIn,
                             selectedSchool: school,
@@ -231,7 +232,8 @@ struct SchoolMembersWebsiteController: RouteCollection {
         ) { school, student, data in
             student.studentID = data.studentID
             student.studentNumber = data.studentNumber
-            student.fullName = data.fullName
+            student.firstName = data.firstName
+            student.lastName = data.lastName
             student.nickName = data.nickName
             student.genderType = data.genderType
             student.birthDate = data.birthDate
@@ -391,7 +393,7 @@ struct SchoolMembersWebsiteController: RouteCollection {
                         
                         let context = SchoolMembersTeacherDetailContext(
                             pretitle: "Teacher Detail",
-                            title: teacher.fullName,
+                            title: "\(teacher.firstName) \(teacher.lastName)",
                             viewTag: 223,
                             userLoggedIn: userLoggedIn,
                             selectedSchool: school,
@@ -456,7 +458,8 @@ struct SchoolMembersWebsiteController: RouteCollection {
                            req.content.decode(Teacher.self)
         ) { school, teacher, data in
             teacher.teacherID = data.teacherID
-            teacher.fullName = data.fullName
+            teacher.firstName = data.firstName
+            teacher.lastName = data.lastName
             teacher.nickName = data.nickName
             teacher.genderType = data.genderType
             teacher.birthDate = data.birthDate

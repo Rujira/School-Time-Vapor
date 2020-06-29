@@ -98,11 +98,11 @@
                                         <div class="avatar-group">
                                         #for(homeroomTeacher in homeroomTeachers) {
                                             
-                                        <a href="#" class="avatar avatar-xs" data-toggle="tooltip" data-placement="bottom" title="#(homeroomTeacher.fullName)">
+                                        <a href="#" class="avatar avatar-xs" data-toggle="tooltip" data-placement="bottom" title="#(homeroomTeacher.firstName) #(homeroomTeacher.lastName)">
                                         #if(homeroomTeacher.profilePicture != "") {
-                                            <img src="/teachers/#(homeroomTeacher.id)/profilePicture" alt="#(teacher.fullName)" class="avatar-img rounded-circle">
+                                            <img src="/teachers/#(homeroomTeacher.id)/profilePicture" alt="#(teacher.firstName) #(teacher.lastName)" class="avatar-img rounded-circle">
                                         } else {
-                                            <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(homeroomTeacher.fullName)</span>
+                                            <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(homeroomTeacher.firstName) #(homeroomTeacher.lastName)</span>
                                         }
                                         </a>
                                                  

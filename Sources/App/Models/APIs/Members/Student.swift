@@ -15,7 +15,8 @@ final class Student: Codable {
     var id: UUID?
     var studentID: String
     var studentNumber: Int
-    var fullName: String
+    var firstName: String
+    var lastName: String
     var nickName: String?
     var genderType: GenderType
     var birthDate: String?
@@ -30,11 +31,12 @@ final class Student: Codable {
     var roomID: Room.ID
     var profilePicture: String?
     
-    init(studentID: String, studentNumber: Int, fullName: String, genderType: GenderType, createBy: String, updateBy: String, schoolID: School.ID, roomID: Room.ID, profilePicture: String? = nil) {
+    init(studentID: String, studentNumber: Int, firstName: String, lastName: String, genderType: GenderType, createBy: String, updateBy: String, schoolID: School.ID, roomID: Room.ID, profilePicture: String? = nil) {
        
         self.studentID = studentID
         self.studentNumber = studentNumber
-        self.fullName = fullName
+        self.firstName = firstName
+        self.lastName = lastName
         self.genderType = genderType
         self.createBy = createBy
         self.updateBy = updateBy

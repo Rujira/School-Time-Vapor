@@ -14,7 +14,8 @@ final class Teacher: Codable {
 
     var id: UUID?
     var teacherID: String
-    var fullName: String
+    var firstName: String
+    var lastName: String
     var nickName: String?
     var genderType: GenderType
     var birthDate: String?
@@ -29,10 +30,11 @@ final class Teacher: Codable {
     var departmentType: DepartmentType
     var profilePicture: String?
     
-    init(teacherID: String, fullName: String, genderType: GenderType, createBy: String, updateBy: String, schoolID: School.ID, departmentType: DepartmentType, profilePicture: String? = nil) {
+    init(teacherID: String, firstName: String, lastName: String, genderType: GenderType, createBy: String, updateBy: String, schoolID: School.ID, departmentType: DepartmentType, profilePicture: String? = nil) {
         
         self.teacherID = teacherID
-        self.fullName = fullName
+        self.firstName = firstName
+        self.lastName = lastName
         self.genderType = genderType
         self.createBy = createBy
         self.updateBy = updateBy

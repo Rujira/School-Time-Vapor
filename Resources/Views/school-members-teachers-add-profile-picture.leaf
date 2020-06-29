@@ -48,7 +48,7 @@
 
                      <!-- Title -->
                      <h2>
-                        Upload Picture for #(teacher.fullName)
+                        Upload Picture for #(teacher.firstName) #(teacher.lastName)
                      </h2>
 
                      <!-- Content -->
