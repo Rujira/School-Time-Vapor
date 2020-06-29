@@ -11,6 +11,11 @@
                              <!-- Avatar -->
                                 
                               #if(zone.coverImage != "") { 
+                                  
+
+                                <div class="avatar avatar-lg avatar-4by3">
+                                    <img src="/zones/#(zone.id)/coverImage"" alt="..." class="avatar-img rounded">
+                                 </div>
 
                               } else {
 
@@ -59,12 +64,6 @@
             <p class="text-muted">
                 Represents caretakers of this zone.
             </p>
-
-            
-         
-   
-
-            
 
             <hr class="mt-5 mb-5">
 

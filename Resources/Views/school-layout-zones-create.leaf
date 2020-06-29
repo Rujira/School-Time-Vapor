@@ -13,7 +13,7 @@
                                 <!-- Pretitle -->
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb p-0">
-                                        <li class="breadcrumb-item"><a href="javascript:history.back()">Zones</a></li>
+                                        <li class="breadcrumb-item"><a href="/school-layout-zones/#(selectedSchool.id)">Zones</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">#(pretitle)</li>
                                     </ol>
                                 </nav>
@@ -28,8 +28,57 @@
                     </div> <!-- / .row -->
                 </div>
             </div>
+
+            
         
             <form method="post">
+                <div class="row justify-content-between align-items-center" style="display:#if(editing){flex} else {none};">
+                    <div class="col">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                
+                            #if(zone.coverImage != "") { 
+                                  
+                                <div class="avatar avatar-lg avatar-4by3">
+                                    <img src="/zones/#(zone.id)/coverImage"" alt="..." class="avatar-img rounded">
+                                </div>
+
+                              } else {
+
+                                 <div class="avatar avatar-lg avatar-4by3">
+                                    <img src="/assets/img/covers/empty-cover.png"" alt="..." class="avatar-img rounded">
+                                 </div>
+                              }
+                                
+                            </div>
+                            <div class="col ml-n2">
+                                
+                                <!-- Heading -->
+                                <h4 class="mb-1">
+                                    Cover Image
+                                </h4>
+                                
+                                <!-- Text -->
+                                <small class="text-muted">
+                                    PNG or JPG format and file size not bigger than 1MB.
+                                </small>
+                                
+                            </div>
+                        </div> <!-- / .row -->
+                    </div>
+                    <div class="col-auto">
+                        <!-- Button -->
+                        #if(userLoggedIn) {
+                        
+                        <a href="/school-layout-zones/#(selectedSchool.id)/#(zone.id)/addZoneCoverImage" class="btn btn-sm btn-primary">
+                            #if(school-layout-zones.coverImage){Update } else{Add } Cover Image
+                        </a>
+                        }
+                    </div>
+                </div>
+                
+                <hr class="my-5" style="display:#if(editing){flex} else {none};">
+
                 <div class="form-group">
                     <label for="name">Zone Name</label>
                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Zone Name" autocomplete="off" #if(editing){value="#(zone.name)"}>

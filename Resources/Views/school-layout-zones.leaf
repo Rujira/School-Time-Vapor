@@ -128,14 +128,18 @@
                                     </div>
                                     
                                     <!-- Image -->
-                                    <img src="/assets/img/covers/empty-cover.png" alt="..." class="card-img-top"/>
+                                    #if(zone.coverImage != "") {     
+                                        <img src="/zones/#(zone.id)/coverImage" alt="..." class="card-img-top"/>
+                                    } else {
+                                        <img src="/assets/img/covers/empty-cover.png" alt="..." class="card-img-top"/>
+                                    }
                                     
                                     <!-- Body -->
                                     <div class="card-body text-center">
                                         
                                         <!-- Heading -->
                                         <h2 class="mb-2 name">
-                                            <a href="/school-layout-zones/#(selectedSchool.id)/create">#(zone.name)</a>
+                                            <a href="/school-layout-zones/#(selectedSchool.id)/#(zone.id)/view">#(zone.name)</a>
                                         </h2>
 
                                         <!-- Badges -->
@@ -159,10 +163,24 @@
                                                 
                                             </div>
                                             <div class="col-auto">
-                                                
-                                                
-                                                
-                                            </div>
+
+                          <!-- Avatar group -->
+                          <div class="avatar-group d-none d-md-inline-flex">
+                            <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
+                              <img src="/assets/img/avatars/profiles/avatar-2.jpg" class="avatar-img rounded-circle" alt="...">
+                            </a>
+                            <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Adolfo Hess">
+                              <img src="/assets/img/avatars/profiles/avatar-3.jpg" class="avatar-img rounded-circle" alt="...">
+                            </a>
+                            <a href="/profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Daniela Dewitt">
+                              <img src="/assets/img/avatars/profiles/avatar-4.jpg" class="avatar-img rounded-circle" alt="...">
+                            </a>
+                            <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Miyah Myles">
+                              <img src="/assets/img/avatars/profiles/avatar-5.jpg" class="avatar-img rounded-circle" alt="...">
+                            </a>
+                          </div>
+
+                        </div>
                                         </div>
                                     </div>
                                     
@@ -183,7 +201,12 @@
                                             
                                             <!-- Avatar -->
                                             <div class="avatar avatar-lg avatar-4by3">
-                                                <img src="/assets/img/covers/empty-cover.png"" alt="..." class="avatar-img rounded">
+                                                #if(zone.coverImage != "") {
+                                                    <img src="/zones/#(zone.id)/coverImage" alt="..." class="avatar-img rounded">
+                                                } else {
+                                                    <img src="/assets/img/covers/empty-cover.png"" alt="..." class="avatar-img rounded">
+                                                }
+                                                
                                             </div>
                                             
                                         </div>

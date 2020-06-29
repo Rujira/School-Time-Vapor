@@ -305,10 +305,20 @@
                                     <div class="col-auto">
                                         
                                         <!-- Avatar -->
+                                        #if(zone.coverImage != "") { 
+                                  
+                                            <div class="avatar avatar-lg avatar-4by3">
+                                                <img src="/zones/#(zone.id)/coverImage"" alt="..." class="avatar-img rounded">
+                                            </div>
+
+                                        } else {
+
+                                            <div class="avatar avatar-lg avatar-4by3">
+                                                <img src="/assets/img/covers/empty-cover.png"" alt="..." class="avatar-img rounded">
+                                            </div>
+                                        }
                                     
-                                        <a href="/school-layout-zones/#(selectedSchool.id)/#(zone.id)/view" class="avatar avatar-4by3">
-                                            <img src="/assets/img/covers/empty-cover.png"" alt="..." class="avatar-img rounded"/>
-                                        </a>
+                                       
 
                                     </div>
                                     <div class="col ml-n2">
@@ -320,7 +330,7 @@
                                         
                                         <!-- Time -->
                                         <p class="card-text small text-muted">
-                                        2.5kb SVG
+                                            #capitalize(zone.zoneType)
                                         </p>
                                         
                                     </div>
