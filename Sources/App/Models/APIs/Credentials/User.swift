@@ -95,13 +95,13 @@ struct AdminUser: Migration {
     
     static func prepare(on connection: PostgreSQLConnection) -> Future<Void> {
         
-        let password = try? BCrypt.hash("password")
+        let password = try? BCrypt.hash("a3eilm2s2yKNIGHT")
         guard let hashedPassword = password else {
             fatalError("Failed to create admin user")
         }
         
-        let user = User(name: "Admin",
-                        username: "admin",
+        let user = User(name: "School Time Admin",
+                        username: "stadmin",
             password: hashedPassword,
             userType: .admin)
         return user.save(on: connection).transform(to: ())

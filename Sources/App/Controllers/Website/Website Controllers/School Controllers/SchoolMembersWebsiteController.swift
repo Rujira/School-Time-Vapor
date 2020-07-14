@@ -175,7 +175,6 @@ struct SchoolMembersWebsiteController: RouteCollection {
         }
     }
     
-    
     func createStudentPostHandler(_ req: Request, student: Student) throws -> Future<Response> {
         
         return try req.parameters.next(School.self).flatMap(to: Response.self) { school in
@@ -304,7 +303,6 @@ struct SchoolMembersWebsiteController: RouteCollection {
                                 
                                 return student.save(on: req).transform(to: redirect)
             }
-            
         }
     }
     
@@ -572,7 +570,4 @@ struct SchoolMembersWebsiteController: RouteCollection {
                     return try req.view().render("school-members-parents", context)
             }
     }
-    
 }
-
-

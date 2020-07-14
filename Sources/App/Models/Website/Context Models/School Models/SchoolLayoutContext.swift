@@ -23,9 +23,6 @@ struct SchoolLayoutOverviewContext: Encodable {
     
 }
 
-struct DahuaInfo: Content {
-    let data: String
-}
 
 struct SchoolLayoutGradesContext: Encodable {
     //Grades

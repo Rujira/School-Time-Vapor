@@ -109,7 +109,6 @@
                                         }
                                         </div>
 
-                                     
 
                                     } else {
                                         <span class="h2 mb-0">
@@ -142,7 +141,8 @@
                 </div>
                 <div class="card-body">
                     <!-- List group -->
-                    <div class="list-group list-group-flush my-n3">
+                    #if(count(students) > 0) {
+                        <div class="list-group list-group-flush my-n3">
                         #for(student in students) {
                         <div class="list-group-item">
                             
@@ -151,22 +151,22 @@
                                     <!-- Avatar -->
                                     <a href="#" class="avatar">
                                         #if(student.profilePicture != "") {
-                                        <img class="img-fluid avatar-img rounded-circle" src="/students/#(student.id)/profilePicture" alt="#(student.fullName)">
+                                        <img class="img-fluid avatar-img rounded-circle" src="/students/#(student.id)/profilePicture" alt="#(student.firstName) #(student.lastName)">
                                             } else {
-                                            <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(student.fullName)</span>
+                                            <span class="avatar-thumbnail rounded-circle" id="avatar-thumbnail">#(student.firstName) #(student.lastName)</span>
                                             }
-                                            </a>
+                                    </a>
                                     
                                 </div>
                                 <div class="col-5 ml-n2">
                                     <!-- Title -->
                                     <h4 class="mb-1">
-                                        <a href="#">#(student.fullName)</a>
+                                        <a href="#">#(student.firstName) #(student.lastName)</a>
                                     </h4>
                                     
                                     <!-- Email -->
                                     <p class="small text-muted mb-0">
-                                    <a class="d-block text-reset text-truncate" href="mailt:dianna.smiley@company.com">dianna.smiley@company.com</a>
+                                        #(student.studentID)
                                     </p>
                                 </div>
                                 
@@ -175,6 +175,32 @@
                         </div>
                         }
                     </div>
+
+                    } else {
+                        <div class="card-body text-center">
+                        
+                                 <!-- Image -->
+                                <img src="/assets/img/illustrations/scale.svg" alt="..." class="img-fluid" style="max-width: 182px;"/>
+                                
+                                <!-- Title -->
+                                <h1>
+                                    There're no students data in this room.
+                                </h1>
+                                
+                                <!-- Subtitle -->
+                                <p class="text-muted">
+                
+                                    Let's create student data to for this room.
+                                </p>
+                                
+                                <!-- Button -->
+                                <a href="/school-members-students/#(selectedSchool.id)" class="btn btn-primary">
+                                    Create
+                                </a>
+                                
+                            </div>
+                    }
+                  
                 </div>
             </div>
             

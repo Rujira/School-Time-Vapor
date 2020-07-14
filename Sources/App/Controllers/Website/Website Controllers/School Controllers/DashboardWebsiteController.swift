@@ -20,7 +20,7 @@ struct DashboardWebsiteController: RouteCollection {
         
         protectedRoutes.get("dashboard-overview", School.parameter, use: dashboardOverviewHandler)
         protectedRoutes.get("dashboard-live-preview", School.parameter, use: liveAICameraHandler)
-
+        
         
     }
     
@@ -75,7 +75,6 @@ struct DashboardWebsiteController: RouteCollection {
         return try req.view().render("login", context)
     }
     
-
 }
 
 

@@ -11,7 +11,6 @@ struct SchoolLayoutWebsiteController: RouteCollection {
         let authSessionRoutes = router.grouped(User.authSessionsMiddleware())
         let protectedRoutes = authSessionRoutes.grouped(RedirectMiddleware<User>(path: "/login"))
         
-        //School
         //School Layout - Overview
         protectedRoutes.get("school-layout-overview", School.parameter, use: schoolLayoutOverviewHandler)
         
@@ -211,7 +210,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                     selectedSchool: school,
                     createBy: user.name,
                     updateBy: user.name,
-                    gradeTypes: [GradeType.kindergarden, GradeType.elementary, GradeType.secondary])
+                    gradeTypes: GradeType.allCases)
                 
                 return try req.view().render("school-layout-grades-create", context)
         }
@@ -246,7 +245,7 @@ struct SchoolLayoutWebsiteController: RouteCollection {
                             selectedSchool: school,
                             createBy: grade.createBy,
                             updateBy: user.name,
-                            gradeTypes: [GradeType.kindergarden, GradeType.elementary, GradeType.secondary],
+                            gradeTypes: GradeType.allCases,
                             grade: grade)
                         
                         return try req.view().render("school-layout-grades-create", context)

@@ -84,6 +84,11 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     
     migrations.add(model: ParentFamily.self, database: .psql)
     
+    migrations.add(migration: SubjectLevel.self, database: .psql)
+    migrations.add(model: Subject.self, database: .psql)
+    
+    migrations.add(model: Lesson.self, database: .psql)
+    
     migrations.add(model: Token.self, database: .psql)
     
     migrations.add(migration: AdminUser.self, database: .psql)

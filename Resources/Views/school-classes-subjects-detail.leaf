@@ -1,0 +1,161 @@
+#set("content") {
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8 mb-5">
+            
+            <!-- Header -->
+            <div class="header mt-md-5">
+                <div class="header-body">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <!-- Avatar -->
+                            <div class="avatar avatar-xl">
+                                
+                                <img class="img-fluid avatar-img rounded-circle" src="/assets/img/avatars/subjects/#(subject.category).jpg" alt="#(student.firstName) #(student.lastName)">
+                                    
+                                    </div>
+                            
+                        </div>
+                        <div class="col">
+                            
+                            <h6 class="header-pretitle">
+                                <!-- Pretitle -->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb p-0">
+                                        <li class="breadcrumb-item"><a href="javascript:history.back()">Subjects</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">#(pretitle)</li>
+                                    </ol>
+                                </nav>
+                            </h6>
+                            
+                            <!-- Title -->
+                            <h1 class="header-title">
+                                #(subject.subjectID) : #(title)
+                            </h1>
+                            
+                        </div>
+                        <div class="col-auto">
+                            <h2>
+                                <span class="badge badge-soft-secondary ml-2 mb-n5">#(capitalize(subject.category))</span>
+                            </h2>
+                        </div>
+                    </div> <!-- / .row -->
+                </div>
+            </div>
+            
+            <p class="card-text small text-muted mb-4 mt-n4 text-right">
+            Create by #(subject.createBy) on #date(subject.createAt, "MMM dd, yyyy hh:mm")
+            </p>
+            
+            <h2 class="mb-3">
+                Description <span class="badge badge-soft-secondary">#(capitalize(subject.subjectLevel))</span>
+            </h2>
+            
+            <p class="text-muted mb-5">
+            #(subject.description)
+            </p>
+            
+            
+            <div class="card">
+                <div class="card-header">
+                    
+                    <!-- Title -->
+                    <h4 class="card-header-title">
+                        Lessons
+                    </h4>
+                    <a href="/school-classes-lessons/#(selectedSchool.id)/#(subject.id)/create" class="btn btn-sm btn-primary">
+                        Add Lesson
+                    </a>
+                </div>
+                <div class="card-body">
+                    
+                    <!-- List group -->
+                    <div class="list-group list-group-flush list-group-activity my-n3">
+                        #if(count(lessons) > 0) {
+                        #for(lesson in lessons) {
+                        <div class="list-group-item">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    
+                                    <!-- Avatar -->
+                                    <div class="avatar avatar-sm">
+                                        <div class="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary">
+                                            #(lesson.lessonNumber)
+                                        </div>
+                                    </div>
+
+                                    
+                                </div>
+                                <div class="col ml-n2">
+                                    
+                                    <!-- Heading -->
+                                    <h5 class="mb-1">
+                                        #(lesson.lessonName)
+                                    </h5>
+                                    
+                                    <!-- Text -->
+                                    <p class="small text-gray-700 mb-0">
+                                        #(lesson.lessonDescription)
+                                    </p>
+                                    
+                                    <!-- Time -->
+                                    <!--<small class="text-muted">
+                                    2m ago
+                                    </small> -->
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    
+                                    <!-- Dropdown -->
+                                    <div class="dropdown">
+                                        
+                                        <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fe fe-more-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                
+                                            <a href="/school-classes-lessons/#(selectedSchool.id)/#(subject.id)/#(lesson.id)/edit" class="dropdown-item">
+                                                Edit
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <form method="post" action="/school-classes-lessons/#(selectedSchool.id)/#(subject.id)/#(lesson.id)/delete">
+                                                <a href="javascript:;" onclick="parentNode.submit();" class="dropdown-item">
+                                                    Delete
+                                                </a>
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                        }
+                        
+                        } else {
+                        
+                        }
+                        
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            
+            
+            
+            <hr class="mt-5 mb-5">
+            
+            <form method="post" style="float: right;" action="/school-classes-subjects/#(selectedSchool.id)/#(subject.id)/delete">
+                <a class="btn btn-primary" href="/school-classes-subjects/#(selectedSchool.id)/#(subject.id)/edit" role="button">Edit</a>&nbsp;
+                
+                <input class="btn btn-danger" type="submit" value="Delete" />
+            </form>
+            
+        </div>
+    </div> <!-- / .row -->
+</div>
+}
+
+#embed("base")

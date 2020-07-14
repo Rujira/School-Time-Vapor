@@ -13,7 +13,8 @@
                                 <!-- Pretitle -->
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb p-0">
-                                        <li class="breadcrumb-item"><a href="javascript:history.back()">Rooms</a></li>
+                                        <li class="breadcrumb-item"><a href="/school-classes-subjects/#(selectedSchool.id)">Subjects</a></li>
+                                        <li class="breadcrumb-item" aria-current="page"><a href="javascript:history.back()">#(selectedSubject.subjectID)</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">#(pretitle)</li>
                                     </ol>
                                 </nav>
@@ -31,45 +32,38 @@
             
             <form method="post">
                
-                <div class="form-group">
-                    <label for="name">Room Name</label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Room Name" autocomplete="off" #if(editing){value="#(room.name)"}>
-                </div>
-        
                 <div class="row">
                     <div class="col-12 col-md-6">
-                         <div class="form-group">
-                            <label for="gradeID">Grade</label>
-                            
-                            <select name="gradeID" class="form-control mb-3" id="gradeID" data-toggle="select">
-                                
-                                #for(grade in grades) {
-                                <option value="#(grade.id)"
-                                    #if(editing){
-                                    #if(room.gradeID == grade.id){
-                                        selected
-                                    }
-                                    }>
-                                    #capitalize(grade.name)
-                                </option>
-                                }
-                                
-                            </select>
+                        <div class="form-group">
+                            <label for="name">Lesson Number</label>
+                            <input type="number" class="form-control" placeholder="Enter lesson number" name="lessonNumber" id="lessonNumber" min="1" max="1000" #if(editing){value="#(lesson.lessonNumber)"}/>
                         </div>
+                        
                     </div>
                     <div class="col-12 col-md-6">
                          <div class="form-group">
-                            <!-- Label -->
-                            <label>
-                                Number of Seats (Maximun 1000)
-                            </label>
-                            <input type="number" class="form-control" name="numberOfSeats" id="numberOfSeats" min="1" max="1000" #if(editing){value="#(room.numberOfSeats)"}/>
-                        </div> 
+                            <label for="name">Lesson Name</label>
+                            <input type="text" class="form-control" name="lessonName" id="lessonName" placeholder="Enter lesson name" autocomplete="off" #if(editing){value="#(lesson.lessonName)"}>
+                        </div>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-1">
+                        Lesson Description
+                    </label>
+                    <small class="form-text text-muted">
+                        This is how students will learn about the lesson, so make it good!
+                    </small>
+                    <textarea class="form-control" placeholder="Enter lesson description"  name="lessonDescription" id="lessonDescription" data-toggle="autosize" rows="1" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 40px;" autocomplete="off">#if(editing)#(lesson.lessonDescription)</textarea>
                 </div>
                 
                 <div class="form-group">
                     <input type="hidden" name="schoolID" id="schoolID" value="#(selectedSchool.id)"/>
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" name="subjectID" id="subjectID" value="#(selectedSubject.id)"/>
                 </div>
                 
                 <div class="form-group">

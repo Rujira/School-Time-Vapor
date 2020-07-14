@@ -32,7 +32,6 @@
                                 Manage Homeroom Teachers
                             </h4>
 
-                            
                             <!-- Close -->
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -64,7 +63,6 @@
                             <!-- List group -->
                             <ul class="list-group list-group-flush list my-n3">
                            
-
                                 #for(teacher in teachers) {
                                     <li class="list-group-item">
                                         <div class="row align-items-center">
@@ -137,11 +135,8 @@
                 <a class="navbar-brand" href="/">
                     <img src="/assets/img/logo.svg" class="navbar-brand-img mx-auto" alt="..."/>
                 </a>
-                
-                
+                        
                 <!-- Collapse -->
-                
-                
                 <div class="collapse navbar-collapse" id="sidebarCollapse">
                     
                     <!-- Navigation -->
@@ -236,28 +231,29 @@
                                     </li>
                                     
                                     <li class="nav-item">
-                                        <a href="#sidebarClassroomSubject" class="nav-link" data-toggle="collapse" role="button" aria-expanded="false"
-                                            aria-controls="sidebarClassroomSubject">
-                                            Classrooms & Subjects
+                                        <a href="#sidebarClssses" class="nav-link" data-toggle="collapse" role="button" aria-expanded="#if(viewTag > 230 && viewTag < 240){true} else {false}"
+                                            aria-controls="sidebarClssses">
+                                            Classes
                                         </a>
                                         
-                                        <div class="collapse " id="sidebarClassroomSubject">
+                                        <div class="collapse #if(viewTag > 230 && viewTag < 240){show} " id="sidebarClssses">
                                             <ul class="nav nav-sm flex-column">
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link ">
+                                                    <a href="/school-classes-overview/#(selectedSchool.id)" class="nav-link #if(viewTag == 231){active}">
                                                         Overview
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link ">
-                                                        Classes
+                                                    <a href="/school-classes-classrooms/#(selectedSchool.id)" class="nav-link #if(viewTag == 232){active}">
+                                                        Classrooms
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link ">
+                                                    <a href="/school-classes-subjects/#(selectedSchool.id)" class="nav-link #if(viewTag == 233){active} ">
                                                         Subjects
                                                     </a>
                                                 </li>
+                                               
                                             </ul>
                                         </div>
                                     </li>

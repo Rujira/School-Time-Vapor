@@ -1,0 +1,127 @@
+#set("content") {
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+            
+            <!-- Header -->
+            <div class="header mt-md-5">
+                <div class="header-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            
+                            <h6 class="header-pretitle">
+                                <!-- Pretitle -->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb p-0">
+                                        <li class="breadcrumb-item"><a href="/school-classes-subjects/#(selectedSchool.id)">Subjects</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">#(pretitle)</li>
+                                    </ol>
+                                </nav>
+                            </h6>
+                            
+                            <!-- Title -->
+                            <h1 class="header-title">
+                                #(title)
+                            </h1>
+                            
+                        </div>
+                    </div> <!-- / .row -->
+                </div>
+            </div>
+            
+            <form method="post">
+               
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                         <div class="form-group">
+                            <label for="subjectID">Subject ID</label>
+                            <input type="text" class="form-control" name="subjectID" id="subjectID" placeholder="Enter subject ID" autocomplete="off" #if(editing){value="#(subject.subjectID)"}>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="subjectName">Subject Name</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter subject name" autocomplete="off" #if(editing){value="#(subject.name)"}>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-1">
+                        Subject Description
+                    </label>
+                    <small class="form-text text-muted">
+                        This is how students will learn about the subject, so make it good!
+                    </small>
+                    <textarea class="form-control" placeholder="Subject Description"  name="description" id="description" data-toggle="autosize" rows="1" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 40px;" autocomplete="off">#if(editing)#(subject.description)</textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Select Category
+                            </label>
+                           <select name="category" class="form-control mb-3" id="category" data-toggle="select">
+                              #for(category in categories) {
+                              <option value="#(category)"
+                                 #if(editing){
+                                 #if(subject.category == category){
+                                       selected
+                                 }
+                                 }>
+                                 #capitalize(category)
+                              </option>
+                              }
+                              
+                           </select>
+                        </div>
+                    </div>
+             
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Select Level
+                            </label>
+                           <select name="subjectLevel" class="form-control mb-3" id="subjectLevel" data-toggle="select">
+                              #for(subjectLevel in subjectLevels) {
+                              <option value="#(subjectLevel)"
+                                 #if(editing){
+                                 #if(subject.subjectLevel == subjectLevel){
+                                       selected
+                                 }
+                                 }>
+                                 #capitalize(subjectLevel)
+                              </option>
+                              }
+                              
+                           </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <input type="hidden" name="schoolID" id="schoolID" value="#(selectedSchool.id)"/>
+                </div>
+                
+                <div class="form-group">
+                    <input type="hidden" name="createBy" id="createBy" value="#(createBy)"/>
+                </div>
+                
+                <div class="form-group">
+                    <input type="hidden" name="updateBy" id="updateBy" value="#(updateBy)"/>
+                </div>
+                <hr class="my-5">
+                <button type="submit" class="btn btn-primary mr-2" style="float: right;">
+                    #if(editing){Update} else {Create}
+                </button>
+                
+            </form>
+            
+        </div>
+    </div> <!-- / .row -->
+</div>
+}
+
+#embed("base")

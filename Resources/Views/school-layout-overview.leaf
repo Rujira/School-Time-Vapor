@@ -268,7 +268,7 @@
                     
                     <!-- Subtitle -->
                     <p class="text-muted">
-                    Let's create grades and rooms to for school layout first.
+                    Let's create grades and rooms to for school layout.
                     </p>
                     
                     <!-- Button -->
@@ -299,7 +299,8 @@
                     
                     <!-- List group -->
                     <div class="list-group list-group-flush my-n3">
-                        #for(zone in zones) {
+                        #if(count(zones)) {
+                            #for(zone in zones) {
                             <div class="list-group-item">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
@@ -338,6 +339,30 @@
                                 </div> <!-- / .row -->
                             </div>
                         }
+                        } else {
+                            <div class="card-body text-center">
+                    
+                                <!-- Image -->
+                                <img src="/assets/img/illustrations/scale.svg" alt="..." class="img-fluid" style="max-width: 182px;"/>
+                                
+                                <!-- Title -->
+                                <h1>
+                                    There're no zones data.
+                                </h1>
+                                
+                                <!-- Subtitle -->
+                                <p class="text-muted">
+                                    Let's create zone to for school layout.
+                                </p>
+                                
+                                <!-- Button -->
+                                <a href="/school-layout-zones/#(selectedSchool.id)" class="btn btn-primary">
+                                    Create
+                                </a>
+                                
+                            </div>
+                        }
+                       
                         
                     </div>
                     

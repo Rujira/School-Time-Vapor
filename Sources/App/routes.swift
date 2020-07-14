@@ -3,6 +3,7 @@ import Fluent
 
 public func routes(_ router: Router) throws {
     
+    //Api routes
     let studentsController = StudentsController()
     try router.register(collection: studentsController)
     
@@ -24,6 +25,12 @@ public func routes(_ router: Router) throws {
     let zoneController = ZonesController()
     try router.register(collection: zoneController)
     
+    let subjectController = SubjectsController()
+    try router.register(collection: subjectController)
+    
+    let lessonController = LessonsController()
+    try router.register(collection: lessonController)
+    
     //Website routes
     let allSchoolsWebsiteController = AllSchoolsWebsiteController()
     try router.register(collection: allSchoolsWebsiteController)
@@ -36,5 +43,8 @@ public func routes(_ router: Router) throws {
     
     let schoolMembersWebsiteController = SchoolMembersWebsiteController()
     try router.register(collection: schoolMembersWebsiteController)
+    
+    let schoolClassesWebsiteController = SchoolClassesWebsiteController()
+    try router.register(collection: schoolClassesWebsiteController)
 }
 
